@@ -1,0 +1,50 @@
+para la version web:
+descomentar hoja de estilos (estilosWeb.css) y escript QRController.js
+comentar lo referente a los coachMarks
+añadir un favicon
+descomentar popUpStore
+comentar splashDiv
+//1 para padel, 5 para salvador, 6 para ferias, 8 artes escenicas infantiles, 9 arroyo, 10 takumba
+/*wp*/
+quitar la etiqueta meta de 320 en wp
+/**/
+cambiar la urlimage de divsplash
+cambiar sessionPath en session.js por la url real.
+cambiar rutas de compartir facebook y tweeter [parseos.js  parsearActividad()]
+cambiar nombre aplicacion en #indice
+cambiar nomre de la carpeta de descarga de imagenes [webBBDD.js] //hasta que se mergee dev con las imagenes en bbdd
+cambiar senderID de las notificaciones [index.html ondeviceReady()]
+Cambiar página acerca de
+cambiar version en la página acerca de
+cambiar y ajustar los coachmark hover (de ser necesario)
+cambiar las url de stores
+
+replace all de los colores en estilos.css
+#f8f8f8: fondo listado participantes, fondo listado 
+    actividades, fondo app, lugar pressed, navbar activo, color body, fondo menu
+    cabecera, color letra listado tematicas y etiquetas, fondo calendario
+background-color: rgba(0,0,0,0.2) circulo del canvas loader
+#454545: color letra listado participantes, color letra popShare, color letra 
+    recinto detalle actividad, bordes pops, letra navbar activo, letra listado 
+    lugares, color letra cabecera
+#f1f0f0: fondo ficha actividad
+#C8C8C8: borde ficha actividad
+#CFCFCF: sombra ficha actividad
+#4e4e4e: color letra titulo ficha actividad
+#a6a6a6: color resto letra ficha actividad, color letra links listados
+#7F7F7E: color letra listaod lugares, letra categoria patron
+#ff00ba: color letra leer mas
+#b2b2b2: lineas botonera detalle actividad, borde cabecera
+#c3c3c3: color fondo/bordes navbars
+#E7E6E5: listados alternos odd
+#DCDCDC: listados alternos even
+#a7a7a7: letra body, letra menu, titulo secundario cabecera
+#D4D4D4: borde calendario, borde leyenda calendario
+#ACACAC: color numeros dias previos
+rgba(64,174,246,0.5) dia con actividad
+rgba(246,134,37,0.5) dia con actividad permanente
+
+modificar pagina acercade
+
+quitar estilosGestor.css 
+
