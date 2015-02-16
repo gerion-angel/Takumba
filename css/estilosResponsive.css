@@ -117,5 +117,7 @@
 @media(min-width:700px){
     #canvasLoader canvas:nth-of-type(1){
         margin-top:60%;
-    }
+    
+        margin: auto;
+}
 }
