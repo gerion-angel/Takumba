@@ -1,5 +1,5 @@
-var sessionPath = "http://212.183.201.45:60700/Kurbana/test";
-//var sessionPath = "http://212.183.201.45:5800/Kurbana/rest/";
+//var sessionPath = "http://212.183.201.45:60700/Kurbana/test";
+var sessionPath = "http://212.183.201.45:60700/Kurbana/rest/";
 //var sessionPath = "http://193.242.188.196:8080/Kurbana/rest/";
 //var sessionPath = "http://192.168.2.42:8080/Kurbana/rest/";
 //var sessionPath = "http://192.168.2.24:8080/Kurbana/rest/";
