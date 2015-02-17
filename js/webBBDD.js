@@ -5,6 +5,7 @@ if (getData('haSincronizadoInicialmente') != 1) {
 
 /*inserta los eventos*/
 function insertEventos(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -30,6 +31,7 @@ function insertEventos(data) {
 
 /*inserta los eventos SincroInicial*/
 function insertEventosSincroIncial(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -66,6 +68,7 @@ function insertEventosSincroIncial(data) {
 
 /*delete evento*/
 function deleteEventos(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -108,6 +111,7 @@ function deleteEventos(data) {
 
 /*inserta las etiquetas*/
 function insertEtiquetas(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             var eventoAux = sessionFiltroEvento;
@@ -136,6 +140,7 @@ function insertEtiquetas(data) {
 
 /*delete etiquetas*/
 function deleteEtiquetas(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -160,6 +165,7 @@ function deleteEtiquetas(data) {
 
 /*inserta participantes*/
 function insertParticipantes(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -188,6 +194,7 @@ function insertParticipantes(data) {
 
 /*delete participante*/
 function deleteParticipantes(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -212,6 +219,7 @@ function deleteParticipantes(data) {
 
 /*inserta tematicas*/
 function insertTematicas(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         /*for (var i = 0; i < data.length; i++) {
          DownloadFile(data[i].urlImagen, "aytoArroyoEncomienda", "tematica" + data[i].id)
@@ -239,6 +247,7 @@ function insertTematicas(data) {
 
 /*delete tematica*/
 function deleteTematicas(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -263,6 +272,7 @@ function deleteTematicas(data) {
 
 /*inserta lugares*/
 function insertLugares(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -290,6 +300,7 @@ function insertLugares(data) {
 
 /*delete lugar*/
 function deleteLugares(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -308,6 +319,7 @@ function deleteLugares(data) {
 
 /*inserta patrocinadores*/
 function insertPatrocinadores(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         /*for (var i = 0; i < data.length; i++) {
          DownloadFile(data[i].urlLogotipo, "aytoArroyoEncomienda", "patrocinador" + data[i].id)
@@ -342,6 +354,7 @@ function insertPatrocinadores(data) {
 
 /*delete Patrocinador*/
 function deletePatrocinadores(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -360,6 +373,7 @@ function deletePatrocinadores(data) {
 
 /*inserta banners a los eventos*/
 function insertBannersEvento(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         var eveAux = sessionFiltroEvento;
         db.transaction(function (tx) {
@@ -396,6 +410,7 @@ function insertBannersEvento(data) {
 
 /*delete banner*/
 function deleteBannerEvento(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -414,6 +429,7 @@ function deleteBannerEvento(data) {
 
 /*nomenclatura menu*/
 function insertNomenclaturaMenu(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             if (data.favoritos) {
@@ -543,6 +559,7 @@ function insertNomenclaturaMenu(data) {
 
 /*delete nomenclatura menu*/
 function deleteNomenclaturaMenu(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -561,6 +578,7 @@ function deleteNomenclaturaMenu(data) {
 
 /*nomenclatura actividad*/
 function insertNomenclaturaActividad(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -587,6 +605,7 @@ function insertNomenclaturaActividad(data) {
 
 /*delete nomenclatura actividad*/
 function deleteNomenclaturaActividad(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -604,6 +623,7 @@ function deleteNomenclaturaActividad(data) {
 }
 
 function insertActividadEtiquetaSincroInicial(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         for (var i = 0; i < data.length; i++) {
             var consulta = 'INSERT INTO actividad_etiqueta (id, actividad, etiqueta) ' +
@@ -619,6 +639,7 @@ function insertActividadEtiquetaSincroInicial(data) {
 
 /*para guardar las relaciones de evento con actividad en la sincronizacion inicial*/
 function insertActividadEventoSincroInicial(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         for (var i = 0; i < data.length; i++) {
             var consulta = 'INSERT INTO actividad_evento (id, actividad, evento) ' +
@@ -634,6 +655,7 @@ function insertActividadEventoSincroInicial(data) {
 
 /*para guardar las relaciones de participante con actividad en la sincronizacion inicial*/
 function insertActividadParticipanteSincroInicial(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         for (var i = 0; i < data.length; i++) {
             var consulta = 'INSERT INTO actividad_participante (id, actividad, participante) ' +
@@ -649,6 +671,7 @@ function insertActividadParticipanteSincroInicial(data) {
 
 /*para guardar las relaciones de participante con actividad en la sincronizacion inicial*/
 function insertActividadTematicaSincroInicial(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         for (var i = 0; i < data.length; i++) {
             var consulta = 'INSERT INTO actividad_tematica (id, actividad, tematica) ' +
@@ -664,6 +687,7 @@ function insertActividadTematicaSincroInicial(data) {
 
 /*para insertar actividades tras la llamada a getActividades*/
 function insertActividades(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.data.length; i++) {
@@ -773,6 +797,7 @@ function insertActividades(data) {
 
 /*insertActividad solo en sincro inicial*/
 function insertActividadesSoloSincro(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -844,6 +869,7 @@ function insertActividadesSoloSincro(data) {
 }
 
 function imgActividad(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -862,6 +888,7 @@ function imgActividad(id) {
     }, 1)
 }
 function thuActividad(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -880,6 +907,7 @@ function thuActividad(id) {
     }, 1)
 }
 function imgBanner(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -898,6 +926,7 @@ function imgBanner(id) {
     }, 1)
 }
 function imgLugar(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -916,6 +945,7 @@ function imgLugar(id) {
     }, 1)
 }
 function imgParticipante(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -934,6 +964,7 @@ function imgParticipante(id) {
     }, 1)
 }
 function thuParticipante(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -952,6 +983,7 @@ function thuParticipante(id) {
     }, 1)
 }
 function imgPatrocinador(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -970,6 +1002,7 @@ function imgPatrocinador(id) {
     }, 1)
 }
 function imgEvento(id) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     setTimeout(function () {
         try {
             var auth = make_base_auth("app", "Kurbana2k14");
@@ -990,6 +1023,7 @@ function imgEvento(id) {
 
 /*delete actividad*/
 function deleteActividad(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             for (var i = 0; i < data.length; i++) {
@@ -1038,6 +1072,7 @@ function deleteActividad(data) {
 
 /*update img de una actividad*/
 function updateImgActividad(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1053,6 +1088,7 @@ function updateImgActividad(id, data) {
 }
 /*update th de una actividad*/
 function updateThActividad(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1068,6 +1104,7 @@ function updateThActividad(id, data) {
 }
 /*update th de una banner*/
 function updateImgBanner(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1083,6 +1120,7 @@ function updateImgBanner(id, data) {
 }
 /*update th de una ñlugar*/
 function updateImgLugar(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1098,6 +1136,7 @@ function updateImgLugar(id, data) {
 }
 /*update th de una participante*/
 function updateImgParticipante(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1113,6 +1152,7 @@ function updateImgParticipante(id, data) {
 }
 /*update th de una actividad*/
 function updateThParticipante(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1128,6 +1168,7 @@ function updateThParticipante(id, data) {
 }
 /*update th de una actividad*/
 function updateImgPatrocinador(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1143,6 +1184,7 @@ function updateImgPatrocinador(id, data) {
 }
 /*update th de una actividad*/
 function updateImgEvento(id, data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
     try {
         db.transaction(function (tx) {
@@ -1159,6 +1201,7 @@ function updateImgEvento(id, data) {
 
 /*update de una actividad*/
 function updateActividad(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             if (sessionFiltroLugar != -1) {
@@ -1196,6 +1239,7 @@ function updateActividad(data) {
 }
 
 function insertPosicionProyecto(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
 
         db.transaction(function (tx) {
@@ -1218,6 +1262,7 @@ function insertPosicionProyecto(data) {
 }
 
 function insertPosicionEvento(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             var consulta = 'INSERT INTO lugar (id, nombre, latitud, longitud) ' +
@@ -1246,6 +1291,7 @@ function insertPosicionEvento(data) {
 
 /*update del detalle de evento*/
 function updateDetalleEvento(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         //DownloadFile(data[0].urlImagen, "aytoArroyoEncomienda", "evento" + data[0].id)
         db.transaction(function (tx) {
@@ -1262,6 +1308,7 @@ function updateDetalleEvento(data) {
 }
 
 function updateLugar(data) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             var consulta = 'UPDATE lugar SET descripcion=?, latitud=?, nombre=?, longitud=? WHERE id=?'
@@ -1280,6 +1327,7 @@ function updateLugar(data) {
  */
 
 function selectEventos() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM evento', [], function (tx, results) {
@@ -1297,6 +1345,7 @@ function selectEventos() {
 }
 
 function selectListadoEventos() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             var jsNow = new Date().getTime()
@@ -1327,6 +1376,7 @@ function selectListadoEventos() {
 }
 
 function selectListadoEtiquetas() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM etiqueta WHERE evento_id = ' + sessionFiltroEvento, [], function (tx, results) {
@@ -1353,6 +1403,7 @@ function selectListadoEtiquetas() {
 }
 
 function selectPosProyecto() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM lugar WHERE id = ?', ['0'], function (tx, results) {
@@ -1378,6 +1429,7 @@ function selectPosProyecto() {
 }
 
 function selectPosEvento() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT l.nombre AS nombre, l.latitud AS latitud, l.descripcion AS descripcion, l.longitud AS longitud FROM lugar AS l, evento AS e ' +
@@ -1404,6 +1456,7 @@ function selectPosEvento() {
 }
 
 function selectDetalleEvento() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM evento WHERE id = ?', [sessionFiltroEvento], function (tx, results) {
@@ -1436,6 +1489,7 @@ function selectDetalleEvento() {
 }
 
 function selectPatrocinadoresEvento() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM patrocinador WHERE idEve = ? ORDER by categoria', [sessionFiltroEvento], function (tx, results) {
@@ -1462,6 +1516,7 @@ function selectPatrocinadoresEvento() {
 }
 
 function selectBannersEvento() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM banner WHERE idEve = ?', [sessionFiltroEvento], function (tx, results) {
@@ -1487,6 +1542,7 @@ function selectBannersEvento() {
 }
 
 function selectDetalleParticipante(p) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM participante WHERE id = ?', [p], function (tx, results) {
@@ -1512,6 +1568,7 @@ function selectDetalleParticipante(p) {
 }
 
 function selectListadoActitividades() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         if (sessionFiltroFecha == -1) {
             db.transaction(function (tx) {
@@ -1761,6 +1818,7 @@ function selectListadoActitividades() {
 }
 
 function selectActividad(idAct) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM actividad WHERE id = ?', [idAct], function (tx, results) {
@@ -1819,6 +1877,7 @@ function selectActividad(idAct) {
 }
 
 function selectListadoParticipantes() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             if (sessionFiltroEvento > -1) {
@@ -1910,6 +1969,7 @@ function selectListadoParticipantes() {
 }
 
 function selectListadoTematicas() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             if (sessionFiltroEvento != -1) {
@@ -1994,6 +2054,7 @@ function selectListadoTematicas() {
 }
 
 function selectNomenclaturaMenu() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM nomenclatura_menu', [], function (tx, results) {
@@ -2039,6 +2100,7 @@ function selectNomenclaturaMenu() {
 }
 
 function selectLugarPorId() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql("SELECT * FROM lugar AS l WHERE l.id = ?", [sessionFiltroLugar], function (tx, results) {
@@ -2064,6 +2126,7 @@ function selectLugarPorId() {
 }
 
 function selectListadoLugares() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             if (sessionFiltroEvento > -1) {//disctinct para evitar se dupliquen registros mostrados
@@ -2137,6 +2200,7 @@ function selectListadoLugares() {
 
 /*funcion que devuelve el listado de recursivas*/
 function selectListadoRecursivas() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT * FROM actividad_recurrencia', [], function (tx, results) {
@@ -2157,6 +2221,7 @@ function selectListadoRecursivas() {
 
 /*funcion que devuelve el listado de fechas de actividades no permanente ni recurrentes*/
 function selectListadoFechasNormales() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             tx.executeSql('SELECT a.fecha_inicio_oficial AS fio, a.fecha_fin_oficial AS ffo ' +
@@ -2182,6 +2247,7 @@ function selectListadoFechasNormales() {
 }
 
 function selectDiasConActividad(mes, anno) {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     mes = mes - 1;
     var promesaRecurrentes = new Promise(function (tengoRecurrentes, errorRecurrentes) {
         db.transaction(function (tx) {
@@ -2275,6 +2341,7 @@ function selectDiasConActividad(mes, anno) {
 }
 
 function createBBDD() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
             /*evento*/
@@ -2402,6 +2469,7 @@ function createBBDD() {
 
 /*BORRADOS DE LIMPIEZA*/
 function limpiezaActividades() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var jsNow = new Date().getTime();
         var consulta = 'DELETE FROM actividad ' +
@@ -2415,6 +2483,7 @@ function limpiezaActividades() {
     });
 }
 function limpiezaRelaciones() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM actividad_etiqueta ' +
                 ' WHERE actividad NOT IN (SELECT id FROM actividad) ' +
@@ -2459,6 +2528,7 @@ function limpiezaRelaciones() {
     });
 }
 function limpiezaEtiquetas() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM etiqueta ' +
                 'WHERE id NOT IN (SELECT etiqueta FROM actividad_etiqueta)';
@@ -2471,6 +2541,7 @@ function limpiezaEtiquetas() {
     });
 }
 function limpiezaBanners() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM banner ' +
                 'WHERE (idEve NOT IN (SELECT id FROM evento)' +
@@ -2486,6 +2557,7 @@ function limpiezaBanners() {
     });
 }
 function limpiezaEventos() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var jsNow
         var consulta = 'DELETE FROM evento ' +
@@ -2500,6 +2572,7 @@ function limpiezaEventos() {
     });
 }
 function limpiezaLugares() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM lugar ' +
                 'WHERE id NOT IN (SELECT lugar_id FROM actividad)' +
@@ -2514,6 +2587,7 @@ function limpiezaLugares() {
     });
 }
 function limpiezaParticipantes() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM participante ' +
                 'WHERE id NOT IN (SELECT participante FROM actividad_participante)';
@@ -2526,6 +2600,7 @@ function limpiezaParticipantes() {
     });
 }
 function limpiezaPatrocinadores() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM patrocinador ' +
                 'WHERE idEve NOT IN (SELECT id FROM evento)';
@@ -2538,6 +2613,7 @@ function limpiezaPatrocinadores() {
     });
 }
 function limpiezaTematicas() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM tematica ' +
                 'WHERE id NOT IN (SELECT tematica FROM actividad_tematica)';
@@ -2550,6 +2626,7 @@ function limpiezaTematicas() {
     });
 }
 function limpiezaRecurrencias() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM actividad_recurrencia ' +
                 'WHERE idActividad NOT IN (SELECT id FROM actividad)';
