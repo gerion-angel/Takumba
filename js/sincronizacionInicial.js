@@ -8,9 +8,10 @@
         });
         var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
         createBBDD();
+        console.log("hola")
         saveData("haSincronizadoInicialmente", 1)
-        console.info("hola")
-        console.info("Va a realizar la llamada a: " + sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto)
+        
+        console.log("Va a realizar la llamada a: " + sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto)
         $.getJSON(sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto, null, function (data) {
             console.log(data)
             /*lugares*/
