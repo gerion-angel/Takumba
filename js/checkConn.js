@@ -69,18 +69,10 @@ function checkConnection(ev) {
             }
             if (!ev)
                 var ev = window.event;
-            /*IMPORTANTE: detiene la propagacion*/
-//            ev.cancelBubble = true;
-//            if (ev.preventDefault) {
-//                ev.preventDefault();
-//            }
-//            if (ev.stopPropagation)
-//                ev.stopPropagation();
-//            return false;
         } else {
             primerFalloConexion = true;
         }
     } catch (err) {
-        //console.error(err)
+        alert(err)
     }
 }
