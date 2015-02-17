@@ -1,5 +1,5 @@
 (function () {
-    if (getData('haSincronizadoInicialmente') != 1) { //para que solo se llame una sola vez
+    if (getData('haSincronizadoInicialmente') != 1 || 1==1) { //para que solo se llame una sola vez
         var auth = make_base_auth("app", "Kurbana2k14");
         $.ajaxSetup({
             headers: {

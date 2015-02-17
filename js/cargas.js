@@ -131,6 +131,7 @@ function cargaListadoParticipantes() {
             }
         });
         $.getJSON(sessionPath + "participante/proyecto?id=" + sessionProyecto, null, function (data) {
+            console.log(data)
             parsearListadoParticipantes(data);
             insertParticipantes(data);
         });
