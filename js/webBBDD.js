@@ -2393,6 +2393,7 @@ function createBBDD() {
             tx.executeSql('CREATE TABLE IF NOT EXISTS actividad_recurrencia (idActividad unique, rule)');
         });
     } catch (e) {
+        console.error(e)
     }/*no admite almacenamiento IE, FF*/
 }
 

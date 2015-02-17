@@ -8,6 +8,7 @@
         });
         saveData("haSincronizadoInicialmente",1)
             $.getJSON(sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto, null, function (data) {
+                console.log(data)
                 /*lugares*/
                 insertLugares(data.lugares);
                 /*Participantes*/
