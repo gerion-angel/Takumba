@@ -1327,6 +1327,7 @@ function updateLugar(data) {
  */
 
 function selectEventos() {
+    
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
@@ -1345,6 +1346,7 @@ function selectEventos() {
 }
 
 function selectListadoEventos() {
+    alert("listado de eventos")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
@@ -1355,6 +1357,7 @@ function selectListadoEventos() {
                 if (len * 1 == 0) {
                     launchPop()
                 }
+                alert(len + " Eventos")
                 var data = [];
                 for (i = 0; i < len; i++) {
                     data.push({
