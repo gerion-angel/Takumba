@@ -6,43 +6,45 @@
                 'Authorization': auth,
             }
         });
-        saveData("haSincronizadoInicialmente",1)
-            $.getJSON(sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto, null, function (data) {
-                console.log(data)
-                /*lugares*/
-                insertLugares(data.lugares);
-                /*Participantes*/
-                insertParticipantes(data.participantes);
-                /*Banners*/
-                insertBannersEvento(data.banners);
-                /*etiqutas*/
-                insertEtiquetas(data.etiquetas);
-                /*patrocinadores*/
-                insertPatrocinadores(data.patrocinadores);
-                /*tematicas*/
-                insertTematicas(data.tematicas);
-                /*nomenclatura filtros*/
-                insertNomenclaturaMenu(data.nomenclaturaFiltro);
-                /*nomenclatura Actividad*/
-                insertNomenclaturaActividad(data.nomenclaturaActividad);
-                /*eventos solo sincro*/
-                insertEventosSincroIncial(data.eventos);
-                /*actividades solo sincro*/
-                insertActividadesSoloSincro(data.actividades);
-                /*relacion actividad etiquetas*/
-                insertActividadEtiquetaSincroInicial(data.actEti);
-                /*relacion actividad-participante*/
-                insertActividadParticipanteSincroInicial(data.actPart);
-                /*relacion actividad-tematica*/
-                insertActividadTematicaSincroInicial(data.actTematica);
-                /*relacion actividad-evento*/
-                insertActividadEventoSincroInicial(data.actEvento);
-                /**/
-            });
+        var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
+        createBBDD();
+        saveData("haSincronizadoInicialmente", 1)
+        $.getJSON(sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto, null, function (data) {
+            console.log(data)
+            /*lugares*/
+            insertLugares(data.lugares);
+            /*Participantes*/
+            insertParticipantes(data.participantes);
+            /*Banners*/
+            insertBannersEvento(data.banners);
+            /*etiqutas*/
+            insertEtiquetas(data.etiquetas);
+            /*patrocinadores*/
+            insertPatrocinadores(data.patrocinadores);
+            /*tematicas*/
+            insertTematicas(data.tematicas);
+            /*nomenclatura filtros*/
+            insertNomenclaturaMenu(data.nomenclaturaFiltro);
+            /*nomenclatura Actividad*/
+            insertNomenclaturaActividad(data.nomenclaturaActividad);
+            /*eventos solo sincro*/
+            insertEventosSincroIncial(data.eventos);
+            /*actividades solo sincro*/
+            insertActividadesSoloSincro(data.actividades);
+            /*relacion actividad etiquetas*/
+            insertActividadEtiquetaSincroInicial(data.actEti);
+            /*relacion actividad-participante*/
+            insertActividadParticipanteSincroInicial(data.actPart);
+            /*relacion actividad-tematica*/
+            insertActividadTematicaSincroInicial(data.actTematica);
+            /*relacion actividad-evento*/
+            insertActividadEventoSincroInicial(data.actEvento);
+            /**/
+        });
     }
-    
-        
-    
+
+
+
     $("#canvasLoader").remove()
 })()
 
@@ -53,13 +55,13 @@ function sincroBorrados() {
             'Authorization': auth,
         }
     });
-    if (getData("ultimoBorrado")+"" == "null") {
+    if (getData("ultimoBorrado") + "" == "null") {
         saveData("ultimoBorrado", 0);
     }
     var jsNow = new Date().getTime();
     var ruta = sessionPath + "proyecto/getBorrados?id=" + sessionProyecto + "&fecha=" + getData("ultimoBorrado")
     $.getJSON(ruta, null, function (data) {
-        
+
         saveData("ultimoBorrado", new Date().getTime());
         if (data.actividad.length > 0) {
             deleteActividad(data.actividad)
@@ -92,5 +94,5 @@ function sincroBorrados() {
             deleteNomenclaturaMenu(data.nomenclaturaFiltro)
         }
     });
-        $("#canvasLoader").remove()
+    $("#canvasLoader").remove()
 }

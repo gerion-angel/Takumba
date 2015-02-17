@@ -1,5 +1,7 @@
 var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
-createBBDD();
+if (getData('haSincronizadoInicialmente') != 1) {
+    createBBDD();
+}
 
 /*inserta los eventos*/
 function insertEventos(data) {
@@ -1802,7 +1804,7 @@ function selectActividad(idAct) {
                             urlImagen: resultsP.rows.item(i).url_thumbnail
                         })
                     }
-                    var data1 = {actividad: data, participantes:dataP}
+                    var data1 = {actividad: data, participantes: dataP}
                     console.log(data1)
                     parsearActividad(data1);
                     return data1;
