@@ -1,7 +1,7 @@
 //var sessionPath = "http://212.183.201.45:60700/KurbanaProject/";
 //var sessionPath = "http://212.183.201.45:60700/KurbanaTest/rest/";
 var sessionPath = "http://193.242.188.196:8080/Kurbana/rest/";
-//var sessionPath = "http://192.168.2.18:8080/Kurbana/rest/";
+//var sessionPath = "http://192.168.2.24:8080/Kurbana/rest/";
 var sessionProyecto = 10; //ver readme
 var sessionHayBanners = -1;
 var tf;
