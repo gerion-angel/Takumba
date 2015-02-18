@@ -27,8 +27,9 @@ $("#conectionPopUp").bind({
 function checkConnection(ev) {
     try {
         var e = navigator.connection.type;
+        alert(e)
         var t = {};
-        t[Connection.UNKNOWN] = false;
+        t[Connection.UNKNOWN] = true;
         t["cellular"] = true; //para ios...
         t[Connection.ETHERNET] = true;
         t[Connection.WIFI] = true;
@@ -46,7 +47,7 @@ function checkConnection(ev) {
                 if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'iOS') {
 
                 } else {
-                    launchPop();
+                    //launchPop();
                     ev.cancelBubble = true;
                     if (ev.preventDefault) {
                         ev.preventDefault();
@@ -57,7 +58,7 @@ function checkConnection(ev) {
 
                 }
             } catch (ex) {
-                launchPop();
+                //launchPop();
                 ev.cancelBubble = true;
                 if (ev.preventDefault) {
                     ev.preventDefault();
@@ -68,18 +69,10 @@ function checkConnection(ev) {
             }
             if (!ev)
                 var ev = window.event;
-            /*IMPORTANTE: detiene la propagacion*/
-//            ev.cancelBubble = true;
-//            if (ev.preventDefault) {
-//                ev.preventDefault();
-//            }
-//            if (ev.stopPropagation)
-//                ev.stopPropagation();
-//            return false;
         } else {
             primerFalloConexion = true;
         }
     } catch (err) {
-        //console.error(err)
+        console.error(err)
     }
 }

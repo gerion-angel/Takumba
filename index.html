@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Takumba </title>
+        <title>Takumba</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="msapplication-tap-highlight" content="no" />
         <meta id='viewportIni' name="viewport" content="width =320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -17,7 +17,6 @@
 
         <script src="js/jquery-1.10.2.js"></script>
         <script src="js/jquery-ui-1.10.4.custom.min.js"></script>  
-        <!--<script src="js/lazy.js"></script>-->
         <script src="js/checkConn.js"></script>
 
 
@@ -30,11 +29,10 @@
         <script src="js/canvasLoader.js"></script>
         <script src="js/localNotification.js"></script>
         <script src="js/alertas.js"></script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&language=es"></script>
-
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&language=es">
+            
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script src="js/jquery.mobile-1.4.2.min.js"></script>
-        <!-- <script src="js/jquery.mobile.datepicker.js"></script>--><!-- El manejo del calendario le hace jquery-ui-.x.x.x.custom  -->
         <script src="js/maps.js"></script>
         <script src="js/calendario.js"></script>
         <script src="js/localStorage.min.js"></script>
@@ -74,10 +72,14 @@
         <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
 
         <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
-        <script src="js/imgTransfer.js"></script>
+
+        <!--<script src="js/imgTransfer.js"></script>-->
         <script src="js/webBBDD.js"></script>
+        <script src="js/rrule.js"></script>
+        <script src="js/sincronizacionInicial.js"></script>
+        <script src="js/tratamientoFechas.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/storeRedirect.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/QRController.js"></script><!-- Para los QR web -->
+        <!--<script type="text/javascript" charset="utf-8" src="js/QRController.js"></script><!-- Para los QR web -->
         <!--<script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>-->
         <!--<script src="http://debug.build.phonegap.com/target/target-script-min.js#lkajsdhfjksahfgjkshadfgh"></script>-->
         <script type="text/javascript">
@@ -183,15 +185,15 @@
                 <ul data-role="listview">
                     <li class="primerElementoMenu">Descubrir</li>
                     <li><a class="cercaMenu" onclick="checkConnection();
-                            if (primerFalloConexion == false)
+                            if (primerFalloConexion == false) {
                                 launchPop();
-                            else {
+                            } else {
                                 document.location.href = '#ahoraCerca'
-                            }" href="#ahoraCerca">Ahora y Cerca</a></li>
+                            }" >Ahora y Cerca</a></li>
                     <li><a class="fechaMenu" onclick="checkConnection();
-                            if (primerFalloConexion == false)
-                                launchPop();
-                            else {
+                            if (primerFalloConexion == false) {
+                                //launchPop();
+                            } else {
                                 document.location.href = '#fecha'
                             }" href="#fecha">Fecha</a></li>
                     <li><a class="lugaresMenu" href="#lugares">Lugares</a></li>
@@ -218,6 +220,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="fechaMenu">Fecha</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
 
@@ -238,6 +241,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1>Patrocinadores</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div class="zonaPatrocinadores"></div>
@@ -250,6 +254,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1>Etiquetas</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <ul  class="listadoPropioEtiquetas" id="listadoEtiquetas" >
@@ -264,24 +269,25 @@
                     <li class="primerElementoMenu">Descubrir</li>
                     <li><a class="cercaMenu" onclick="sessionSegundoFiltro = 1;
                             checkConnection();
-                            if (primerFalloConexion == false)
+                            if (primerFalloConexion == false) {
                                 launchPop();
-                            else {
+                            } else {
                                 document.location.href = '#ahoraCerca'
-                            }" href="#ahoraCerca">Ahora y Cerca</a></li>
+                            }" >Ahora y Cerca</a></li>
                     <li><a class="fechaMenu" onclick="sessionSegundoFiltro = 2;
                             checkConnection();
-                            if (primerFalloConexion == false)
-                                launchPop();
-                            else {
+                            if (primerFalloConexion == false) {
+                                //launchPop();
+                            } else {
                                 document.location.href = '#fecha'
-                            }" href="fecha">Fecha</a></li>
+                            }" href="#fecha">Fecha</a></li>
                     <li><a class="lugaresMenu" href="#lugares" onclick="sessionSegundoFiltro = 3">Lugares</a></li>
                     <li class='noMostrar'><a class="favoritosMenu" href="#favoritas" onclick="sessionSegundoFiltro = 4">Favoritos</a></li>
                     <li><a class="participantesMenu" href="#participantes" onclick="sessionSegundoFiltro = 5">Participantes</a></li>
                     <li><a class="tematicasMenu" href="#tematicas" onclick="sessionSegundoFiltro = 6">Temáticas</a></li>
                     <li id="menuEtiquetas" style="display:none" onclick="sessionSegundoFiltro = 7"><a class="etiquetasMenu" href="#etiquetas" onclick="cargaListadoEtiquetas()">Etiquetas</a></li>
                     <li id="menuPatrocinadores" style="display:none" onclick="sessionSegundoFiltro = 8"><a class="PatrocinadoresMenu" href="#pagPatrocinadores" onclick="cargaPatrocinadoresEvento()">Patrocinadores</a></li>
+                    <li class="ui-pre-last-child"><a class="inicioMenu"  onClick="goIndice()">Inicio</a></li>
                     <li><a class="acercaMenu" href="#pagPagAcercaDe">Acerca de ...</a></li>
                     <!--<li><a onclick="alarmaDePrueba()">pruebas Alarma</a></li>-->
                 </ul>
@@ -293,18 +299,15 @@
             </div>
             <div data-role="content">
                 <div id="zonaDetalleEvento" class="detalleFiltro" onclick="checkConnection();
-
-                        $.mobile.changePage('#paginaDetalleEvento')
-                     ">
+                        $.mobile.changePage('#paginaDetalleEvento')">
 
                 </div>
-                <div id="zonaDetalleLugar">
+                <div id="zonaDetalleLugar" class="detalleFiltro" onclick="checkConnection();
+                        $.mobile.changePage('#paginaDetalleLugar')">
 
                 </div>
                 <div id="zonaDetalleParticipante" class="detalleFiltro" onclick="checkConnection();
-
-                        document.location.href = '#paginaDetalleParticipante'
-                     ">
+                        $.mobile.changePage('#paginaDetalleParticipante')">
 
                 </div>
                 <div class="descripcionFiltro"></div>
@@ -313,12 +316,6 @@
                 </ul>
                 <div class="zonaBannerEvento ajusteListadoBanner" id="bannerDelListado"></div>
             </div>
-            <!-- Este footer fuera en la web -->
-            <!--<div data-role="footer"  data-position="fixed" id="footerActividades" class="noMostrar">
-                <img src="images/estrellaBlancaNoMarca.png" id="btnFavActividades" onclick="setLoader('idBody');
-                setTimeout(mostrarActividadesFavoritos, 1)">
-                
-            </div>-->
         </div>
 
         <!-- Detalle de actividad -->
@@ -328,6 +325,7 @@
                 <a data-role="button" href="#indice" style="display:none" class="" id="backDetActFake"></a>
 
                 <h1 id="tituloDetalleActividad">Detalle de actividad</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div id="cabeceraDetalleActividad">
@@ -346,6 +344,7 @@
                 <div id="botoneraDetalleActividad"></div>                
                 <div id="zonaRecintoDetalleAct"></div>
                 <div id="zonaParticipantesDetalleActi"></div>
+                <div id="zonaGaleriaDetalleActi"></div>
 
 
                 <div class="detalleActiPrincipal" style="display: none">
@@ -378,15 +377,6 @@
                 </div>
                 <div class="zonaBannerEvento ajusteFooterBanner" id="bannerDeLaActividad"></div>
             </div>
-            <!--<div data-role="footer" class="nav-glyphish-example" data-theme="b" data-position="fixed">
-                <div data-role="navbar" class="nav-glyphish-example">
-                    <ul>
-                        <li><a href="#" onclick="muestraPopMas()" id="mas" data-icon="custom"></a></li>
-                        <li><a href="#" onclick="muestraPopPatrocinadores()" id="admir" data-icon="custom"></a></li>
-                        <li><a href="#" onclick="muestraPopShare()" id="share" data-icon="custom"></a></li>
-                    </ul>
-                </div>
-            </div>-->
         </div>
 
         <!-- Detalle del evento -->
@@ -394,6 +384,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 id="cabeceraDetalleEvento">Detalle del evento</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div id="cabeceraInfoDetalleEvento">
@@ -434,6 +425,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="favoritosMenu">Favoritos</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div data-role="navbar">
@@ -473,6 +465,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="participantesMenu">Participantes</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <ul id="listadoParticipantes">
@@ -480,11 +473,12 @@
             </div>
         </div>
 
-        <!-- Participantes-->
+        <!-- Participante-->
         <div data-role="page" id="paginaDetalleParticipante">
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" id="btnBackDetalleParticipa" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="" id="tituloNombreParticipante">Participantes</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content" class="contenido">
             </div>
@@ -495,6 +489,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="cercaMenu">Ahora y Cerca</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div data-role="navbar">
@@ -515,6 +510,7 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="cercaMenu">Localización</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div id="map-canvas2">
@@ -528,11 +524,11 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="acercaMenu">Acerca De</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <div>
                     <h1>Takumba</h1>
-                    <p>By Kurbana</p>
                 </div>
             </div>
         </div>
@@ -542,10 +538,22 @@
             <div data-role="header"  data-position="fixed">
                 <a data-role="button" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
                 <h1 class="lugaresMenu">Lugares</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
             </div>
             <div data-role="content">
                 <ul  id="listadoLugares">
                 </ul>
+            </div>
+        </div>
+
+        <!-- lugar-->
+        <div data-role="page" id="paginaDetalleLugar">
+            <div data-role="header"  data-position="fixed">
+                <a data-role="button" id="btnBackDetalleLugar" data-rel="back" class="ui-btn ui-icon-carat-l ui-btn-icon-notext"></a>
+                <h1 class="" id="tituloNombreLugar">Lugar</h1>
+                <a  class="ui-btn ui-icon-home ui-btn-icon-notext ui-btn-right" onclick="goIndice()">Indice</a>
+            </div>
+            <div data-role="content" class="contenido">
             </div>
         </div>
 
@@ -562,11 +570,16 @@
 
         <!--<div class='popUpStore' style="display:none" >
             <div class="cajaStore fichaActividad">
+                        <table style="text-align: -webkit-center;text-align: center;margin: auto;"><tr><td>
+                        <br/>
                 <span>¿Quiere descargar la aplicación MundialPadel para su dispositivo?</span>
-                <div>
+                </td></tr><tr><td>
+                                <br/>
+                                <div>
                     <input type="button" value="Descargar" class="aceptar"/>
                     <input type="button" value="Cancelar" class="cancelar"/>
                 </div>
+                                </td></tr></table>
             </div>
         </div>-->
 
@@ -619,19 +632,7 @@
                 } catch (e) {
 
                 }
-                /*try {
-                 tf = new TestFlight();
-                 tf.takeOff(win, fail, "037be06110ad9f23fe736f20b2018e6e_MzQ5MjU5MjAxNC0wMy0wNiAxMToyNzowMC43NTU3Nzg");
-                 tf.manuallyStartSession(successCallback, failureCallback);
-                 
-                 function win() {
-                 }
-                 function fail() {
-                 }
-                 } catch (e) {
-                 console.error("falla la carga de testFlight")
-                 }*/
-                //onDeviceReady()
+
                 hideLoader();
             }
             $("#filtroCalendario").datepicker();
@@ -642,47 +643,31 @@
         </script>
         <script>
             document.addEventListener('deviceready', function () {
+
                 try {
-                    try{
+                    try {
                         navigator.device.resetBackButton();
                         navigator.app.overrideBackbutton(true);
-                    } catch(exce){}
+                    } catch (exce) {
+                    }
                     document.addEventListener('backKeyDown', manejaBack, false);
                     function manejaBack() {
-                        //alert('manejaBack')
-                        //e.preventDefault()
                         if ($.mobile.activePage.is('#indice')) {
-                            //e.preventDefault();
                             navigator.app.exitApp();
                         }
                         else {
-                            //navigator.app.backHistory()
                             $(".ui-page-active a[data-rel='back']").click()
                         }
                     }
-                    /*document.addEventListener('backKeyDown', manejaBack, false);
-                    document.addEventListener('exit', manejaBack, false);*/
                 } catch (err) {
                 }
             })
 
-            /* if (navigator.geolocation) {
-             // Localizacion de la posicion del usuario.  Cache the location for 5 minutes, timeout after 6 seconds
-             try {
-             navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy: true, timeout: 6000});
-             } catch (ex) {
-             }
-             }*/
             var pushNotification;
             $("#selectorAntelacion").click(function () {
                 $("#selectorAntelacion").mobiscroll('setValue', '01:00');
             });
             function onDeviceReady() {
-                /*navigator.geolocation.getCurrentPosition(onSuccessGeo, onErrorGeo);    
-                 function onSuccessGeo(){}
-                 function onErrorGeo(){}*/
-
-
                 $("#selectorAntelacion").mobiscroll('setValue', '01:00');
                 var img = new Image();
                 img.src = "images/relojMarcado.png";
@@ -692,23 +677,6 @@
                 img.src = "images/estrellaMarcada.png";
 
                 $("#app-status-ul").append('<li>deviceready event received</li>');
-
-                /*document.addEventListener("backbutton", function (e)
-                {
-                    $("#app-status-ul").append('<li>backbutton event received</li>');
-
-                    if ($("#home").length > 0)
-                    {
-                        // call this to get a new token each time. don't call it to reuse existing token.
-                        //pushNotification.unregister(successHandler, errorHandler);
-                        e.preventDefault();
-                        navigator.app.exitApp();
-                    }
-                    else
-                    {
-                        navigator.app.backHistory();
-                    }
-                }, false);*/
 
                 try
                 {
@@ -725,7 +693,8 @@
                         link.media = 'all';
                         head.appendChild(link);
                         $("#app-status-ul").append('<li>registering android</li>');
-                        pushNotification.register(successHandler, errorHandler, {"senderID": "0", "ecb": "onNotificationGCM"});		// required!
+                        //pushNotification.register(successHandler, errorHandler, {"senderID": "629144394569", "ecb": "onNotificationGCM"});		// required!
+                        pushNotification.register(successHandler, errorHandler, {"senderID": "269215128011", "ecb": "onNotificationGCM"});		// required!
                     } else {
                         $("#app-status-ul").append('<li>registering iOS</li>');
                         pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
@@ -906,8 +875,9 @@
 
             try {//lanzar el popUp de ir a store si es mobile
                 if (navigator.userAgent.match(/Android|iPhone|IEMobile/i)) {
-                    $('.popUpStore').show();
-                    bindEventosPopUp()
+                    //aqui hay que comprobar si se debe mostrar el popUp desgún el server y de ser asi cambiar el texto
+
+                    cargaInfoDescarga();
                 } else {
                     $('.popUpStore').remove();
                 }
@@ -930,6 +900,7 @@
         </script>
 
         <script type="text/javascript">
+            sincroBorrados();
             if ($(window).width() >= 768 && !navigator.userAgent.match(/iPhone/i)) {
                 $('head').append('<meta id="viewport" name="viewport" content="width=768">');
                 $(".coachMark.evento img").attr("src", "images/coachMarks/event_coachmark_ipad.png")
@@ -937,6 +908,7 @@
             } else {
                 $('head').append('<meta id="viewport" name="viewport" content="width=320">');
             }
+
         </script>
         <script src="js/coachMarkLib.js"></script>
         <div id="home" style="display:none">

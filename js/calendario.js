@@ -56,9 +56,6 @@ function mesMasCalendario() {
 }
 
 function pintaDiasConActividad(data) {
-
-    //console.info(data)
-
     switch (data.tipo) {
         case "1":
             /*si son del tipo listado cargar el ul*/
@@ -78,7 +75,6 @@ function pintaDiasConActividad(data) {
             if (data.fechas.length == 0 && numMesesMovido < 12 && numMesesMovido != -1) {
                 numMesesMovido++;
                 $(".ui-datepicker .ui-datepicker-next").click()
-                //console.info("Pasando mes")
                 break;
             }
             if (data.fechas.length == 0 && numMesesMovido == 12) {
@@ -86,7 +82,6 @@ function pintaDiasConActividad(data) {
                 var conc = (fecha.getMonth() - (-1)) + "/" + fecha.getDate() + "/" + (fecha.getYear() - (-1900));
                 $("#filtroCalendario").datepicker("setDate", conc);
                 cargaDiasConActividad();
-                //console.info ("PASADOS 12 MESES ")
                 numMesesMovido++;
             }
             if(data.fechas.length>0){
