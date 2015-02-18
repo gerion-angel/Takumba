@@ -42,7 +42,7 @@ function cargaListadoEventos(id) {
             },
             success: function (data) {
                 parsearListadoEventos(data, id);
-                console.log(data)
+
                 insertEventos(data);
 
             },
@@ -50,7 +50,7 @@ function cargaListadoEventos(id) {
             }
         });
     } else {
-        selectListadoEventos();
+        var data = selectListadoEventos();
 
     }
     setCheckConnection();
@@ -90,36 +90,6 @@ function cargaListadoEtiquetas() {
 }
 
 /*
- * funcion que carga la info de descarga
- */
-function cargaInfoDescarga() {
-    if (primerFalloConexion == true) {
-        var auth = make_base_auth("app", "Kurbana2k14");
-        $.ajaxSetup({
-            headers: {
-                'Authorization': auth,
-            }
-        });
-        $.getJSON(sessionPath + "proyecto/proyectoInfo?id=" + sessionProyecto, null, function (data) {
-            console.log(data)
-            var mostrar = data[0].mostrarMensaje;
-            var texto = data[0].mensajeDescargar;
-            console.info(mostrar)
-            console.info(texto)
-
-            if (mostrar == true) {
-                $('.popUpStore .cajaStore table tr td span').html(texto)
-                $('.popUpStore').show();
-                bindEventosPopUp()
-            }
-
-
-        });
-    }
-    setCheckConnection()
-}
-
-/*
  * funcion que carga el listado de participantes
  */
 function cargaListadoParticipantes() {
@@ -131,7 +101,6 @@ function cargaListadoParticipantes() {
             }
         });
         $.getJSON(sessionPath + "participante/proyecto?id=" + sessionProyecto, null, function (data) {
-            console.log(data)
             parsearListadoParticipantes(data);
             insertParticipantes(data);
         });
@@ -245,7 +214,7 @@ function cargaDetalleEvento() {
             setLoader('idBody');
         } catch (e) {
         }
-
+        
         $("#canvasLoader").css("background-color", "transparent")
         hideLoader()
     }, 10)
@@ -279,22 +248,16 @@ function cargaDetalleEvento() {
  * Función que carga el detalle de un lugar
  */
 function cargaDetalleLugar() {
-    $("#tituloNombreParticipante").html("");
-    $("#paginaDetalleParticipante .contenido").html("");
-    if (primerFalloConexion == true) {
-        var auth = make_base_auth("app", "Kurbana2k14");
-        $.ajaxSetup({
-            headers: {
-                'Authorization': auth,
-            }
-        });
-        $.getJSON(sessionPath + "lugar/getitem?lugar=" + sessionFiltroLugar, null, function (data) {
-            parsearDetalleLugar(data);
-            updateLugar(data);
-        });
-    } else {
-        selectLugarPorId() 
-    }
+    var auth = make_base_auth("app", "Kurbana2k14");
+    $.ajaxSetup({
+        headers: {
+            'Authorization': auth,
+        }
+    });
+    $.getJSON(sessionPath + "lugar/getitem?lugar=" + sessionFiltroLugar, null, function (data) {
+        parsearDetalleLugar(data);
+        updateLugar(data);
+    });
     setCheckConnection()
 }
 
@@ -697,50 +660,6 @@ function registro() {
     setCheckConnection()
 }
 
-function cargaBorrados() {
-    var auth = make_base_auth("app", "Kurbana2k14");
-    $.ajaxSetup({
-        headers: {
-            'Authorization': auth
-        }
-    });
-    if (getData("ultimoBorrado")+"" == "null") {
-        saveData("ultimoBorrado", 0);
-    }
-    var ruta = sessionPath + "proyecto/getBorrados?id=" + sessionProyecto + "&ultimoBorrado=" + getData("ultimoBorrado")
-    $.getJSON(ruta, null, function (data) {
-        saveData("ultimoBorrado", new Date().getTime());
-        if (data.eventos) {
-            deleteEventos(data.eventos)
-        }
-        if (data.etiquetas) {
-            deleteEtiquetas(data.etiquetas)
-        }
-        if (data.participantes) {
-            deleteParticipantes(data.participantes)
-        }
-        if (data.Tematicas) {
-            deleteTematicas(data.tematicas)
-        }
-        if (data.actividad) {
-            deleteActividad(data.actividad)
-        }
-        if (data.lugares) {
-            deleteEventos(data.lugares)
-        }
-        if (data.patrocinadores) {
-            deletePatrocinadores(data.patrocinadores)
-        }
-        if (data.banners) {
-            deleteBanners(data.banners)
-        }
-        if (data.nomenclatura) {
-            deleteNomenclaturaMenu(data.nomenclatura)
-        }
-
-    });
-}
-
 function cargaDiasConActividad() {
     var auth = make_base_auth("app", "Kurbana2k14");
     $.ajaxSetup({
@@ -773,13 +692,10 @@ function cargaDiasConActividad() {
 
     sessionMesPintar = numMes;
     sessionAnnoPintar = numAnno;
-    if (primerFalloConexion == true) {
-        $.getJSON(ruta, null, function (data) {
-            pintaDiasConActividad(data)
-        });
-    } else {
-        selectDiasConActividad(numMes, numAnno);
-    }
+
+    $.getJSON(ruta, null, function (data) {
+        pintaDiasConActividad(data)
+    });
 
 
     $("#filtroCalendario").datepicker();
