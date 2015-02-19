@@ -1,0 +1,159 @@
+/* 
+    Document   : all-ie-only
+    Created on : 05-jun-2014, 11:20:12
+    Author     : Angel
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.ajusteBtnDespliegueEvento{
+    bottom: 29px !important;
+}
+.ajusteBotonDespliegueDer.botonDespliegue{
+    right: 40px;
+}
+.ajusteBotonDespliegueDer{
+    bottom: 72px;
+    right:35px !important;
+}
+.ui-footer{
+    position: fixed !important;
+    bottom:14px;
+}
+.detalleActiPrincipal .datos{
+    top:-121px;
+    right: -126px;
+}
+.ui-header .ui-title, .ui-footer .ui-title{
+    font-weight: normal;
+}
+#footerTematicas, #footerActividades{
+    bottom:15px !important;
+}
+.ui-content{
+    /*position:absolute;overflow:scroll;width:320px;*/
+}
+.ajusteListadoBanner{
+    bottom:115px !important;
+}
+
+
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+div[data-role="page"]{
+    position:fixed;
+    top:0px;
+}
+
+/**, *:before, *:after {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}*/
+
+/*html {
+    min-height: 100%;
+    position: relative;
+}*/
+
+body {
+    /* -webkit-touch-callout: none;
+     -webkit-text-size-adjust: none;
+     -webkit-user-select: none;*/
+    -ms-content-zooming: none;
+    -ms-user-select: none;
+    /*overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: url("../img/bg.jpg") #B6B6B6;
+    background-size: 100%;*/
+}
+
+@media screen and(orientation: portrait) {
+
+    @-ms-viewport {
+
+        width: 320px;
+
+        height: 534px; /*this fixes the footer 1px issue, however, keyboards will now cause the entire page to zoom out*/
+
+        user-zoom: fixed;
+
+        zoom:1;
+
+    } }
+
+@media screen and(orientation: landscape) {
+
+    @-ms-viewport {
+
+        width: 540px; /* use media queries to be more intelligent */
+
+        user-zoom: fixed;
+
+        zoom:1;
+
+    } }
+
+@media screen and (orientation: portrait){
+    .ui-mobile .ui-page {
+        height:200px
+    }
+}
+
+/*.ui-panel-dismiss{
+    z-index:1000 !important;
+}
+
+#menuPrincipal .ui-listview > li > a.ui-btn, #menuActividades .ui-listview > li > a.ui-btn{
+    z-index: 2147483647 !important;
+}
+*/
+#popShare{
+    padding-top: 15px;
+}
+
+@media (min-width:400px){
+    #zonaListadoFechasFiltro ul li span, #listadoTematicas li table, #listadoLugares li a{
+        margin-top:60px;
+    }
+    #listadoTematicas li table tr td a span{
+        margin-top:-10px;
+    }
+
+}
+
+a , a img, a:after, .ui-icon-bars{
+    border-style:none !important;
+    text-decoration:none !important;
+    border:0 !important;
+    outline:none !important;
+    box-shadow: none !important; /*remueve un sombreado azul en el link del menu*/
+}
+
+@viewport
+{
+width:320px;
+}
+
+@-ms-viewport{
+    width:360px;
+    user-zoom: fixed;
+              zoom-user:fixed;
+              zoom:1;
+              max-zoom:1;
+              min-zoom:1;}
+html, body{
+    -ms-overflow-style: none !important;    
+    overflow:hidden;
+    -ms-content-zooming: none;
+}
+
+a:active
+{
+    background: rgba(255,255,255,0.5);
+}

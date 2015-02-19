@@ -1,0 +1,112 @@
+.noMostrar{
+    display:none !important;
+}
+
+.bolaRoja{/*para la bola roja de los favoritos*/
+    /*display:none !important;*/
+}
+
+#actividades .bannerZone{
+    bottom: -5px;
+}
+
+.tabla2ListadoActividades{
+    right: 90px
+}
+
+.ajusteFooterBanner{
+    margin-bottom: 0px !important
+}
+
+#zonaRecintoDetalleAct{
+    padding-bottom: 70px;
+}
+
+#menuPrincipal, #menuActividades {
+    padding-right: 2000px;
+    z-index: 100000000;
+}
+
+.ui-panel-dismiss{
+    z-index: 0;
+    display: none;
+}
+
+#btnFavTematicas{
+    display: none;
+}
+
+#zonaDetalleEventoTextos{
+    padding-bottom: 80px;
+}
+
+#btnLeerMas, .botonDespliegue, a {
+    cursor: pointer;
+}
+
+#zonaDetalleEvento{
+    cursor:pointer;
+}
+
+.popUpStore{
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  
+    display: -ms-flexbox;      /* TWEENER - IE 10 */  
+    display: -webkit-flex;     /* NEW - Chrome */  
+    display: flex;
+    width:100%;
+    position: absolute;
+    overflow-y: hidden;
+    z-index: 99999999;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    top: 0px;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    justify-content:center; 
+    -webkit-justify-content:center;
+        
+    padding: auto;
+}
+.popUpStore .fichaActividad{
+    margin: auto !important;
+    /* max-width: 360px; */
+    width: 280px;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  
+    display: -ms-flexbox;      /* TWEENER - IE 10 */  
+    display: -webkit-flex;     /* NEW - Chrome */  
+    display: flex;    
+    /* position: absolute; */
+    margin-left: -150px;
+    /* margin-top: 40%; */
+    /* margin-bottom: auto; */
+    flex-direction: column;
+    justify-content: space-around; 
+    -webkit-justify-content:space-around;
+}
+.popUpStore .fichaActividad span{
+    text-align: center;
+}
+
+.popUpStore .fichaActividad input[type='button']{
+    text-align: center;
+    width: 120px;
+    border: none;
+    height: 40px;
+}
+
+.popUpStore .fichaActividad input[type='button']:hover{
+    background-color: #f8f8f8;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.popUpStore .fichaActividad div{
+    justify-content: space-around; -webkit-justify-content:space-around;
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  display: -ms-flexbox;      /* TWEENER - IE 10 */  display: -webkit-flex;     /* NEW - Chrome */  display: flex;
+}
+
+#splashDiv{
+    display: none !important;
+}

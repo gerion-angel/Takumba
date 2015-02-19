@@ -1,0 +1,272 @@
+/*<link rel="stylesheet" href="http://localhost:8383/Kurbana/css/estilosGestor.css" type="text/css">*/
+#grailsLogo a:after{
+    content: "Kurbana";
+    position: relative;
+    color: green;
+    font-size: 85px;
+    vertical-align: top;
+    text-shadow: #aca 5px 5px 15px;
+}
+#grailsLogo a{
+    text-decoration: none !important;
+}
+#page-body{
+    margin: 2em !important;
+}
+
+body{
+    min-height: 100%;
+}
+
+#controller-list ul{
+    list-style-type: none;
+}
+
+#controller-list{
+    border: 1px solid #999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background-color: #eee;
+    box-shadow: #aaa 5px 5px 15px;
+}
+
+#controller-list h2{
+    padding-left: 20px;
+}
+
+#controller-list ul li{
+    padding-left: 20px;
+    border-top: 1px solid #999;
+}
+
+#controller-list ul li:after{
+    background-image: url("icosGestor/carat-r-black.png");
+    background-repeat: no-repeat;
+    position: relative;
+    margin-left: 100%;
+    right: 23px;
+    height: 14px;
+    bottom: 17px;
+    width: 15px;
+    display: block;
+    content: " ";
+}
+
+#controller-list ul li:hover{
+    background-color: white;
+}
+
+#controller-list ul li a:link,#controller-list ul li a:hover,#controller-list ul li a:active,#controller-list ul li a:visited{
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    height: 100%;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    height: 0px;
+}
+
+.content {
+    overflow-y: auto;
+}
+
+input[type='text'], input[type='file'], textarea, input[type='password']{
+    width: 400px;
+}
+
+select.many-to-one, select.many-to-many{
+    width: 415px;
+}
+
+a:link, a:visited, a:hover{
+    color:blue
+}
+
+.nextLink:link, .nextLink:visited, .nextLink:hover, .step:link, .step:visited, .step:hover{
+    color:white;
+}
+
+#list-actividad tr img, #list-lugar tr img, #list-participante tr img, #list-patrocinador tr img{
+    max-width: 115px;
+}
+
+#list-actividad tr td:first-child{
+    min-width: 160px;
+}
+
+input[type='number'], input[type='color']{
+    width:65px;
+}
+
+#tematicas, #publicidad{
+    width:375px;
+}
+
+#create-actividad #tematicas{
+    width:415px;
+}
+
+#list-banner tr img, #show-banner img, #edit-banner img{
+    width:320px;
+    max-width:320px;
+    height:50px;
+}
+
+input[name='latitud'], input[name='longitud']{
+    width:85px;
+}
+
+textArea#cuerpo{
+    border: 1px solid #aaa;
+    margin-top: 40px;
+}
+
+input[type='submit']#enviar{
+    border: 1px solid #aaa !important;
+}
+
+.altoDosLineas{
+    height:40px;
+}
+
+#list-participante table tr>td:first-child, #list-participante table tr>th:first-child{
+    width:400px;
+}
+
+div[role="navigation"] fieldset.form{
+    position:initial
+}
+
+.nav .miMenu a{
+    padding:0px;
+}
+
+.miMenu{
+    position: absolute;
+    margin-top: 4px;
+    width: 40px;
+    max-width: 40px;
+}
+
+.miMenu ul, .miMenu ul li{
+    height: 0px;
+    max-height: 0px;
+    display: block;
+    position: relative;
+    z-index: 99999999;
+    width: 200px;
+    opacity: 0;
+}
+
+.miMenu:hover ul, .miMenu:hover ul li{
+    height: 100%;
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.miMenu:hover ul li{
+    padding: 7.5px;
+    border: 1px #aaa solid;
+    background-color: white
+}
+
+.miMenu:hover ul li:hover{
+    background-color: #ededed;
+}
+
+.miMenu ul li a:link, .miMenu ul li a:hover, .miMenu ul li a:visited{
+    color:black;
+    text-decoration: none;
+}
+
+div[role="navigation"] fieldset.form{
+    position:initial
+}
+
+.menustyle{
+    width: 60px;
+    height: 30px;
+}
+
+#show-evento ol li.fieldcontain img, #show-actividad ol li.fieldcontain img, #show-patrocinador ol li img, #show-participante ol li img,#show-lugar ol li img,
+#edit-patrocinador form div.fieldcontain img, #edit-participante form div.fieldcontain img, #edit-actividad form div.fieldcontain img, #edit-lugar form div.fieldcontain img{
+    max-width: 400px;
+}
+
+form.formPush{
+    text-align: center;
+    padding-top: 40px;
+}
+
+.saludoProyecto{
+    margin-left: 32px;
+}
+
+.selectorProyecto{
+    border: black solid 2px;
+    border-radius: 5px;
+    padding: 50px;
+    position: fixed;
+    background-color: white;
+    width: 400px;
+    margin-left: 50%;
+    left: -250px;
+    box-shadow: #777 1px 1px 5px;
+}
+
+.selectorProyecto label, .selectorProyecto select, .selectorProyecto fieldset{
+    margin:12px;
+}
+
+.conetenedorLogout{
+    float: right;
+    position: relative;
+    top: -140px;
+    margin-right: 20px;
+    padding: 5px;
+    text-align: right;
+}
+
+.selectorProyecto table{
+    border-top:0px;
+}
+
+select#proyecto{
+    width: 100%;
+    margin: 0px;
+}
+
+.selectorProyecto a:link,.selectorProyecto a:hover,.selectorProyecto a:visited, .selectorProyecto a:active{
+    color:black;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+.selectorProyecto input[type='submit']{
+    float:right;
+}
+
+.footer{
+    position: relative;
+    top: 350px;
+}
+
+.selectorProyecto tr>td{
+    padding: 0.5em 15px;
+    text-align: center;
+}
+
+.selectorProyecto tr>td:last-child{    
+    padding-right:0px;
+}
+
+.selectorProyecto tr>th:last-child{
+    padding-left:0px;
+}
+
+.selectorProyecto tr:first-child td{
+    text-align: center;
+}

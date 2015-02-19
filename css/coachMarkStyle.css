@@ -1,0 +1,55 @@
+
+/* 
+    Created on : 25-sep-2014, 12:10:28
+    Author     : Angel
+*/
+
+.coachMark{
+    display:block;
+    width:100%;
+    position:fixed;
+    overflow-y: hidden;
+    z-index: 99999999;
+/*    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,0.8);*/
+    height:2000px;
+}
+
+.coachMark.evento{
+    position: fixed;
+    top: 0px;
+    z-index: 9999999999999999;
+}
+
+.coachMark.actividad{
+    position: fixed;
+    top: 0px;
+    z-index: 9999999999999999;
+}
+
+.coachMark img{
+    outline: rgba(0,0,0,0.8) 1000px solid;
+    width: 320px;
+    position: relative;
+    margin-left: 100%;
+    left: -320px;
+}
+
+.coachMark.evento img{    
+    top: -20px;
+    position:fixed;
+}
+
+.coachMark.actividad img{    
+    top: -40px;
+    position: relative;
+    z-index: 999999999999;
+}
+
+.coachMark.ipadCoach img{
+    outline: rgba(0,0,0,0.8) 1000px solid;
+    width: 768px;
+    position: relative;
+    margin-left: 100%;
+    left: -768px;
+}

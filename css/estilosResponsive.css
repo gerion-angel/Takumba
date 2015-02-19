@@ -1,0 +1,121 @@
+
+/* 
+    Created on : 26-sep-2014, 13:17:58
+    Author     : Angel
+*/
+
+@media(min-width:400px){
+    #listadoTematicas li table tr td:last-child a img, #listadoTematicasFavoritas li table tr td:last-child a img{
+        margin-left: 2px;
+    }
+
+    .listadoPropio{
+
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  display: -ms-flexbox;      /* TWEENER - IE 10 */  display: -webkit-flex;     /* NEW - Chrome */  display: flex;
+        flex-wrap: wrap;-webkit-flex-wrap: wrap;
+        justify-content: center; -webkit-justify-content:center;
+    }
+    .listadoPropio li{
+        margin: 5.5px;
+        width:360px
+    }
+
+    #listadoActividades, #zonaListadoFechasFiltro ul, #listadoTematicas, #listadoLugares, #listadoEtiquetas{
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  display: -ms-flexbox;      /* TWEENER - IE 10 */  display: -webkit-flex;     /* NEW - Chrome */  display: flex;
+        flex-wrap: wrap;-webkit-flex-wrap: wrap;
+        justify-content: center; -webkit-justify-content:center;
+        padding: 5.5px !important;
+
+        position: relative;
+        left: -5.5px;
+    }
+
+    #listadoActividades li{
+        width: 360px;
+        background-color: white;
+        margin-bottom: 0px;
+    }
+
+    #listadoActividades li:first-child{
+        padding-top: 0px;
+    }
+
+    #zonaListadoFechasFiltro ul li, #listadoTematicas li, #listadoLugares li, #listadoEtiquetas li{
+        width: 360px;
+        height: 150px;
+        margin: 5.5px;
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */  display: -ms-flexbox;      /* TWEENER - IE 10 */  display: -webkit-flex;     /* NEW - Chrome */  display: flex;
+        padding-left: 0px;
+        padding-top:0px;
+        cursor:pointer;
+    }
+
+    #zonaListadoFechasFiltro ul li:hover, #listadoTematicas li:hover, #listadoLugares li:hover, #listadoEtiquetas li:hover{
+        background-color: #f8f8f8 !important;    
+        transition: background-color 0.2s, color 1s;
+    }
+
+    #listadoTematicas li:hover table tr td a span{
+        color: black;
+    }
+
+    #zonaListadoFechasFiltro ul li span, #listadoTematicas li table tr td a span, #listadoTematicas li table, #listadoLugares li a{
+        margin:auto;
+        text-align: center;
+    }
+
+    .listadoPropio li div span p{
+        margin-left: 12px;
+    }
+
+    .descripcionFiltro{
+        background-color: white;
+    }
+
+    .categoriaPatron th{
+        text-align: center;
+    }
+    #listadoActividades, #listadoActividadesFavoritas{
+        background-color: white;
+    }
+
+    .ui-panel-dismiss{
+        z-index: 0;
+        display: none; 
+    }
+}
+
+@media(min-width:1200px){
+    #menuPrincipal, #menuActividades {
+        left: 900px;
+    }
+}
+
+@media(min-width:1000px) and (max-width:1199px){
+    #menuPrincipal, #menuActividades {
+        left: 700px;
+    }
+}
+
+@media(min-width:800px) and (max-width:999px){
+    #menuPrincipal, #menuActividades {
+        left: 500px;
+    }
+}
+
+@media(min-width:500px)and (max-width:799px){
+    #menuPrincipal, #menuActividades {
+        left: 300px;
+    }
+}
+
+#menuPrincipal, #menuActividades {
+    padding-right: 2000px;
+    z-index: 100000000;
+}
+
+@media(min-width:700px){
+    #canvasLoader canvas:nth-of-type(1){
+        margin-top:60%;
+    }
+}
