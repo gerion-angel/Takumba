@@ -1288,7 +1288,7 @@
             showOnTap: true,
             showLabel: true,
             wheels: [],
-            theme: '',
+            theme: 'ios7',
             display: 'modal',
             mode: 'scroller',
             preset: '',
