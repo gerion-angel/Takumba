@@ -1,7 +1,7 @@
 div.hasDatepicker{ display: block; padding: 0; overflow: visible;  margin: 8px 0; max-width:340px }
 .ui-datepicker {  overflow: visible;position:absolute !important; margin: 0;  }
 .ui-datepicker .ui-datepicker-header { position:relative; padding:.6em 0; border-bottom: 0; font-weight: bold; }
-.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { padding: 1px 0 1px 2px; position:absolute; top: .6em; margin-top: 0; text-indent: -9999px; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { padding: 1px 0 1px 2px; position:absolute; top: .6em; margin-top: 0; text-indent: -9999px; cursor: pointer;}
 
 .ui-datepicker .ui-datepicker-prev { left:9px; }
 .ui-datepicker .ui-datepicker-next { right:2px; }

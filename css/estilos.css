@@ -119,6 +119,7 @@ em{
 .listadoPropio li{
     overflow-y: hidden;
     height: 200px;
+    transition: opacity 0.2s;
     /* width: 400px; */
 }
 
@@ -152,6 +153,9 @@ em{
     display: block;
     background-image:url('../images/mascara.png');
     background-size: 100% 200px;
+}
+.listadoPropio li:hover, .fichaActividad:hover, #listadoParticipantes li:hover, .ui-header .ui-btn-icon-notext:hover{
+    opacity: 0.5;
 }
 
 .listadoPropio li div span div{
@@ -346,6 +350,7 @@ div#detalleActBolaRoja {
     padding: 0px;
     margin: 0px;
     overflow-y: hidden;    
+    transition: opacity 0.2s;
 }
 
 #listadoParticipantes li:last-child{
@@ -409,6 +414,7 @@ div#detalleActBolaRoja {
     border: 1px solid #C8C8C8;
     border-radius: 3px;
     box-shadow: #CFCFCF 1px 1px 1px;
+    transition: opacity 0.2s;
 }
 
 .fondoDegradadoActividades{
@@ -437,6 +443,7 @@ div#detalleActBolaRoja {
 .icoMarcable{margin-left: 15px;
 }
 .icoMarcablePeque{
+    cursor: pointer;
 }
 
 .ajusteIcoMarcablePeque{
@@ -677,6 +684,7 @@ li:last-child .fichaActividad:after{
     height: 23px;
     display: block;
     border: 0px solid black;
+    cursor: pointer;
 }
 .botonDespliegue:before{
 }
@@ -899,11 +907,13 @@ li:last-child .fichaActividad:after{
     height: 0px;
     transition: max-height 1s;
     overflow: hidden;
+    cursor: pointer;
 }
 #btnLeerMas{
     margin-left: 6px;
     color:#ff00ba;
     font-size: 12.75pt;
+    cursor: pointer;
 }
 
 #botoneraDetalleActividad{
@@ -922,6 +932,7 @@ li:last-child .fichaActividad:after{
 }
 #botoneraDetalleActividad table img{
     margin-left: 15px;
+    cursor: pointer;
 }
 #botoneraDetalleActividad table td:nth-child(2) img:first-child{
     margin-left: 0px;
@@ -1059,6 +1070,7 @@ li:last-child .fichaActividad:after{
     display: block;
     width: 100%;
     margin-top: 6px;
+    cursor: pointer;
 }
 
 .imgDetalleActividad, .imgDetalleEvento{
@@ -1282,7 +1294,7 @@ a:active {
     font-size: 18pt;
     font-weight: lighter !important;    
     z-index: 99999999;
-    transition: background-color 0.5s;
+    transition: background-color 0.1s;
 }
 #menuPrincipal .ui-listview>li>a.ui-btn:hover, #menuActividades .ui-listview>li>a.ui-btn:hover{
     background-color: #CFCFCF !important;
@@ -1417,6 +1429,7 @@ html .ui-body-b .ui-btn:hover {
 .ui-header .ui-btn-icon-notext{
     height:40px;
     width:40px;    
+    transition: opacity 0.2s;
 }
 .ui-header .ui-btn-icon-notext:after{
     width: 40px;
@@ -1495,6 +1508,7 @@ div[data-role='header'] a{
 
 .degradadoNegro{
     background-image: url('../images/mascara.png');
+    cursor: pointer;
 }
 
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper{
