@@ -1,9 +1,11 @@
-//var sessionPath = "http://212.183.201.45:60700/KurbanaProject/";
-//var sessionPath = "http://212.183.201.45:60700/KurbanaTest/rest/";
-var sessionPath = "http://193.242.188.196:8080/Kurbana/rest/";
-//var sessionPath = "http://192.168.2.24:8080/Kurbana/rest/";
+//var sessionPath = "http://212.183.201.45:60700/Kurbana/test";
+//var sessionPath = "http://212.183.201.45:60700/Kurbana/rest/";
+//var sessionPath = "http://193.242.188.196:8080/Kurbana/rest/";
+var sessionPath = "http://192.168.2.24:8080/Kurbana/rest/";
+//var sessionPath = "http://localhost:8080/Kurbana/rest/";
 var sessionProyecto = 10; //ver readme
 var sessionHayBanners = -1;
+var sessionDateFormat = "dd/MM/YYYY"
 var tf;
 var sessionFiltroEvento = -1;
 var sessionFiltroLugar = -1;
@@ -41,7 +43,8 @@ var sessionTematicasFavoritas = false;
 var sessionActividadesFavoritas = false;
 var sessionUUID;
 
-var sessionTrakingGoogle = "UA-24976927-9"
+var sessionTrakingGoogle = "UA-24976927-9"//padel y otras
+//var sessionTrakingGoogle = "UA-8393234-7"//Infantiles
 
 //para alarmas
 var sessionAlarmNombre;
@@ -65,3 +68,6 @@ var sessionTabFavorito = 1;
 /*Stores*/
 var sessionStoreAndroid = 'https://play.google.com/store?hl=es';
 var sessionStoreIos = 'http://store.apple.com/es'
+
+/*Compartir*/
+var sessionShareLink = "http://193.242.188.196:8080/takumba/index.html?actividad"

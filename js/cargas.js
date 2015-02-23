@@ -30,6 +30,7 @@ function cargaListadoEventos(id) {
     var auth = make_base_auth("app", "Kurbana2k14");
     setCheckConnection();
     if (primerFalloConexion == true) {
+        console.info(sessionPath + "evento/proyecto?id=" + sessionProyecto)
         $.ajax({
             type: "POST",
             url: sessionPath + "evento/proyecto?id=" + sessionProyecto,
@@ -42,15 +43,28 @@ function cargaListadoEventos(id) {
             },
             success: function (data) {
                 parsearListadoEventos(data, id);
-
                 insertEventos(data);
 
             },
             error: function (data) {
+                console.log(data.resposeText)
+                var splited = data.responseText.split(":")
+                if (splited[0].indexOf("noEventsText") > -1) {//si no hay eventos y hay texto de mensaje de fin de app
+                    $("#menuPrincipal").hide();
+                    $("#indice>.ui-header>a").hide();
+                    $("#finAppPopUp p").html("");
+                    $("#finAppPopUp p:first-child").html(splited[1].split("'")[1]);
+                    $("#finAppPopUp").popup();
+                    document.getElementById("finAppPopUp").style.display = "";
+                    $("#finAppPopUp").popup("open");
+                    $("#splashDiv").hide();
+                } else {
+                    selectListadoEventos();
+                }
             }
         });
     } else {
-        var data = selectListadoEventos();
+        //selectListadoEventos();
 
     }
     setCheckConnection();
@@ -90,6 +104,38 @@ function cargaListadoEtiquetas() {
 }
 
 /*
+ * funcion que carga la info de descarga
+ */
+function cargaInfoDescarga() {
+    if (primerFalloConexion == true) {
+        var auth = make_base_auth("app", "Kurbana2k14");
+        $.ajaxSetup({
+            headers: {
+                'Authorization': auth,
+            }
+        });
+        $.getJSON(sessionPath + "proyecto/proyectoInfo?id=" + sessionProyecto, null, function (data) {
+            console.log(data)
+            var mostrar = data.mostrarMensaje;
+            var texto = data.mensajeDescargar;
+            console.info(mostrar)
+            console.info(texto)
+
+            if (mostrar == true) {
+                $('.popUpStore .cajaStore table tr td span').html(texto)
+                $('.popUpStore').show();
+                bindEventosPopUp()
+            }
+
+
+        }).fail(function () {
+            primerFalloConexion = false
+        });
+    }
+    setCheckConnection()
+}
+
+/*
  * funcion que carga el listado de participantes
  */
 function cargaListadoParticipantes() {
@@ -103,6 +149,8 @@ function cargaListadoParticipantes() {
         $.getJSON(sessionPath + "participante/proyecto?id=" + sessionProyecto, null, function (data) {
             parsearListadoParticipantes(data);
             insertParticipantes(data);
+        }).fail(function () {
+            primerFalloConexion = false
         });
     }
     setCheckConnection()
@@ -120,6 +168,8 @@ function cargaListadoLugares() {
     });
     $.getJSON(sessionPath + "lugar/proyecto?id=" + sessionProyecto, null, function (data) {
         parsearListadoLugares(data);
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -136,6 +186,8 @@ function cargaListadoTematicasFavoritas() {
     });
     $.getJSON(sessionPath + "notificacionTematica/getfavoritas?udid=" + sessionPushToken + '&nocache=' + new Date().getTime(), null, function (data) {
         parsearListadoTematicasFavoritas(data);
+    }).fail(function () {
+        primerFalloConexion = false
     })
             ;
 
@@ -156,6 +208,8 @@ function cargaListadoActividadesFavoritas() {
     });
     $.getJSON(ruta, null, function (data) {
         parsearListadoActividadesFavoritas(data);
+    }).fail(function () {
+        primerFalloConexion = false
     });
 
     setCheckConnection()
@@ -176,6 +230,9 @@ function cargaPosProyecto() {
         $.getJSON(sessionPath + "lugar/localizacionproyecto?id=" + sessionProyecto, null, function (data) {
             parsearPosicionProyecto(data);
             insertPosicionProyecto(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectPosProyecto();
         });
     } else {
         var data = selectPosProyecto();
@@ -197,7 +254,11 @@ function cargaPosEvento() {
         $.getJSON(sessionPath + "lugar/localizacionevento?evento=" + sessionFiltroEvento, null, function (data) {
             parsearPosicionEvento(data);
             insertPosicionEvento(data)
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectPosEvento();
         });
+        ;
     } else {
         var data = selectPosEvento();
     }
@@ -214,7 +275,7 @@ function cargaDetalleEvento() {
             setLoader('idBody');
         } catch (e) {
         }
-        
+
         $("#canvasLoader").css("background-color", "transparent")
         hideLoader()
     }, 10)
@@ -233,6 +294,9 @@ function cargaDetalleEvento() {
         $.getJSON(sessionPath + "evento/getitem?evento=" + sessionFiltroEvento, null, function (data) {
             parsearDetalleEvento(data);
             updateDetalleEvento(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectDetalleEvento();
         });
     } else {
         var data = selectDetalleEvento();
@@ -248,16 +312,25 @@ function cargaDetalleEvento() {
  * Función que carga el detalle de un lugar
  */
 function cargaDetalleLugar() {
-    var auth = make_base_auth("app", "Kurbana2k14");
-    $.ajaxSetup({
-        headers: {
-            'Authorization': auth,
-        }
-    });
-    $.getJSON(sessionPath + "lugar/getitem?lugar=" + sessionFiltroLugar, null, function (data) {
-        parsearDetalleLugar(data);
-        updateLugar(data);
-    });
+    $("#tituloNombreParticipante").html("");
+    $("#paginaDetalleParticipante .contenido").html("");
+    if (primerFalloConexion == true) {
+        var auth = make_base_auth("app", "Kurbana2k14");
+        $.ajaxSetup({
+            headers: {
+                'Authorization': auth,
+            }
+        });
+        $.getJSON(sessionPath + "lugar/getitem?lugar=" + sessionFiltroLugar, null, function (data) {
+            parsearDetalleLugar(data);
+            updateLugar(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectLugarPorId()
+        });
+    } else {
+        selectLugarPorId()
+    }
     setCheckConnection()
 }
 
@@ -275,6 +348,9 @@ function cargaPatrocinadoresEvento() {
         $.getJSON(sessionPath + "patrocinador/evento?evento=" + sessionFiltroEvento, null, function (data) {
             parsearPatrocinadoresEvento(data);
             insertPatrocinadores(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectPatrocinadoresEvento();
         });
     } else {
         var data = selectPatrocinadoresEvento();
@@ -297,6 +373,9 @@ function cargaBannersEvento() {
         $.getJSON(sessionPath + "banner/evento?evento=" + sessionFiltroEvento, null, function (data) {
             parsearBannersEvento(data);
             insertBannersEvento(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectBannersEvento();
         });
     } else {
         var data = selectBannersEvento();
@@ -321,11 +400,17 @@ function cargaDetalleParticipante() {
             $.getJSON(sessionPath + "participante/getitem?participante=" + sessionFiltroParticipantes2, null, function (data) {
                 parsearDetalleParticipante(data);
                 insertParticipantes(data)
+            }).fail(function () {
+                primerFalloConexion = false;
+                var data = selectDetalleParticipante(sessionFiltroParticipantes2)();
             });
         } else {
             $.getJSON(sessionPath + "participante/getitem?participante=" + sessionFiltroParticipantes, null, function (data) {
                 parsearDetalleParticipante(data);
                 insertParticipantes(data)
+            }).fail(function () {
+                primerFalloConexion = false;
+                var data = selectDetalleParticipante(sessionFiltroParticipantes)();
             });
         }
     } else {
@@ -398,6 +483,9 @@ function cargaListadoActividades() {
         $.getJSON(ruta, null, function (data) {
             insertActividades(data);
             parsearListadoActividades(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectListadoActitividades()
         });
     } else {
         var data = selectListadoActitividades();
@@ -432,6 +520,9 @@ function cargarActividad(idAct) {
             updateActividad(data);
             parsearActividad(data);
             //cargaListadoActividades();
+        }).fail(function () {
+            primerFalloConexion = false;
+            var data = selectActividad(idAct)
         });
     } else {
         var data = selectActividad(idAct)
@@ -440,6 +531,8 @@ function cargarActividad(idAct) {
     //console.info(ruta);
     $.getJSON(ruta, null, function (data) {
         parsearNomenclaturaActividad(data);
+    }).fail(function () {
+        primerFalloConexion = false;
     });
     setCheckConnection()
 }
@@ -460,7 +553,10 @@ function nuevaTematicaFavorita(id) {
     $.getJSON(url, null, function (data) {
         //console.log(data)
         comprobarTematicaCambiada(data);
+    }).fail(function () {
+        primerFalloConexion = false;
     });
+    ;
     setCheckConnection()
 }
 
@@ -476,7 +572,10 @@ function borraTematicaFavorita(id) {
     });
     $.getJSON(sessionPath + "notificacionTematica/unsetfavorita?tematica=" + id + "&udid=" + sessionPushToken, null, function (data) {
         comprobarTematicaCambiada(data);
+    }).fail(function () {
+        primerFalloConexion = false
     });
+    ;
     setCheckConnection()
 }
 
@@ -497,6 +596,8 @@ function nuevaActividadFavorita(id) {
     //console.log(url)
     $.getJSON(url, null, function (data) {
         comprobarTematicaCambiada(data);
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -518,6 +619,8 @@ function borraActividadFavorita(id) {
     $.getJSON(llamada, null, function (data) {
         comprobarTematicaCambiada(data);
         //cargaListadoActividadesFavoritas();
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -541,6 +644,8 @@ function cargaCercaYLugar(rango) {
     });
     $.getJSON(ruta, null, function (data) {
         anadirMasMarcasMapa(data);
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -555,6 +660,8 @@ function anadeGusta(id) {
     });
     $.getJSON(sessionPath + "usuarioActividadMeGusta/setmegusta?actividad=" + id + "&udid=" + sessionPushToken, null, function (data) {
         cargarActividad(id);
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -570,6 +677,8 @@ function deleteGusta(id) {
     });
     $.getJSON(sessionPath + "usuarioActividadMeGusta/unsetmegusta?actividad=" + id + "&udid=" + sessionPushToken, null, function (data) {
         cargarActividad(id);
+    }).fail(function () {
+        primerFalloConexion = false
     });
     setCheckConnection()
 }
@@ -606,14 +715,23 @@ function cargaMenusFiltrados() {
             parsearListadoTematicas(data);
             insertTematicas(data)
 //            console.info(data)
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectListadoTematicas()
         });
         $.getJSON(sessionPath + "lugar/lugaresfiltro?id=" + sessionProyecto + ruta, null, function (data) {
             parsearListadoLugares(data);
             insertLugares(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectListadoLugares()
         });
         $.getJSON(sessionPath + "participante/participantesfiltro?id=" + sessionProyecto + ruta, null, function (data) {
             parsearListadoParticipantes(data);
             insertParticipantes(data)
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectListadoParticipantes()
         });
     } else {
         selectListadoTematicas()
@@ -636,9 +754,36 @@ function cargaNomenclaturasMenu() {
         $.getJSON(sessionPath + "nomenclaturaFiltro/filtro?proyecto=" + sessionProyecto, null, function (data) {
             parsearMenuLateral(data);
             insertNomenclaturaMenu(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectNomenclaturaMenu()
         });
     } else {
         selectNomenclaturaMenu()
+    }
+}
+/*funcion que carga la informacion generica de la app*/
+function cargaAppMetadata() {
+    if (primerFalloConexion == true) {
+        var auth = make_base_auth("app", "Kurbana2k14");
+        $.ajaxSetup({
+            headers: {
+                'Authorization': auth,
+            }
+        });
+        $.getJSON(sessionPath + "proyecto/proyectoMetadata?id=" + sessionProyecto, null, function (data) {
+            sessionDateFormat = data.tipoFecha;
+            reverseDateFormat = new SimpleDateFormat(sessionDateFormat);
+            if (data.mostrarParticipantes == false || data.mostrarParticipantes == "false") {
+                $("#menuPrincipal .participantesMenu").parent().hide()
+            }
+            insertMetadata(data);
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectMetadata()
+        });
+    } else {
+        selectMetadata()
     }
 }
 
@@ -655,9 +800,57 @@ function registro() {
         });
         $.getJSON(sessionPath + "instalacion/save?udid=" + sessionPushToken + "&os=" + os + "&proyecto=" + sessionProyecto, null, function (data) {
             saveData('registrado', true);
+        }).fail(function () {
+            primerFalloConexion = false;
         });
     }
     setCheckConnection()
+}
+
+function cargaBorrados() {
+    var auth = make_base_auth("app", "Kurbana2k14");
+    $.ajaxSetup({
+        headers: {
+            'Authorization': auth
+        }
+    });
+    if (getData("ultimoBorrado") + "" == "null") {
+        saveData("ultimoBorrado", 0);
+    }
+    var ruta = sessionPath + "proyecto/getBorrados?id=" + sessionProyecto + "&ultimoBorrado=" + getData("ultimoBorrado")
+    $.getJSON(ruta, null, function (data) {
+        saveData("ultimoBorrado", new Date().getTime());
+        if (data.eventos) {
+            deleteEventos(data.eventos)
+        }
+        if (data.etiquetas) {
+            deleteEtiquetas(data.etiquetas)
+        }
+        if (data.participantes) {
+            deleteParticipantes(data.participantes)
+        }
+        if (data.Tematicas) {
+            deleteTematicas(data.tematicas)
+        }
+        if (data.actividad) {
+            deleteActividad(data.actividad)
+        }
+        if (data.lugares) {
+            deleteEventos(data.lugares)
+        }
+        if (data.patrocinadores) {
+            deletePatrocinadores(data.patrocinadores)
+        }
+        if (data.banners) {
+            deleteBanners(data.banners)
+        }
+        if (data.nomenclatura) {
+            deleteNomenclaturaMenu(data.nomenclatura)
+        }
+
+    }).fail(function () {
+        primerFalloConexion = false;
+    });
 }
 
 function cargaDiasConActividad() {
@@ -692,10 +885,16 @@ function cargaDiasConActividad() {
 
     sessionMesPintar = numMes;
     sessionAnnoPintar = numAnno;
-
-    $.getJSON(ruta, null, function (data) {
-        pintaDiasConActividad(data)
-    });
+    if (primerFalloConexion == true) {
+        $.getJSON(ruta, null, function (data) {
+            pintaDiasConActividad(data)
+        }).fail(function () {
+            primerFalloConexion = false;
+            selectDiasConActividad(numMes, numAnno)
+        });
+    } else {
+        selectDiasConActividad(numMes, numAnno);
+    }
 
 
     $("#filtroCalendario").datepicker();

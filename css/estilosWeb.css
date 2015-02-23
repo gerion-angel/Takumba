@@ -6,6 +6,16 @@
     /*display:none !important;*/
 }
 
+.bannerZone{
+    width:320px;
+    margin-left: 50%;
+    left: -160px;
+}
+
+.zonaBannerEvento {
+    bottom:50px !important;
+}
+
 #actividades .bannerZone{
     bottom: -5px;
 }
@@ -44,7 +54,7 @@
     cursor: pointer;
 }
 
-#zonaDetalleEvento{
+#zonaDetalleEvento, #zonaDetalleLugar{
     cursor:pointer;
 }
 
@@ -65,7 +75,7 @@
     -webkit-flex-wrap: wrap;
     justify-content:center; 
     -webkit-justify-content:center;
-        
+
     padding: auto;
 }
 .popUpStore .fichaActividad{
