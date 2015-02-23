@@ -5,6 +5,13 @@
     Description:
         estilos generales
 */
+@font-face {
+    font-family: "Segoe UI Light";
+    src: url("fonts/SEGOEUIL.ttf") format("truetype");
+    font-weight: 100;
+    font-style: normal;
+}
+
 html{
     /*-ms-touch-action: none;*/
     font-family: Segoe UI Light, Segoe WP, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Roboto;
