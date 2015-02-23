@@ -4,7 +4,7 @@
  */
 var objGeo = navigator.geolocation;
 var map;
-$(document).on("pagebeforeshow", "#ahoraCerca", function () {
+$(document).on("pagebeforeshow", "#ahoraCerca", function() {
     setLoader('map-canvas');
     try {
 
@@ -18,17 +18,14 @@ $(document).on("pagebeforeshow", "#ahoraCerca", function () {
         } catch (ex) {
         }
     } else {
-        $("#gpsPopUp").popup();
-        document.getElementById("gpsPopUp").style.display = "";
-        $("#gpsPopUp").popup("open");
-        /*if (sessionFiltroEvento > -1) {
-         sessionLatUser = sessionLatEvento;
-         sessionLongUser = sessionLongEvento;
-         } else {
-         sessionLatUser = sessionLatProyecto;
-         sessionLongUser = sessionLongProyecto;
-         }
-         cargaCercaYLugar(1);*/
+        if (sessionFiltroEvento > -1) {
+            sessionLatUser = sessionLatEvento;
+            sessionLongUser = sessionLongEvento;
+        } else {
+            sessionLatUser = sessionLatProyecto;
+            sessionLongUser = sessionLongProyecto;
+        }
+        cargaCercaYLugar(1);
     }
 });
 
@@ -41,10 +38,7 @@ function success(pos) {
     cargaCercaYLugar(1);
 }
 function fail(error) {
-    $("#gpsPopUp").popup();
-        document.getElementById("gpsPopUp").style.display = "";
-        $("#gpsPopUp").popup("open");
-    /*var defaultLatLng = new google.maps.LatLng(sessionLatProyecto, sessionLongProyecto);  // Default es el proyect location
+    var defaultLatLng = new google.maps.LatLng(sessionLatProyecto, sessionLongProyecto);  // Default es el proyect location
     if (sessionFiltroEvento > -1) {
         sessionLatUser = sessionLatEvento;
         sessionLongUser = sessionLongEvento;
@@ -52,7 +46,7 @@ function fail(error) {
         sessionLatUser = sessionLatProyecto;
         sessionLongUser = sessionLongProyecto;
     }
-    cargaCercaYLugar(1);*/
+    cargaCercaYLugar(1);
 }
 
 /*funcion que dibuja el mapa centrado en la posicion dada*/
@@ -100,7 +94,7 @@ function drawMap(latlng) {
         title: sessionPosProyecto
     });
 
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function() {
         MiInfowindow.setContent(this.html);
         MiInfowindow.open(map, this);
         bloqueaLogoG();
@@ -116,7 +110,7 @@ function anadirMasMarcasMapa(data) {
     try {
         var defaultLatLng = new google.maps.LatLng(sessionLatUser, sessionLongUser);
         drawMap(defaultLatLng);
-        setTimeout(function () {
+        setTimeout(function() {
             drawMap(defaultLatLng);
             var infowindow = new google.maps.InfoWindow({
                 content: "Cargando..." /// HAY QUE USAR H1 y P para que tenga tamaño y formatear el texto
@@ -151,7 +145,7 @@ function anadirMasMarcasMapa(data) {
                     icon: "images/ubicacion3.png"
                 });
 
-                google.maps.event.addListener(marker, 'click', function () {
+                google.maps.event.addListener(marker, 'click', function() {
                     infowindow.setContent(this.html);
                     infowindow.open(map, this);
                 });
@@ -190,7 +184,7 @@ function cargaVerLugar(lat, long, nombre) {
         };
 
         verMap = new google.maps.Map(document.getElementById("map-canvas2"), myOptions);
-        setTimeout(function () {
+        setTimeout(function() {
             verMap = new google.maps.Map(document.getElementById("map-canvas2"), myOptions);
             var marker = new google.maps.Marker({
                 position: verMapaLatLang,
@@ -202,7 +196,7 @@ function cargaVerLugar(lat, long, nombre) {
                 content: "<div><h1>" + nombre + "</h1><p></p></div>" // HAY QUE USAR H1 y P para que tenga tamaño y formatear el texto
             });
             navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 500000, enableHighAccuracy: true, timeout: 6000});
-            setTimeout(function () {
+            setTimeout(function() {
                 var defaultLatLng = new google.maps.LatLng(sessionLatUser, sessionLongUser);
                 var marker2 = new google.maps.Marker({
                     position: defaultLatLng,
@@ -210,13 +204,13 @@ function cargaVerLugar(lat, long, nombre) {
                     html: "<div><p>Mi ubicación</p></div>",
                     title: sessionPosProyecto
                 });
-                google.maps.event.addListener(marker, 'click', function () {
+                google.maps.event.addListener(marker, 'click', function() {
                     infowindow2.setContent("<div><h1>" + nombre + "</h1><p></p></div>");
                     infowindow2.open(verMap, this);
                     bloqueaLogoG();
                 });
 
-                google.maps.event.addListener(marker2, 'click', function () {
+                google.maps.event.addListener(marker2, 'click', function() {
                     infowindow2.setContent("<div><p>Mi ubicación</p></div>");
                     infowindow2.open(verMap, this);
                     bloqueaLogoG();
@@ -230,26 +224,26 @@ function cargaVerLugar(lat, long, nombre) {
 function bloqueaLogoG() {
     //console.log("bloqueaLogoG")
     try {
-        $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").click(function (evt) {
-            // console.info('bloqueado')
+        $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").click(function(evt) {
+           // console.info('bloqueado')
             evt.preventDefault();
             return false;
         });
     } catch (e) {
     }/*en movil, la url del logo termina en hdpi o transparent*/
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").click(function (evt) {
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").click(function(evt) {
 
         //console.info('bloqueado')
         evt.preventDefault();
         return false;
     });
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").on('touchstart', function () {
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").on('touchstart', function() {
         //console.info('bloqueado')
         evt.preventDefault();
         return false;
     });
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").on('touchstart', function () {
-        // console.info('bloqueado')
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").on('touchstart', function() {
+       // console.info('bloqueado')
         evt.preventDefault();
         return false;
     });

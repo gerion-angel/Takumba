@@ -4,15 +4,15 @@ comentar lo referente a los coachMarks
 añadir un favicon
 descomentar popUpStore
 comentar splashDiv
-//1 para padel, 5 para salvador, 6 para ferias, 8 artes escenicas infantiles, 9 arroyo
+//1 para padel, 5 para salvador, 6 para ferias, 8 artes escenicas infantiles, 9 arroyo, 10 takumba
 /*wp*/
 quitar la etiqueta meta de 320 en wp
 /**/
-cambiar el UA-xxxxxxx-x de google analytics en session.js
-cambiar la urlimage de divsplash en la hoja de estilos (base64 para que cargue más rápido)
+cambiar la urlimage de divsplash
 cambiar sessionPath en session.js por la url real.
-cambiar rutas de compartir facebook y tweeter [en session.js --> sessionShareLink]
+cambiar rutas de compartir facebook y tweeter [parseos.js  parsearActividad()]
 cambiar nombre aplicacion en #indice
+cambiar nomre de la carpeta de descarga de imagenes [webBBDD.js] //hasta que se mergee dev con las imagenes en bbdd
 cambiar senderID de las notificaciones [index.html ondeviceReady()]
 Cambiar página acerca de
 cambiar version en la página acerca de
@@ -32,7 +32,7 @@ background-color: rgba(0,0,0,0.2) circulo del canvas loader
 #CFCFCF: sombra ficha actividad
 #4e4e4e: color letra titulo ficha actividad
 #a6a6a6: color resto letra ficha actividad, color letra links listados
-#7F7F7E: color letra listado lugares, letra categoria patron
+#7F7F7E: color letra listaod lugares, letra categoria patron
 #ff00ba: color letra leer mas
 #b2b2b2: lineas botonera detalle actividad, borde cabecera
 #c3c3c3: color fondo/bordes navbars

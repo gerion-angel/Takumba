@@ -1,29 +1,16 @@
 /*
- * 
- * @param {type} data
-/ * 
- * parseador de fechas
- */
-var reverseDateFormat = new SimpleDateFormat(sessionDateFormat);
-
-/* *
  * funcion que carga un listado de eventos en un listado pasados ambos como parametros
  * */
 function parsearListadoEventos(data, id) {
-    console.info("parsear")
     setTimeout(function () {
         setLoader('idBody');
         $("#canvasLoader").css("background-color", "transparent")
     }, 10)
     var listado = document.getElementById(id);
     var acumulador = "";
-    
-    console.log(data)
     resetFiltros();
-    console.log(data)
     try {
         if (data.length == 1) {
-            
             sessionSoloUnEvento = true;
             try {
                 hideLoader();
@@ -36,7 +23,6 @@ function parsearListadoEventos(data, id) {
             setTituloListado(evento.nombre);
             document.location.href = "#actividades";
             document.getElementById('backListadoActividades').style.display = 'none';
-            $(".ui-pre-last-child").hide();
             $("#backListadoActividades").click(function () {
                 document.getElementById('backListadoActividades').style.display = 'none';
                 document.getElementById('zonaDetalleParticipante').style.display = 'none';
@@ -60,7 +46,7 @@ function parsearListadoEventos(data, id) {
                 acumulador += "<div style=''>";
                 acumulador += "<span><div><p>" + nombre + "</p>";
                 acumulador += "<p>" + subtitulo + "</p>";
-                acumulador += "<p>del " + reverseDateFormat.format(new Date(fechaIni)) + " al " + reverseDateFormat.format(new Date(fechaFin)) + "</p>" + "</div></span>";
+                acumulador += "<p>del " + getFechaSolo(fechaIni) + " al " + getFechaSolo(fechaFin) + "</p>" + "</div></span>";
                 acumulador += "</div>"
 //                acumulador += "<img class='lazy' data-original='" + img + "'\>";
                 acumulador += "<img src='" + img + "'\>";
@@ -80,7 +66,6 @@ function parsearListadoEventos(data, id) {
 
         }
     } catch (e) {
-        console.error(e)
     }
     setCheckConnection()
     sessionSetLoader = true;
@@ -97,8 +82,6 @@ function parsearListadoEventos(data, id) {
     $("#listadoEventosIndice li").on("MSPointerOut", function () {
         $(this).css('left', "0px")
     })
-
-    $("#canvasLoader").remove()
 }
 
 /*
@@ -113,11 +96,8 @@ function parsearDetalleEvento(data) {
     var evento = data[0];
     document.getElementById("cabeceraInfoDetalleEvento").style.backgroundImage = "url('" + evento.urlImagen + "')";
     acumulador += "<span>" + evento.nombre + "</span>";
-    if (evento.nombreLugar != undefined) {
-        acumulador += "<span>" + evento.nombreLugar + "</span>";
-    } else {
-        acumulador += "<span> </span>";
-    }
+    acumulador += "<span>" + evento.nombreLugar + "</span>";
+//    acumulador += "<span>del " + getFechaSolo(evento.fechaInicioOficial) + " al " + getFechaSolo(evento.fechaFinOficial) + "</span>";
     acumulador += "<span>" + evento.horaInicioOficial + " - " + evento.horaFinOficial + "</span>";
     $("#cabeceraInfoDetalleEvento div div").html(acumulador);
     acumulador = "";
@@ -147,6 +127,7 @@ function parsearDetalleEvento(data) {
     //setTituloListado(evento.nombre);
     if (evento.subtitulo)
         acumulador += "<p>" + evento.subtitulo + "</p>";
+//    acumulador += "<p>del " + getFechaSolo(evento.fechaInicioOficial) + " al " + getFechaSolo(evento.fechaFinOficial) + "</p>";
     acumulador += "<p>" + evento.horaInicioOficial + " - " + evento.horaFinOficial + "</p>";
     /*acumulador += "<img src='images/Degradado_PHONE.png' class='fondoDegradadoEventos'/>";*/
     acumulador += "</div></span></div>"
@@ -187,8 +168,6 @@ function parsearDetalleEvento(data) {
             e.stopPropagation();
     });
     sessionSetLoader = true;
-    $("#canvasLoader").remove()
-
 }
 
 var timer1;
@@ -229,11 +208,6 @@ function parsearBannersEvento(data) {
         $(".zonaBannerEvento").html(acumulador);
         $('.linkBannerActividad1').addClass('visible');
         timer2 = setTimeout(cambiaBannerActividad2, 5000);
-        $(".bannerZone a img").each(function () {
-            if ($(this).attr('src') == 'undefined') {
-                $(this).remove();
-            }
-        })
     } else {
         sessionHayBanners = -1;
         $(".zonaBannerEvento").html("");
@@ -260,8 +234,8 @@ function parsearBannersActividad(data) {
         var up = (ancho * 50 / 320) - 1;
         /*if (sessionPushToken == "")
          up = up;*/
-        if ($("#actividades .zonaBannerEvento .bannerZone").html() != "")
-            document.getElementById('listadoActividades').style.marginBottom = up + "px"
+        if ($("#actividades .zonaBannerEvento .bannerZone").html()!="")
+        document.getElementById('listadoActividades').style.marginBottom = up + "px"
         /*if (sessionPushToken == "")
          up = up - (-43);*/
         var upLis = up - (1);
@@ -309,6 +283,7 @@ function cambiaBannerActividad1() {
 }
 
 function parsearPatrocinadoresEvento(data) {
+    // console.log(data);
     var acumulador = "";
     var cat = "";
     var interno = "";
@@ -550,7 +525,6 @@ function parsearDetalleParticipante(data) {
         $("#zonaDetalleParticipanteParticipa").removeClass("trOculto");
         zona.innerHTML = "";
         document.getElementById('zonaDetalleEvento').style.display = 'none'
-        document.getElementById('zonaDetalleLugar').style.display = 'none'
         zona.style.backgroundImage = 'url("' + participante.urlImagen + '")'
         /* acumulador += "<img src='images/mascara.png' class='fondoDegradadoActividades'/>";
          acumulador += "<span class='title'>" + participante.nombre + "</span>";
@@ -599,63 +573,16 @@ function parsearDetalleParticipante(data) {
  * funcion que parsea y muestra el detalle de un participante
  */
 function parsearDetalleLugar(data) {
-    /*var zona = document.getElementById('zonaDetalleLugar');
-     zona.style.display = '';
-     zona.innerHTML = "";
-     var acumulador = "";
-     var lugar = data[0];
-     acumulador += "<h2>" + lugar.nombre + "</h2>";
-     acumulador += "<img src='" + lugar.urlImagen + "'/>";
-     acumulador += "<span>" + lugar.descripcion + "</span>";
-     acumulador += "<hr/>";
-     zona.innerHTML = acumulador;*/
     var zona = document.getElementById('zonaDetalleLugar');
+    zona.style.display = '';
+    zona.innerHTML = "";
     var acumulador = "";
     var lugar = data[0];
-    if (sessionDesdeActi != 1) {
-        zona.style.display = '';
-        //$("#zonaDetalleParticipanteParticipa").removeClass("trOculto");
-        zona.innerHTML = "";
-        document.getElementById('zonaDetalleEvento').style.display = 'none'
-        document.getElementById('zonaDetalleParticipante').style.display = 'none'
-        zona.style.backgroundImage = 'url("' + lugar.urlImagen + '")'
-        acumulador += "<div><span class='degradadoNegro'><div>";
-        acumulador += "<p  class='title'>" + lugar.nombre + "</p>";
-
-        acumulador += "</div></span></div>"
-        acumulador += "<span class='botonDespliegue ajusteParticipante'></span>"
-        zona.innerHTML = acumulador;
-
-
-        $(".descripcionFiltro").html('');
-        $(".descripcionFiltro,.descripcionEventoDetalle.descripcionFiltro").html(lugar.descripcion);
-        //setTituloListado(participante.nombre);
-    }
-    document.getElementById("tituloNombreLugar").innerHTML = lugar.nombre;
-    acumulador = "";
+    acumulador += "<h2>" + lugar.nombre + "</h2>";
     acumulador += "<img src='" + lugar.urlImagen + "'/>";
-    acumulador += "<h3>" + lugar.nombre + "</h3>";
-
     acumulador += "<span>" + lugar.descripcion + "</span>";
-    $("#paginaDetalleLugar .contenido").html(acumulador);
-
-
-    $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
-    $('.botonDespliegue').click(function (e) {
-        e.preventDefault();
-        if (!$(".descripcionFiltro").hasClass('descripcionFiltroDesplegada')) {
-            $(".descripcionFiltro").addClass('descripcionFiltroDesplegada');
-        } else {
-            $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
-        }
-        if (!e)
-            var e = window.event;
-        /*IMPORTANTE: detiene la propagacion*/
-        e.cancelBubble = true;
-        if (e.stopPropagation)
-            e.stopPropagation();
-    });
-    sessionDesdeActi = -1
+    acumulador += "<hr/>";
+    zona.innerHTML = acumulador;
 }
 
 /*
@@ -676,7 +603,7 @@ function parsearListadoLugares(data) {
                 var nombre = lugar.nombre;
                 var desc = lugar.descripcion;
                 var img = lugar.urlImagen;
-                acumulador += "<li><a href='#actividades' onclick='sessionFiltroLugar=" + idLug + ";cargaDetalleLugar(); cargaListadoActividades();setTituloListado(\"" + nombre + "\");ga(\"send\", \"event\", \"button\", \"click\", \"Lugar:" + nombre + "\", 1);'>";
+                acumulador += "<li><a href='#actividades' onclick='sessionFiltroLugar=" + idLug + "; cargaListadoActividades();setTituloListado(\"" + nombre + "\");ga(\"send\", \"event\", \"button\", \"click\", \"Lugar:" + nombre + "\", 1);'>";
 
 
                 acumulador += nombre;
@@ -759,7 +686,8 @@ function parsearListadoActividades(data) {
         }
     } catch (e) {
     }//si falla el servicio
-
+    // console.log("****" + data)
+    //console.log(data)
     if (data.data.length == 0 && sessionFiltroParticipantes > -1) {
         $("#zonaDetalleParticipante").click();
     }
@@ -770,7 +698,6 @@ function parsearListadoActividades(data) {
         var nombre = act.nombre;
         var img = act.urlImagen;
         var fechaIni = act.fechaInicioOficial;
-        var horaIni = act.horaInicioOficial;
         var fechaFin = act.fechaFinOficial;
         var lugar = act.nombreLugar;
         var key = "actividad" + idAct;
@@ -782,14 +709,16 @@ function parsearListadoActividades(data) {
         acumulador += "<div class='fichaActividad'>";
         acumulador += "<table class='tabla1ListadoActividades'><tr>"
         if (img != null && img != "") {
-            acumulador += "<td><div class='thumnailActividad' style=\"background-image:url('" + img + "')\"></div></td>";
+//            acumulador += "<td><img class='lazy' data-original='" + img + "'\></td>";
+
+            acumulador += "<td><div class='thumnailActividad' style='background-image:url(" + img + ")'></div></td>";
 
         }
         acumulador += "<td><span>" + nombre + "</span></td></tr></table>";
         if (act.nombreEventos)
             acumulador += "<div><span class='spanListaActi'>" + act.nombreEventos + "</span>";
         /*acumulador += "<span style='font-size: 12px;font-weight: normal;overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;width: 170px;'>" + lugar + "</span>";*/
-        acumulador += "<span class='spanListaActi'>" + reverseDateFormat.format(new Date(fechaIni)) + " " + horaIni + "</span></div>";
+        acumulador += "<span class='spanListaActi'>" + getFechaSolo(fechaIni) + "</span></div>";
         acumulador += "</div></a>";
         acumulador += "<table  class='tabla2ListadoActividades'><tr>"
 
@@ -832,15 +761,13 @@ function parsearListadoActividades(data) {
 
     var ancho = window.innerWidth;
     var up = (ancho * 50 / 320) - 1;
-    if (sessionPushToken == "" && $("#actividades .zonaBannerEvento .bannerZone").html() == "")
+    if (sessionPushToken == "" && $("#actividades .zonaBannerEvento .bannerZone").html()=="")
         up = up - 43;
     if (sessionHayBanners > 0)
         document.getElementById('listadoActividades').style.marginBottom = up + "px"
     setTimeout(function () {
         $("#tituloListadoActividades").click();//arregla una descolocacion haciendo un click en un punto de la pantalla
     }, 700);
-
-    $("#canvasLoader").remove()
 }
 
 /*
@@ -849,6 +776,7 @@ function parsearListadoActividades(data) {
 function parsearListadoActividadesFavoritas(data) {
     var listado = document.getElementById('listadoActividadesFavoritas');
     var acumulador = ""
+    //console.log(data)
     if (data.length == 0) {
         acumulador = "<span class='liSinNada'>No ha agregado aún ninguna actividad a sus favoritos, puede hacerlo pulsando sobre el icono de la estrella desde cualquier actividad.</span>";
     } else {
@@ -873,7 +801,7 @@ function parsearListadoActividadesFavoritas(data) {
             acumulador += "<td><span>" + nombre + "</span></td></tr></table>";
             acumulador += "<div><span class='spanListaActi'>" + act.nombreEventos + "</span>";
             /*acumulador += "<span style='font-size: 12px;font-weight: normal;overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;width: 170px;'>" + lugar + "</span>";*/
-            acumulador += "<span class='spanListaActi'>" + reverseDateFormat.format(new Date(fechaIni)) + "</span></div>";
+            acumulador += "<span class='spanListaActi'>" + getFechaSolo(fechaIni) + "</span></div>";
             acumulador += "</div></a>";
             acumulador += "<table  class='tabla2ListadoActividades'><tr>"
 
@@ -934,18 +862,17 @@ function parsearActividad(data) {
     var acumulador = "";
     $("#cabeceraDetalleActividad div table td:first-child").html(acumulaCalen);
     var nombre = activity.nombre;
-    document.getElementById('tituloDetalleActividad').innerHTML = nombre;
     if (nombre.length > 25)
         acumulador += "<span>" + nombre.substring(0, 25) + "...</span>";
     else
         acumulador += "<span>" + nombre + "</span>";
 
-    acumulador += "<span><em class='nomenDesde'>Desde</em> ";
+    acumulador += "<span><em class='nomenDesde'>Desde</em> " /*+ getFechaSolo(activity.fechaInicioOficial)*/;
     if (activity.horaInicioOficial) {
         acumulador += " " + activity.horaInicioOficial;
     }
     acumulador += "</span>"
-    acumulador += "<span><em class='nomenHasta'>Hasta</em> ";
+    acumulador += "<span><em class='nomenHasta'>Hasta</em> "/* + getFechaSolo(activity.fechaFinOficial)*/;
     if (activity.horaFinOficial) {
         acumulador += " " + activity.horaFinOficial;
     }
@@ -998,6 +925,8 @@ function parsearActividad(data) {
 
 
     $("#botoneraDetalleActividad").html(htmlBotonera)
+    //console.log(data)
+    //console.log(data.numPatrocinadores)
     setCheckConnection()
 
     if (data.numPatrocinadores * 1 == 0) {
@@ -1005,7 +934,7 @@ function parsearActividad(data) {
     } else {
         document.getElementById("admir").style.display = ""
     }
-$("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
+
     acumulador = "";
     if (activity.nombreLugar) {
         acumulador = "<span>" + activity.nombreLugar + "</span>";
@@ -1045,30 +974,14 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
 
 
 
-    try {
-        $("#zonaParticipantesDetalleActi").html(acumulador);
-        if (data.galeria && data.galeria.length >= 1) {
-            parsearGaleriaImagenesActividad(data.galeria)
-            if (data.banners != null) {
-                var anchoAux = window.innerWidth;
-                var upAux = (anchoAux * 50 / 320);
-                document.getElementById('zonaGaleriaDetalleActi').style.marginBottom = (upAux) + "px ";
-            } else {
-                document.getElementById('zonaGaleriaDetalleActi').style.marginBottom = "0px ";
-            }
-        } else {
-            $("#zonaGaleriaDetalleActi").html("")
-        }
-    } catch (egal) {
-        $("#zonaGaleriaDetalleActi").html("")
-    }//error en el parseo de la galeria
 
-    /*var data=[{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"},{urlImagen:"http://localhost:8080/Kurbana/participantes/3.png"}]
-     parsearGaleriaImagenesActividad(data)*/
+    $("#zonaParticipantesDetalleActi").html(acumulador);
 
-    /*if (activity.entradilla)
+
+
+    if (activity.entradilla)
         acumulador = activity.entradilla;
-    $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");*/
+    $("#entradillaDetalleActividad").html("<div>" + acumulador + "</div>");
 
 
 
@@ -1087,7 +1000,7 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
     var acumulador = "";
     var numGusta = activity.numMeGusta;
 
-    
+    document.getElementById('tituloDetalleActividad').innerHTML = nombre;
 
     var nomEv = activity.nombreEvento;
     $(".detalleActiPrincipal .calendario .fecha .dia").html(fechaIni.getDate());
@@ -1132,10 +1045,10 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
 
     $(".cuerpoDetalleActividad").html(acumulador)
 
-
-    if (data.banners != null) {
-        parsearBannersActividad(data.banners)
-    }
+    
+        if (data.banners !=null){
+            parsearBannersActividad(data.banners)
+        }
 
     var eventos = data.eventos;
     var acumulaPatron = "";
@@ -1152,61 +1065,22 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
     acumulador = "";
     try {
         if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'iOS') { //plugin share
-            acumulador += "<p><a onclick='muestraPopShare();navigator.share(\"" + sessionShareLink + idAct + "\",\"Kurbana\",\"plain/text\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Compartir</a></p>";
+            acumulador += "<p><a onclick='muestraPopShare();navigator.share(\"http://193.242.188.196:8080/Takumba/index.html?actividad=" + idAct + "\",\"Kurbana\",\"plain/text\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Compartir</a></p>";
 
-        } else { //sin plugin share
-            acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://www.facebook.com/sharer/sharer.php?u=" + sessionShareLink + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Facebook </a></p>";
-            acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://twitter.com/share?url=" + sessionShareLink + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);' > Twitter </a></p>";
+        } else { //sin plugin sharehttp://193.242.188.196:8080/takumba/index.html
+            acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://www.facebook.com/sharer/sharer.php?u=http://193.242.188.196:8080/Takumba/index.html?actividad=" + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Facebook </a></p>";
+            acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://twitter.com/share?url=http://193.242.188.196:8080/Takumba/index.html?actividad=" + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);' > Twitter </a></p>";
 
         }
     } catch (e) { //web
-        acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://www.facebook.com/sharer/sharer.php?u=" + sessionShareLink + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Facebook </a></p>";
-        acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://twitter.com/share?url=" + sessionShareLink + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);' > Twitter </a></p>";
+        acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://www.facebook.com/sharer/sharer.php?u=http://193.242.188.196:8080/Takumba/?actividad=" + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);'>Facebook </a></p>";
+        acumulador += "<p><a onclick='muestraPopShare();window.open(\"https://twitter.com/share?url=http://193.242.188.196:8080/Takumba/index.html?actividad=" + idAct + "\",\"_system\");ga(\"send\", \"event\", \"button\", \"click\", \"Facebook\", 1);' > Twitter </a></p>";
 
     }
     acumulador += "<p><a onclick='muestraPopShare()'>Cancelar</a></p>"
     $("#popShare").html(acumulador);
     checkBotoneraCoachMark()
-
-
-
 }
-
-function parsearGaleriaImagenesActividad(data) {
-    var acumulador = "<ul>";
-    for (var i = 0; i < data.length; i++) {
-        var img = data[i].urlImagen;
-        acumulador += "<li style='background-image:url(\"" + img + "\")' onclick='muestraImagenGaleria(\"" + img + "\")'>"
-    }
-    acumulador += "</ul>"
-    $("#zonaGaleriaDetalleActi").html(acumulador)
-}
-
-/*muestra en grande la imagen seleccionada de la galeria*/
-function muestraImagenGaleria(url) {
-    setTimeout(function () {
-        setLoader('idBody')
-    }, 1)
-    var img = new Image();
-    img.onload = function () {
-        var razonImg = img.height / img.width;
-        var razonPantalla = $(window).height() / $(window).width();
-        var acumulador = "<div class='fondoGaleria' id='fondoGaleria'></div>"
-        $("body").append(acumulador);
-        $("#fondoGaleria").append(img)
-        if (razonImg >= razonPantalla) {
-            $("#fondoGaleria img").addClass('ajusteAlto')
-        } else {
-            $("#fondoGaleria img").addClass('ajusteAncho')
-        }
-        hideLoader()
-        $("#fondoGaleria").click(function () {
-            $(this).remove()
-        })
-    }
-    img.src = url + "?_=" + (new Date().getTime());
-}
-
 
 /*fucnion que parsea el menu lateral para sustituir su nomnclatura*/
 function parsearMenuLateral(data) {
@@ -1220,11 +1094,6 @@ function parsearMenuLateral(data) {
             var fav = data.tematicas;
             $(".tematicasMenu").html(fav);
             $(".nomenTemaFavoritos").html(fav);
-        } catch (ex) {
-        }
-        try {
-            var fav = data.inicio;
-            $(".inicioMenu").html(fav);
         } catch (ex) {
         }
         try {

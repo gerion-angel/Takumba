@@ -26,6 +26,39 @@ function resetFiltros() {
 }
 
 /*
+ * funcion que quita los filtros de la sesion en el back de actividades
+ */
+function resetFiltrosBack() {
+    sessionFiltroEvento = -1;
+    sessionFiltroLugar = -1;
+    if (sessionFiltroTematica2>-1){
+        sessionFiltroTematica2 = -1;        
+    }else{
+        sessionFiltroTematica = -1;
+    }
+    if (sessionFiltroParticipantes2>-1){
+        sessionFiltroParticipantes2 = -1;
+    } else {
+        sessionFiltroParticipantes = -1;
+    }
+    sessionFiltroFavoritos = -1;
+    sessionFiltroFecha = -1;
+    sessionFiltroEtiqueta = -1;
+    sessionUltFiltro = -1;
+    sessionSegundoFiltro = 0;
+
+    //cargaListadoTematicas()
+//    cargaListadoParticipantes()
+//    cargaListadoLugares()
+    //cargaMenusFiltrados()
+    $("a[href='#menuActividades']").removeClass("trOculto");
+    document.getElementById('bannerDelListado').innerHTML = "";
+    document.getElementById('bannerDeLaActividad').innerHTML = "";
+    document.getElementById('bannerDetalleEvento').innerHTML = "";
+    $(".zonaBannerEvento").html("");
+}
+
+/*
  * funcion Que carga un canvas loader en una zona de id dado
  */
 var cl;
@@ -47,7 +80,7 @@ function setLoader(id) {
     }
 }
 
-/*
+/*setl
  * 
  * funcion que oculta un canvas loader
  */
@@ -56,7 +89,6 @@ function hideLoader() {
         cl.kill();
         var obj = document.getElementById('canvasLoader');
         obj.parentNode.removeChild(obj);
-        $("#canvasLoader").remove();
     } catch (e) {
     }
 }
@@ -65,7 +97,7 @@ function hideLoader() {
  */
 function setTemaFavorito(id) {
     setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         var key = "tematica" + id;
         if (getData(key) != null && getData(key) != 'null') {
             deleteData(key);
@@ -90,7 +122,7 @@ function setActividadFavorito(id, elem) {
         //console.log(sessionActividadMostrada)
         //setLoaderTemporal()
         setLoader('idBody');
-        setTimeout(function () {
+        setTimeout(function() {
             var key = "actividad" + id;
             if (getData(key) != null && getData(key) != 'null') {
                 deleteData(key);
@@ -101,7 +133,7 @@ function setActividadFavorito(id, elem) {
                     elem.innerHTML = "<img class='icoMarcable' src='images/estrellaNoMarca.png'/>"
                 }
                 borraActividadFavorita(id);
-                setTimeout(function () {
+                setTimeout(function() {
                     cargaListadoActividadesFavoritas()
                 }, 1000)
             } else {
@@ -117,7 +149,7 @@ function setActividadFavorito(id, elem) {
             cargaListadoActividades()
             hideLoader()
         }, 1);
-    } else {
+    }else{
         launchPop();
     }
 }
@@ -128,7 +160,7 @@ function setActividadFavorito(id, elem) {
 function mostrarTematicasFavoritos(elem) {
     //setLoaderTemporal()
     setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         if (sessionTematicasFavoritas) {
             sessionTematicasFavoritas = false;
             elem.src = "images/estrellaNoMarca.png"
@@ -147,7 +179,7 @@ function mostrarTematicasFavoritos(elem) {
  */
 function mostrarActividadesFavoritos() {
     setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         if (sessionActividadesFavoritas) {
             sessionActividadesFavoritas = false;
         } else {
@@ -168,7 +200,7 @@ function mostrarActividadesFavoritos() {
  */
 function mostrarTematicasTodas() {
     setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         sessionTematicasFavoritas = false;
         document.getElementById("btnFavTematicas").src = "images/estrellaNoMarca.png"
         //cargaListadoTematicas();
@@ -182,7 +214,7 @@ function mostrarTematicasTodas() {
 function mostrarActividadesTodas() {
     if (sessionSetLoader == true)
         setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         sessionActividadesFavoritas = false;
         cargaListadoActividades();
         hideLoader()
@@ -190,19 +222,18 @@ function mostrarActividadesTodas() {
 }
 
 /*para evitar problemas de que esté marcado el boton todas uy solo salvan las favoritas*/
-$(document).on("pagebeforeshow", "#tematicas", function () {
+$(document).on("pagebeforeshow", "#tematicas", function() {
     if (sessionSegundoFiltro < 1)
         mostrarTematicasTodas();
-
 });
 
-$(document).on("pagebeforeshow", "#indice", function () {
+$(document).on("pagebeforeshow", "#indice", function() {
     resetFiltros();
-    //cargaMenusFiltrados();
+    cargaMenusFiltrados();
 });
 
 /*para eleiminar los filtros si se vuelve a la pagina principal*/
-$(document).on("pagebeforeshow", "#indice", function () {
+$(document).on("pagebeforeshow", "#indice", function() {
     sessionFiltroEvento = -1;
     sessionFiltroLugar = -1;
     sessionFiltroTematica = -1;
@@ -236,7 +267,7 @@ function comprobarTematicaCambiada(data) {
 }
 
 /*para evitar problemas de que esté marcado el boton todas uy solo salvan las favoritas*/
-$(document).on("pagebeforeshow", "#favoritas", function () {
+$(document).on("pagebeforeshow", "#favoritas", function() {
     mostrarListadoTematicasFavoritas();
 });
 
@@ -251,43 +282,43 @@ function comprobarTematicaCambiada(data) {
 }
 
 /*para poner el loader*/
-$(document).on("pagebeforeshow", function () {
+$(document).on("pagebeforeshow", function() {
     //checkConnection()
     if (sessionSetLoader == true)
         setLoader('idBody');
 });
 /*para quitar el loader*/
-$(document).on("pageshow", function () {
-    setTimeout(function(){hideLoader()},1000);
+$(document).on("pageshow", function() {
+    hideLoader();
 });
 
-$(document).on("pagecreate", "#indice", function () {
-    $(document).on("swipeleft", "#indice", function (e) {
+$(document).on("pagecreate", "#indice", function() {
+    $(document).on("swipeleft", "#indice", function(e) {
         if (!$("#menuPrincipal").hasClass('ui-page-active')) {
             $("#menuPrincipal").panel("open");
         }
     });
 });
-$(document).on("pagecreate", "#indice", function () {
-    $(document).on("swiperight", "#indice", function (e) {
+$(document).on("pagecreate", "#indice", function() {
+    $(document).on("swiperight", "#indice", function(e) {
         if ($("#menuPrincipal").hasClass('ui-page-active')) {
             $("#menuPrincipal").panel("close");
         }
     });
 });
 
-$(document).on("pageshow", "#actividades", function () {
-    setTimeout(function () {
+$(document).on("pageshow", "#actividades", function() {
+    setTimeout(function() {
         $("#tituloListadoActividades").click();//arregla una descolocacion haciendo un click en un punto de la pantalla
     }, 1000);
-    $(document).on("swipeleft", "#actividades", function (e) {
+    $(document).on("swipeleft", "#actividades", function(e) {
         if (!$("#menuActividades").hasClass('ui-page-active')) {
             $("#menuActividades").panel("open");
         }
     });
 });
-$(document).on("pagecreate", "#actividades", function () {
-    $(document).on("swiperight", "#actividades", function (e) {
+$(document).on("pagecreate", "#actividades", function() {
+    $(document).on("swiperight", "#actividades", function(e) {
         if ($("#menuActividades").hasClass('ui-page-active')) {
             $("#menuActividades").panel("close");
         }
@@ -298,7 +329,7 @@ $(document).on("pagecreate", "#actividades", function () {
 /*funcion para marcar un megusta*/
 function siMeGusta(id, elem) {//setLoaderTemporal()
     setLoader('idBody');
-    setTimeout(function () {
+    setTimeout(function() {
         if (primerFalloConexion == true) {
             var key = "gusta" + id;
             if (getData(key) != null && getData(key) != 'null') {
@@ -342,12 +373,13 @@ function ocultaZonasDetalleListadoActividades() {
 }
 
 
-$(document).on("pagebeforeshow", "#actividades", function () {
+$(document).on("pagebeforeshow", "#actividades", function() {
     cargaDiasConActividad();
 });
 
-$("#backListadoActividades").click(function () {
-    $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function (data) {
+$("#backListadoActividades").click(function() {
+    resetFiltrosBack();
+    $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function(data) {
         parsearListadoTematicas(data);
         //console.info(data)
     });
@@ -356,7 +388,7 @@ $("#backListadoActividades").click(function () {
 /*
  * funciones que repliegan las descripciones de filtro
  */
-$(document).on("pagebeforeshow", "#actividades", function () {
+$(document).on("pagebeforeshow", "#actividades", function() {
     sessionNumCargas++;//para el control de los backs para la recarga de los menus
     if (sessionSegundoFiltro < 1) {
         cargaMenusFiltrados();
@@ -365,7 +397,7 @@ $(document).on("pagebeforeshow", "#actividades", function () {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
     if (!primeraCarga) {
         primeraCarga = true;
-        $("#actividades div[data-role='header'] a:first-child").click(function () {
+        $("#actividades div[data-role='header'] a:first-child").click(function() {
             /*if(sessionNumCargas==1 || sessionNumCargas==0 ){
              resetFiltros();  
              sessionNumCargas=0;
@@ -399,15 +431,11 @@ $(document).on("pagebeforeshow", "#actividades", function () {
                 case 8:
                     break;
             }
-            setTimeout(function () {
+            setTimeout(function() {
                 setTituloListado(tituloAnterior);
                 cargaListadoActividades();
                 if (sessionFiltroParticipantes > 0) {
                     cargaDetalleParticipante()
-                }
-                if (sessionFiltroLugar > 0) {
-
-                    cargaDetalleLugar()
                 }
                 if (sessionFiltroEvento > -1) {
                     document.getElementById("zonaDetalleEvento").style.display = ""
@@ -418,16 +446,12 @@ $(document).on("pagebeforeshow", "#actividades", function () {
         })
     }
 });
-$(document).on("pagebeforeshow", "#paginaDetalleEvento", function () {
+$(document).on("pagebeforeshow", "#paginaDetalleEvento", function() {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
 });
-$(document).on("pagebeforeshow", "#paginaDetalleParticipante", function () {
+$(document).on("pagebeforeshow", "#paginaDetalleParticipante", function() {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
 });
-$(document).on("pagebeforeshow", "#paginaDetalleEvento", function () {
-    $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
-});
-
 
 
 
@@ -436,7 +460,7 @@ $(document).on("pagebeforeshow", "#paginaDetalleEvento", function () {
 /*
  * funcion q para redirigir cuando llega una url de compartir
  */
-$(document).on("pagebeforeshow", "#detalleActividad", function () {
+$(document).on("pagebeforeshow", "#detalleActividad", function() {
     document.getElementById('popShare').style.display = 'none'
     document.getElementById('popMas').style.display = 'none'
     document.getElementById('popPatrocinadores').style.display = 'none'
@@ -457,7 +481,7 @@ $(document).on("pagebeforeshow", "#detalleActividad", function () {
 /*
  * funcion q para redirigir cuando llega una url de compartir
  */
-$(document).on("pageshow", "#detalleActividad", function () {
+$(document).on("pageshow", "#detalleActividad", function() {
 
     try {
         if ($('.calendario .fecha .dia').html() == "") {
@@ -466,7 +490,7 @@ $(document).on("pageshow", "#detalleActividad", function () {
     }
 });
 
-$(document).on("pageshow", "#favoritas", function () {
+$(document).on("pageshow", "#favoritas", function() {
     if (sessionTabFavorito == '2') {
         $("#navBarAct").click();
         $("#navBarTem").removeClass("ui-btn-active");
@@ -621,8 +645,6 @@ function muestraPopPatrocinadores() {
                 document.getElementById('popPatrocinadores').style.display = 'block'
             }
         }
-    } else {
-        $("#menuActividades .PatrocinadoresMenu").click()
     }
 }
 
@@ -642,7 +664,7 @@ function muestraPatrones(cont) {
 /*
  * captura de eventos click en a, para que se abran en navegador
  */
-$(document).on('click', 'a[target="_blank"]', function (ev) {
+$(document).on('click', 'a[target="_blank"]', function(ev) {
     var url;
     url = $(this).attr('href');
     //console.log(url);
@@ -686,14 +708,3 @@ function pliegaDespliegaInfo() {
     }
 }
 
-function goIndice() {
-    resetFiltros();    
-        cargaListadoEventos('listadoEventosIndice');
-        cargaListadoParticipantes();
-        cargaListadoLugares();
-        cargaPosProyecto();
-        cargaListadoEtiquetas();
-    if ($(".ui-pre-last-child").css('display') != 'none') {
-        $.mobile.changePage('#indice')
-    }
-}
