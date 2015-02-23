@@ -340,8 +340,8 @@
                         </table>
                     </div>                    
                 </div>
-                <div id="entradillaDetalleActividad"></div>
-                <div id="zonaPlegadaInfoActiviad"></div>
+                <div id="entradillaDetalleActividad" onclick="pliegaDespliegaInfo()"></div>
+                <div id="zonaPlegadaInfoActiviad" onclick="pliegaDespliegaInfo()"></div>
                 <div id="btnLeerMas" onclick="pliegaDespliegaInfo()">Leer más</div>
                 <div id="botoneraDetalleActividad"></div>                
                 <div id="zonaRecintoDetalleAct"></div>
@@ -641,6 +641,18 @@
 
         </script>
         <script>
+            if (sessionFiltroEvento == -1 &&
+                        sessionFiltroLugar == -1 &&
+                        sessionFiltroTematica == -1 &&
+                        sessionFiltroTematica2 == -1 &&
+                        sessionFiltroParticipantes == -1 &&
+                        sessionFiltroParticipantes2 == -1 &&
+                        sessionFiltroFavoritos == -1 &&
+                        sessionFiltroFecha == -1 &&
+                        sessionFiltroEtiqueta == -1 &&
+                        sessionUltFiltro == -1){
+                        document.location.href ="#indice"
+                        }
             document.addEventListener('deviceready', function () {
                 try {
                     try{
