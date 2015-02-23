@@ -154,7 +154,15 @@ em{
     background-image:url('../images/mascara.png');
     background-size: 100% 200px;
 }
-.listadoPropio li:hover, .fichaActividad:hover, #listadoParticipantes li:hover, .ui-header .ui-btn-icon-notext:hover{
+.listadoPropio li:hover,
+.fichaActividad:hover,
+#listadoParticipantes li:hover,
+.ui-header .ui-btn-icon-notext:hover,
+#zonaDetalleEvento:hover,
+#zonaDetalleParticipante:hover,
+#zonaDetalleLugar:hover,
+.icoMarcable:hover,
+.listadoGridParticipantes div:hover{
     opacity: 0.5;
 }
 
@@ -441,7 +449,7 @@ div#detalleActBolaRoja {
     height: 030px !important;
 }
 .icoMarcable{margin-left: 15px;
-}
+transition: opacity 0.2s;}
 .icoMarcablePeque{
     cursor: pointer;
 }
@@ -565,7 +573,9 @@ li:last-child .fichaActividad:after{
 #listadoActividades a:hover, #listadoTematicas a:hover, #popShare p a:hover, #popPatrocinadores a:hover, #popMas a:hover, #listadoTematicasFavoritas a:hover{
     color:#a6a6a6 !important;
     text-decoration: none;
-    text-shadow: none;}  /* mouse over link */
+    text-shadow: none;
+    cursor: pointer;
+}  /* mouse over link */
 #listadoActividades a:active, #listadoTematicas a:active, #popShare p a:active, #popPatrocinadores a:active, #popMas a:active, #listadoTematicasFavoritas a:active {
     color:#a6a6a6 !important;
     text-decoration: none;
@@ -617,6 +627,7 @@ li:last-child .fichaActividad:after{
     background-repeat: no-repeat;
     background-size: 100%;
     height: 200px;
+    transition: opacity 0.2s;
 }
 
 .detalleFiltro div{
@@ -820,6 +831,7 @@ li:last-child .fichaActividad:after{
     background-size: auto 140%;
     background-repeat: no-repeat;
     background-position: center;
+    transition: opacity 0.2s;
 }
 .celdaImgGrande div{
     width: 60px;
