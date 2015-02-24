@@ -43,14 +43,16 @@ function cargaListadoEventos(id) {
             success: function (data) {
                 parsearListadoEventos(data, id);
 
-                insertEventos(data);
+                //insertEventos(data);
 
             },
             error: function (data) {
+                primerFalloConexion = false;
+                launchPop()
             }
         });
     } else {
-        var data = selectListadoEventos();
+        //var data = selectListadoEventos();
 
     }
     setCheckConnection();
@@ -81,10 +83,10 @@ function cargaListadoEtiquetas() {
         });
         $.getJSON(sessionPath + "etiqueta/evento?evento=" + sessionFiltroEvento, null, function (data) {
             parsearListadoEtiquetas(data);
-            insertEtiquetas(data);
+            //insertEtiquetas(data);
         });
     } else {
-        var data = selectListadoEtiquetas();
+        //var data = selectListadoEtiquetas();
     }
     setCheckConnection()
 }
@@ -102,7 +104,7 @@ function cargaListadoParticipantes() {
         });
         $.getJSON(sessionPath + "participante/proyecto?id=" + sessionProyecto, null, function (data) {
             parsearListadoParticipantes(data);
-            insertParticipantes(data);
+            //insertParticipantes(data);
         });
     }
     setCheckConnection()
