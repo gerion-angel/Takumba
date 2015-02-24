@@ -87,6 +87,7 @@ function setLoader(id) {
 function hideLoader() {
     try {
         cl.kill();
+        $("#canvasLoader").remove()
         var obj = document.getElementById('canvasLoader');
         obj.parentNode.removeChild(obj);
     } catch (e) {

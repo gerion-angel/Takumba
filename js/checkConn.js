@@ -25,7 +25,7 @@ $("#conectionPopUp").bind({
 });
 
 function checkConnection(ev) {
-    /*try {
+    try {
         var e = navigator.connection.type;
         console.log(e + "Tipo de conexion")
         var t = {};
@@ -78,5 +78,5 @@ function checkConnection(ev) {
         }
     } catch (err) {
         console.error(err)
-    }*/
+    }
 }
