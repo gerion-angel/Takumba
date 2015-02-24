@@ -5,6 +5,7 @@
     Description:
         estilos generales
 */
+@charset "utf-8";
 @font-face {
     font-family: "Segoe UI Light";
     src: url("fonts/SEGOEUIL.ttf") format("truetype");
@@ -204,7 +205,7 @@ em{
     margin-left: 6px;
     width:300px;
     font-weight: normal;
-    font-family: Segoe UI SemiLight, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Roboto;
+    font-family: Segoe UI Light, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Roboto;
 }
 
 .listadoPropio li div span p:first-child{
@@ -1492,7 +1493,7 @@ div[data-role='header'] a{
     margin-left: 150px;
 }
 .dwbg .dwv:before{
-    content: "Tiempo de antelación";
+    content: "Tiempo de antelaciÃ³n";
     position: relative;
     right: 96%;
     display: block;
