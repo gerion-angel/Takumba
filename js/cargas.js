@@ -41,7 +41,7 @@ function cargaListadoEventos(id) {
 
             },
             success: function (data) {
-                console.info("success")
+                console.log("success")
                 parsearListadoEventos(data, id);
 
                 //insertEventos(data);
