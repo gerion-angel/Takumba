@@ -29,14 +29,16 @@ function resetFiltros() {
  * funcion que quita los filtros de la sesion en el back de actividades
  */
 function resetFiltrosBack() {
-    sessionFiltroEvento = -1;
+    /*sessionFiltroEvento = -1;
     sessionFiltroLugar = -1;
     if (sessionFiltroTematica2>-1){
         sessionFiltroTematica2 = -1;        
     }else{
         sessionFiltroTematica = -1;
     }
-    if (sessionFiltroParticipantes2>-1){
+    if(sessionFiltroParticipantes2==-1 && sessionFiltroParticipantes >-1){
+        sessionFiltroParticipantes = -1;
+    }else if (sessionFiltroParticipantes2>-1){
         sessionFiltroParticipantes2 = -1;
     } else {
         sessionFiltroParticipantes = -1;
@@ -45,7 +47,7 @@ function resetFiltrosBack() {
     sessionFiltroFecha = -1;
     sessionFiltroEtiqueta = -1;
     sessionUltFiltro = -1;
-    sessionSegundoFiltro = 0;
+    sessionSegundoFiltro = 0;*/
 
     //cargaListadoTematicas()
 //    cargaListadoParticipantes()
@@ -227,6 +229,16 @@ $(document).on("pagebeforeshow", "#tematicas", function() {
     if (sessionSegundoFiltro < 1)
         mostrarTematicasTodas();
 });
+$(document).on("pagebeforeshow", "#participantes", function() {
+    if(sessionFiltroParticipantes2==-1 && sessionFiltroParticipantes >-1){
+        sessionFiltroParticipantes = -1;
+    }else if (sessionFiltroParticipantes2>-1){
+        sessionFiltroParticipantes2 = -1;
+    } else {
+        sessionFiltroParticipantes = -1;
+    }
+    cargaMenusFiltrados()
+});
 
 $(document).on("pagebeforeshow", "#indice", function() {
     resetFiltros();
@@ -379,7 +391,6 @@ $(document).on("pagebeforeshow", "#actividades", function() {
 });
 
 $("#backListadoActividades").click(function() {
-    resetFiltrosBack();
     $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function(data) {
         parsearListadoTematicas(data);
         //console.info(data)

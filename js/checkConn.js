@@ -27,7 +27,7 @@ $("#conectionPopUp").bind({
 function checkConnection(ev) {
     try {
         var e = navigator.connection.type;
-        console.log(e + "Tipo de conexion")
+        //console.log(e + "Tipo de conexion")
         var t = {};
         t[Connection.UNKNOWN] = false;
         t["cellular"] = true; //para ios...
