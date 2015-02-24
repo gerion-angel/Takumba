@@ -42,6 +42,15 @@ em{
 
 #canvasLoader{
     display: block;
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    justify-content: center;
+
     background-color: #f8f8f8;
     z-index: 9999999999999;
     position: fixed;
@@ -51,16 +60,18 @@ em{
 }
 
 #canvasLoader canvas:nth-of-type(1) {
-    left: -31px;
+    /* left: -31px; */
     margin-left: 50%;
     margin-top: 80%;
+    margin: auto;
     position: relative;
-    top: -31px;
+    /* top: -31px; */
     z-index: 3500;
     background-color: rgba(0,0,0,0.2);
     opacity: 0.9;
     padding: 6px;
     border-radius: 31px;
+    height: 50px;
 }
 
 #filtroCalendario div.ui-datepicker-inline{
@@ -203,6 +214,7 @@ em{
     line-height: 1.3em;
     margin-bottom: 3px;
 }
+
 .listadoPropio li div span p:nth-child(2){
     font-size: 11.25pt;
 }
@@ -548,6 +560,7 @@ div#detalleActBolaRoja {
     color:#a6a6a6;
     top: -3px;
     position: relative;
+max-width: 190px;
 }
 li:last-child .fichaActividad:after{
     display: none;
@@ -1479,9 +1492,9 @@ div[data-role='header'] a{
     margin-left: 150px;
 }
 .dwbg .dwv:before{
-    content: "Tiempo de antelaciÃ³n";
+    content: "Tiempo de antelación";
     position: relative;
-    right: 161px;
+    right: 96%;
     display: block;
     top: 17px;
 }
