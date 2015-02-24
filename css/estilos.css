@@ -126,7 +126,7 @@ em{
 .listadoPropio li{
     overflow-y: hidden;
     height: 200px;
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
     /* width: 400px; */
 }
 
@@ -365,7 +365,7 @@ div#detalleActBolaRoja {
     padding: 0px;
     margin: 0px;
     overflow-y: hidden;    
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
 }
 
 #listadoParticipantes li:last-child{
@@ -429,7 +429,7 @@ div#detalleActBolaRoja {
     border: 1px solid #C8C8C8;
     border-radius: 3px;
     box-shadow: #CFCFCF 1px 1px 1px;
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
 }
 
 .fondoDegradadoActividades{
@@ -456,7 +456,7 @@ div#detalleActBolaRoja {
     height: 030px !important;
 }
 .icoMarcable{margin-left: 15px;
-transition: opacity 0.2s;}
+/*transition: opacity 0.2s;*/}
 .icoMarcablePeque{
     cursor: pointer;
 }
@@ -546,6 +546,8 @@ transition: opacity 0.2s;}
 .fichaActividad div .spanListaActi:last-child {
     font-size: 9.38pt;
     color:#a6a6a6;
+    top: -3px;
+    position: relative;
 }
 li:last-child .fichaActividad:after{
     display: none;
@@ -634,7 +636,7 @@ li:last-child .fichaActividad:after{
     background-repeat: no-repeat;
     background-size: 100%;
     height: 200px;
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
 }
 
 .detalleFiltro div{
@@ -838,7 +840,7 @@ li:last-child .fichaActividad:after{
     background-size: auto 140%;
     background-repeat: no-repeat;
     background-position: center;
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
 }
 .celdaImgGrande div{
     width: 60px;
@@ -850,8 +852,9 @@ li:last-child .fichaActividad:after{
     background-size: auto 100%;
     background-repeat: no-repeat;
     position: relative;
-    top: -3px;
-    left: -3px;
+    top: -4px;
+    left: -4px;
+    border-top-left-radius: 3px;
 }
 .masAncha{
     background-size: auto 100%;
@@ -1308,12 +1311,12 @@ a:active {
 #menuPrincipal .ui-listview>li>a.ui-btn, #menuActividades .ui-listview>li>a.ui-btn{
     background-color: #f8f8f8 !important;
     color: #a7a7a7 !important;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 18pt;
     font-weight: lighter !important;    
     z-index: 99999999;
-    transition: background-color 0.1s;
+    /* transition: background-color 0.1s; */
 }
 #menuPrincipal .ui-listview>li>a.ui-btn:hover, #menuActividades .ui-listview>li>a.ui-btn:hover{
     background-color: #CFCFCF !important;
@@ -1448,7 +1451,7 @@ html .ui-body-b .ui-btn:hover {
 .ui-header .ui-btn-icon-notext{
     height:40px;
     width:40px;    
-    transition: opacity 0.2s;
+    /*transition: opacity 0.2s;*/
 }
 .ui-header .ui-btn-icon-notext:after{
     width: 40px;
