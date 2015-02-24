@@ -25,7 +25,7 @@ $("#conectionPopUp").bind({
 });
 
 function checkConnection(ev) {
-    try {
+    /*try {
         var e = navigator.connection.type;
         console.log(e + "Tipo de conexion")
         var t = {};
@@ -38,9 +38,6 @@ function checkConnection(ev) {
         t[Connection.CELL_4G] = true;
         t[Connection.NONE] = false;
         if (!t[e]) {
-            //if (primerFalloConexion) {
-            //launchPop()
-            //alert("No hay una conexión de datos disponible");
             primerFalloConexion = false;
             //}
             try {
@@ -69,7 +66,6 @@ function checkConnection(ev) {
             }
             if (!ev)
                 var ev = window.event;
-            /*IMPORTANTE: detiene la propagacion*/
 //            ev.cancelBubble = true;
 //            if (ev.preventDefault) {
 //                ev.preventDefault();
@@ -82,5 +78,5 @@ function checkConnection(ev) {
         }
     } catch (err) {
         console.error(err)
-    }
+    }*/
 }
