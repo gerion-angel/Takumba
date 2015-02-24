@@ -1495,7 +1495,7 @@ div[data-role='header'] a{
 .dwbg .dwv:before{
     content: "Tiempo de antelación";
     position: relative;
-    right: 96%;
+    right: 161px;
     display: block;
     top: 17px;
 }
