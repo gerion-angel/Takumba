@@ -606,6 +606,7 @@
                 } catch (e) {
                 }
                 try {
+                    console.log("va a cargar los eventos")
                     cargaListadoEventos('listadoEventosIndice');
                     //cargaListadoTematicas();
                     cargaListadoParticipantes();
@@ -613,6 +614,7 @@
                     cargaPosProyecto();
                     cargaListadoEtiquetas();
                 } catch (e) {
+                    console.error(e)
                 }
                 try {
                     // $('#botonLanzaPopUp').click();
