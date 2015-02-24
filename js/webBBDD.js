@@ -560,7 +560,7 @@ function selectListadoEventos() {
 
                 }
                 parsearListadoEventos(data, 'listadoEventosIndice');
-                console.info("---------")
+                console.info("---------Ev")
                 console.info(data)
             });
         });
