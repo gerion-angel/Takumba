@@ -19,7 +19,7 @@ html{
 }
 
 .ui-mobile .ui-page-active{
-    background-color: white !important;
+    background-color: #f8f8f8;
 }
 
 *{
