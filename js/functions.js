@@ -29,16 +29,14 @@ function resetFiltros() {
  * funcion que quita los filtros de la sesion en el back de actividades
  */
 function resetFiltrosBack() {
-    /*sessionFiltroEvento = -1;
+    sessionFiltroEvento = -1;
     sessionFiltroLugar = -1;
     if (sessionFiltroTematica2>-1){
         sessionFiltroTematica2 = -1;        
     }else{
         sessionFiltroTematica = -1;
     }
-    if(sessionFiltroParticipantes2==-1 && sessionFiltroParticipantes >-1){
-        sessionFiltroParticipantes = -1;
-    }else if (sessionFiltroParticipantes2>-1){
+    if (sessionFiltroParticipantes2>-1){
         sessionFiltroParticipantes2 = -1;
     } else {
         sessionFiltroParticipantes = -1;
@@ -47,7 +45,7 @@ function resetFiltrosBack() {
     sessionFiltroFecha = -1;
     sessionFiltroEtiqueta = -1;
     sessionUltFiltro = -1;
-    sessionSegundoFiltro = 0;*/
+    sessionSegundoFiltro = 0;
 
     //cargaListadoTematicas()
 //    cargaListadoParticipantes()
@@ -82,7 +80,7 @@ function setLoader(id) {
     }
 }
 
-/*setl
+/*
  * 
  * funcion que oculta un canvas loader
  */
@@ -100,7 +98,7 @@ function hideLoader() {
  */
 function setTemaFavorito(id) {
     setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         var key = "tematica" + id;
         if (getData(key) != null && getData(key) != 'null') {
             deleteData(key);
@@ -125,7 +123,7 @@ function setActividadFavorito(id, elem) {
         //console.log(sessionActividadMostrada)
         //setLoaderTemporal()
         setLoader('idBody');
-        setTimeout(function() {
+        setTimeout(function () {
             var key = "actividad" + id;
             if (getData(key) != null && getData(key) != 'null') {
                 deleteData(key);
@@ -136,7 +134,7 @@ function setActividadFavorito(id, elem) {
                     elem.innerHTML = "<img class='icoMarcable' src='images/estrellaNoMarca.png'/>"
                 }
                 borraActividadFavorita(id);
-                setTimeout(function() {
+                setTimeout(function () {
                     cargaListadoActividadesFavoritas()
                 }, 1000)
             } else {
@@ -152,7 +150,7 @@ function setActividadFavorito(id, elem) {
             cargaListadoActividades()
             hideLoader()
         }, 1);
-    }else{
+    } else {
         launchPop();
     }
 }
@@ -163,7 +161,7 @@ function setActividadFavorito(id, elem) {
 function mostrarTematicasFavoritos(elem) {
     //setLoaderTemporal()
     setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         if (sessionTematicasFavoritas) {
             sessionTematicasFavoritas = false;
             elem.src = "images/estrellaNoMarca.png"
@@ -182,7 +180,7 @@ function mostrarTematicasFavoritos(elem) {
  */
 function mostrarActividadesFavoritos() {
     setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         if (sessionActividadesFavoritas) {
             sessionActividadesFavoritas = false;
         } else {
@@ -203,7 +201,7 @@ function mostrarActividadesFavoritos() {
  */
 function mostrarTematicasTodas() {
     setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         sessionTematicasFavoritas = false;
         document.getElementById("btnFavTematicas").src = "images/estrellaNoMarca.png"
         //cargaListadoTematicas();
@@ -217,7 +215,7 @@ function mostrarTematicasTodas() {
 function mostrarActividadesTodas() {
     if (sessionSetLoader == true)
         setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         sessionActividadesFavoritas = false;
         cargaListadoActividades();
         hideLoader()
@@ -240,13 +238,13 @@ $(document).on("pagebeforeshow", "#participantes", function() {
     cargaMenusFiltrados()
 });
 
-$(document).on("pagebeforeshow", "#indice", function() {
+$(document).on("pagebeforeshow", "#indice", function () {
     resetFiltros();
-    cargaMenusFiltrados();
+    //cargaMenusFiltrados();
 });
 
 /*para eleiminar los filtros si se vuelve a la pagina principal*/
-$(document).on("pagebeforeshow", "#indice", function() {
+$(document).on("pagebeforeshow", "#indice", function () {
     sessionFiltroEvento = -1;
     sessionFiltroLugar = -1;
     sessionFiltroTematica = -1;
@@ -280,7 +278,7 @@ function comprobarTematicaCambiada(data) {
 }
 
 /*para evitar problemas de que esté marcado el boton todas uy solo salvan las favoritas*/
-$(document).on("pagebeforeshow", "#favoritas", function() {
+$(document).on("pagebeforeshow", "#favoritas", function () {
     mostrarListadoTematicasFavoritas();
 });
 
@@ -301,8 +299,8 @@ $(document).on("pagebeforeshow", function() {
         setLoader('idBody');
 });
 /*para quitar el loader*/
-$(document).on("pageshow", function() {
-    hideLoader();
+$(document).on("pageshow", function () {
+    setTimeout(function(){hideLoader()},1000);
 });
 
 $(document).on("pagecreate", "#indice", function() {
@@ -391,6 +389,7 @@ $(document).on("pagebeforeshow", "#actividades", function() {
 });
 
 $("#backListadoActividades").click(function() {
+    resetFiltrosBack();
     $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function(data) {
         parsearListadoTematicas(data);
         //console.info(data)
@@ -449,6 +448,10 @@ $(document).on("pagebeforeshow", "#actividades", function() {
                 if (sessionFiltroParticipantes > 0) {
                     cargaDetalleParticipante()
                 }
+                if (sessionFiltroLugar > 0) {
+
+                    cargaDetalleLugar()
+                }
                 if (sessionFiltroEvento > -1) {
                     document.getElementById("zonaDetalleEvento").style.display = ""
                     document.getElementById("zonaDetalleParticipante").style.display = "none"
@@ -458,7 +461,10 @@ $(document).on("pagebeforeshow", "#actividades", function() {
         })
     }
 });
-$(document).on("pagebeforeshow", "#paginaDetalleEvento", function() {
+$(document).on("pagebeforeshow", "#paginaDetalleEvento", function () {
+    $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
+});
+$(document).on("pagebeforeshow", "#paginaDetalleParticipante", function () {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
 });
 $(document).on("pagebeforeshow", "#paginaDetalleParticipante", function() {
@@ -657,6 +663,8 @@ function muestraPopPatrocinadores() {
                 document.getElementById('popPatrocinadores').style.display = 'block'
             }
         }
+    } else {
+        $("#menuActividades .PatrocinadoresMenu").click()
     }
 }
 
@@ -676,7 +684,7 @@ function muestraPatrones(cont) {
 /*
  * captura de eventos click en a, para que se abran en navegador
  */
-$(document).on('click', 'a[target="_blank"]', function(ev) {
+$(document).on('click', 'a[target="_blank"]', function (ev) {
     var url;
     url = $(this).attr('href');
     //console.log(url);
@@ -720,3 +728,14 @@ function pliegaDespliegaInfo() {
     }
 }
 
+function goIndice() {
+    resetFiltros();    
+        cargaListadoEventos('listadoEventosIndice');
+        cargaListadoParticipantes();
+        cargaListadoLugares();
+        cargaPosProyecto();
+        cargaListadoEtiquetas();
+    if ($(".ui-pre-last-child").css('display') != 'none') {
+        $.mobile.changePage('#indice')
+    }
+}

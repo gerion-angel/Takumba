@@ -18,14 +18,17 @@ $(document).on("pagebeforeshow", "#ahoraCerca", function() {
         } catch (ex) {
         }
     } else {
-        if (sessionFiltroEvento > -1) {
-            sessionLatUser = sessionLatEvento;
-            sessionLongUser = sessionLongEvento;
-        } else {
-            sessionLatUser = sessionLatProyecto;
-            sessionLongUser = sessionLongProyecto;
-        }
-        cargaCercaYLugar(1);
+        $("#gpsPopUp").popup();
+        document.getElementById("gpsPopUp").style.display = "";
+        $("#gpsPopUp").popup("open");
+        /*if (sessionFiltroEvento > -1) {
+         sessionLatUser = sessionLatEvento;
+         sessionLongUser = sessionLongEvento;
+         } else {
+         sessionLatUser = sessionLatProyecto;
+         sessionLongUser = sessionLongProyecto;
+         }
+         cargaCercaYLugar(1);*/
     }
 });
 
@@ -38,7 +41,10 @@ function success(pos) {
     cargaCercaYLugar(1);
 }
 function fail(error) {
-    var defaultLatLng = new google.maps.LatLng(sessionLatProyecto, sessionLongProyecto);  // Default es el proyect location
+    $("#gpsPopUp").popup();
+        document.getElementById("gpsPopUp").style.display = "";
+        $("#gpsPopUp").popup("open");
+    /*var defaultLatLng = new google.maps.LatLng(sessionLatProyecto, sessionLongProyecto);  // Default es el proyect location
     if (sessionFiltroEvento > -1) {
         sessionLatUser = sessionLatEvento;
         sessionLongUser = sessionLongEvento;
@@ -46,7 +52,7 @@ function fail(error) {
         sessionLatUser = sessionLatProyecto;
         sessionLongUser = sessionLongProyecto;
     }
-    cargaCercaYLugar(1);
+    cargaCercaYLugar(1);*/
 }
 
 /*funcion que dibuja el mapa centrado en la posicion dada*/
@@ -224,26 +230,26 @@ function cargaVerLugar(lat, long, nombre) {
 function bloqueaLogoG() {
     //console.log("bloqueaLogoG")
     try {
-        $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").click(function(evt) {
-           // console.info('bloqueado')
+        $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").click(function (evt) {
+            // console.info('bloqueado')
             evt.preventDefault();
             return false;
         });
     } catch (e) {
     }/*en movil, la url del logo termina en hdpi o transparent*/
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").click(function(evt) {
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").click(function (evt) {
 
         //console.info('bloqueado')
         evt.preventDefault();
         return false;
     });
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").on('touchstart', function() {
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png'], a[href*='google']").on('touchstart', function () {
         //console.info('bloqueado')
         evt.preventDefault();
         return false;
     });
-    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").on('touchstart', function() {
-       // console.info('bloqueado')
+    $("img[src='http://maps.gstatic.com/mapfiles/api-3/images/google_white2_hdpi.png'], a[href*='google']").on('touchstart', function () {
+        // console.info('bloqueado')
         evt.preventDefault();
         return false;
     });
