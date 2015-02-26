@@ -1465,7 +1465,7 @@ function selectListadoEventos() {
                     })
 
                 }
-                
+                $("#splashDiv").remove()
                 parsearListadoEventos(data, 'listadoEventosIndice');
             });
         });
