@@ -65,7 +65,7 @@ function cargaListadoEventos(id) {
             }
         });
     } else {
-        //selectListadoEventos();
+        selectListadoEventos();
 
     }
     setCheckConnection();
