@@ -1465,6 +1465,7 @@ function selectListadoEventos() {
                     })
 
                 }
+                
                 parsearListadoEventos(data, 'listadoEventosIndice');
             });
         });
