@@ -45,6 +45,7 @@ function parsearListadoEventos(data, id) {
     alert("#3")
             sessionSetLoader = true;
             document.getElementById('backListadoActividades').style.display = 'block'
+            reverseDateFormat = new SimpleDateFormat(sessionDateFormat);
             for (var i = 0; i < data.length; i++) {
                 var evento = data[i];
                 var idEv = evento.id;
@@ -58,8 +59,12 @@ function parsearListadoEventos(data, id) {
                 acumulador += "<div style=''>";
                 acumulador += "<span><div><p>" + nombre + "</p>";
                 acumulador += "<p>" + subtitulo + "</p>";
+                try{
                 acumulador += "<p>del " + reverseDateFormat.format(new Date(fechaIni)) + " al " + reverseDateFormat.format(new Date(fechaFin)) + "</p>" + "</div></span>";
-                acumulador += "</div>"
+                
+                }catch(ex){
+                    alert(ex)
+                }acumulador += "</div>"
 //                acumulador += "<img class='lazy' data-original='" + img + "'\>";
                 acumulador += "<img src='" + img + "'\>";
                 acumulador += "</a></li>"
