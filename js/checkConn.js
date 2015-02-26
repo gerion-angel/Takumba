@@ -26,13 +26,7 @@ $("#conectionPopUp").bind({
 
 function checkConnection(ev) {
     try {
-        if(navigator.onLine == true){
-            primerFalloConexion = true;
-            return true;
-        } else {
-            primerFalloConexion = false;
-            return false;
-        }
+        
         var e = navigator.connection.type;
         //alert(e)
         var t = {};
