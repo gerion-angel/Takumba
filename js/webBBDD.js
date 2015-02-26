@@ -45,6 +45,7 @@ function insertEventos(data) {
             console.log("promesa cumplida")
             db.transaction(function (tx) {
                 console.info(dataOk)
+                if(dataOk.length>0)
                 for (var i = 0; i < data.length; i++) {
                     var paraInsertar = -1;
                     for (var j = 0; j < dataOk.length; j++) {
@@ -1441,7 +1442,6 @@ function selectEventos() {
 
 function selectListadoEventos() {
     //alert("listado de eventos")
-    alert("seleccionar de bbdd")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
@@ -2464,7 +2464,7 @@ function createBBDD() {
         db.transaction(function (tx) {
             /*evento*/
             tx.executeSql('CREATE TABLE IF NOT EXISTS "evento" (' +
-                    'id PRIMARY KEY,' +
+                    'id unique,' +
                     'version,' +
                     'alt_imagen,' +
                     'descripcion,' +
@@ -2679,19 +2679,21 @@ function limpiezaBanners() {
 function limpiezaEventos() {
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
-        var jsNow
+        var jsNow = new Date().getTime()
         var consulta = 'DELETE FROM evento ' +
                 'WHERE id NOT IN (SELECT evento FROM actividad_evento)' +
                 " OR (fecha_fin_activa < ? " +
                 " AND permanente = 'false')";
         tx.executeSql(consulta, [jsNow], function (i) {
-//            console.info(i)
+            console.info("LIMPIEZA DE EVENTOS")
+            console.info(i)
         }, function (e) {
 //            console.error(e)
         });
     });
 }
 function limpiezaEventos1a1() {
+    console.error("LIMPIEZA EVENTOS 1 A 1")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var jsNow
@@ -2795,6 +2797,7 @@ function limpiezaRecurrencias() {
  });*/
 
 function ereaseData() {
+    console.warn("EREASE DATA")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM actividad ' +
