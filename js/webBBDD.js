@@ -7,24 +7,92 @@ if (getData('haSincronizadoInicialmente') != 1) {
 function insertEventos(data) {
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
-        db.transaction(function (tx) {
-            for (var i = 0; i < data.length; i++) {
+        var promesa = new Promise(function (okInsert, noInsert) {
+            db.transaction(function (tx) {
+                var consultaInt = "SELECT * FROM evento;"
+                console.log(consultaInt)
+                tx.executeSql(consultaInt, [],
+                        function (tx, results) {
+                            var len = results.rows.length, i;
+                            console.log(results)
+                            var dataInsert = [];
+                            for (i = 0; i < len; i++) {
+                                dataInsert.push({
+                                    id: results.rows.item(i).id,
+                                    alt_imagen: results.rows.item(i).alt_imagen,
+                                    descripcion: results.rows.item(i).descripcion,
+                                    entradilla: results.rows.item(i).entradilla,
+                                    fecha_fin_activa: results.rows.item(i).fecha_fin_activa,
+                                    fecha_inicio_activa: results.rows.item(i).fecha_inicio_activa,
+                                    hora_fin_oficial: results.rows.item(i).hora_fin_oficial,
+                                    hora_inicio_oficial: results.rows.item(i).hora_inicio_oficial,
+                                    lugar_busqueda_id: results.rows.item(i).lugar_busqueda_id,
+                                    permanente: results.rows.item(i).permanente,
+                                    radio_busqueda: results.rows.item(i).radio_busqueda
+                                })
+                            }
+                            okInsert(dataInsert);
+                        }, function (e) {
+                    console.error(e)
+                });
+            }, function (e) {
+            }, function (e) {
 
-                var consulta = 'INSERT INTO evento (id, nombre, url_imagen, subtitulo, fecha_fin_oficial, fecha_inicio_oficial) ' +
-                        'VALUES(?,?,?,?,?,?)'
-                tx.executeSql(consulta, [data[i].id, data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime()], function (i) {
-                    //console.info(i)
-                }, function (e) {
-                    //console.error(e)
-                });
-                var consulta = 'UPDATE evento SET nombre =?, url_imagen=?, subtitulo=?, fecha_fin_oficial=?, fecha_inicio_oficial=? WHERE id=? '
-                tx.executeSql(consulta, [data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime(), data[i].id], function (i) {
-                    //console.info(i)
-                }, function (e) {
-                    //console.error(e)
-                });
-            }
-        });
+                noInsert(e)
+            });
+        })
+        promesa.then(function (dataOk) {
+            console.log("promesa cumplida")
+            db.transaction(function (tx) {
+                console.info(dataOk)
+                for (var i = 0; i < data.length; i++) {
+                    var paraInsertar = -1;
+                    for (var j = 0; j < dataOk.length; j++) {
+                        if (dataOk[j].id == data[i].id)
+                            paraInsertar = j
+                    }
+                    if (paraInsertar==-1) {
+                        var consulta = 'INSERT OR IGNORE INTO evento (id, nombre, url_imagen, subtitulo, fecha_fin_oficial, fecha_inicio_oficial) ' +
+                                'VALUES (?,?,?,?,?,?)'
+                        console.log(consulta)
+                        tx.executeSql(consulta, [data[i].id, data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime()], function (i) {
+                            console.info("insert" + i)
+                        }, function (e) {
+                            console.error(e)
+                        });
+                    } else {
+                        var consulta = 'UPDATE evento SET nombre =?, url_imagen=?, subtitulo=?, fecha_fin_oficial=?, fecha_inicio_oficial=? ' +
+                                ', version=version-(-1), alt_imagen=?, descripcion=?, entradilla=?, ' +
+                                'fecha_fin_activa=?, fecha_inicio_activa=?, hora_fin_oficial=?,' +
+                                ' hora_inicio_oficial=?, lugar_busqueda_id=?, ' +
+                                ' permanente=?, radio_busqueda=? WHERE id=? '
+                        console.log(consulta)
+                        tx.executeSql(consulta, [data[i].nombre,
+                            data[i].urlImagen,
+                            data[i].subtitulo,
+                            new Date(data[i].fechaFin).getTime(),
+                            new Date(data[i].fechaIni).getTime(),
+                            dataOk[paraInsertar].alt_imagen,
+                            dataOk[paraInsertar].descripcion,
+                            dataOk[paraInsertar].entradilla,
+                            dataOk[paraInsertar].fecha_fin_activa,
+                            dataOk[paraInsertar].fecha_inicio_activa,
+                            dataOk[paraInsertar].hora_fin_oficial,
+                            dataOk[paraInsertar].hora_inicio_oficial,
+                            dataOk[paraInsertar].lugar_busqueda_id,
+                            dataOk[paraInsertar].permanente,
+                            dataOk[paraInsertar].radio_busqueda,
+                            data[i].id], function (i) {
+                            console.info("update" + i)
+                        }, function (e) {
+                            //console.error(e)
+                        });
+                    }
+                }
+            });
+        })
+
+
     } catch (e) {
     }/*no admite almacenamiento IE, FF*/
 }
@@ -158,7 +226,6 @@ function insertMetadata(data) {
             }, function (e) {
                 //console.error(e)
             });
-
         });
     } catch (e) {
         console.error(e)
@@ -623,7 +690,6 @@ function insertNomenclaturaActividad(data) {
                 }, function (e) {
                     //console.error(e)
                 });
-
             }
         });
     } catch (e) {
@@ -1209,7 +1275,7 @@ function updateImgPatrocinador(id, data) {
     } catch (e) {
     }/*no admite almacenamiento IE, FF*/
 }
-/*update th de una actividad*/
+/*update img de una evento*/
 function updateImgEvento(id, data) {
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     var img = data.imagen;
@@ -1318,6 +1384,7 @@ function insertPosicionEvento(data) {
 
 /*update del detalle de evento*/
 function updateDetalleEvento(data) {
+    console.error("UPDATE DETALLE EVENTO")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         //DownloadFile(data[0].urlImagen, "aytoArroyoEncomienda", "evento" + data[0].id)
@@ -1639,7 +1706,7 @@ function selectListadoActividades() {
                 var where = " WHERE (a.permanente = 'true' OR (a.fecha_inicio_activa <= ? AND a.fecha_fin_activa >= ?)) "
                 var cont = 0;
                 var jsNow = new Date().getTime();
-                params.push(jsNow);//para fecha activa
+                params.push(jsNow); //para fecha activa
                 params.push(jsNow);
                 if (sessionFiltroEvento != -1) {
                     where += " AND a.id = ev.actividad AND ev.evento = ? "
@@ -1736,7 +1803,7 @@ function selectListadoActividades() {
                 }, function (e) {
                     errorRecurrentes(e)
                 });
-            });// fin de la promesa
+            }); // fin de la promesa
             promesaRecurrentes.then(function (data) {//Cumplir la promesa
                 var dia1 = new Date(sessionFiltroFecha);
                 dia1.setHours(0);
@@ -1777,7 +1844,7 @@ function selectListadoActividades() {
                     var where = " WHERE (a.permanente = 'true' OR (a.fecha_inicio_activa <= ? AND a.fecha_fin_activa >= ?)) "
                     var cont = 0;
                     var jsNow = new Date().getTime();
-                    params.push(jsNow);//para fecha activa
+                    params.push(jsNow); //para fecha activa
                     params.push(jsNow);
                     if (sessionFiltroEvento != -1) {
                         where += " AND a.id = ev.actividad AND ev.evento = ? "
@@ -2062,7 +2129,6 @@ function selectListadoTematicas() {
                         })
                     }
                     parsearListadoTematicas(data);
-
                     return data;
                 });
             } else if (sessionFiltroParticipantes != -1) {
@@ -2318,7 +2384,7 @@ function selectDiasConActividad(mes, anno) {
         }, function (e) {
             errorRecurrentes(e)
         });
-    });// fin de la promesa
+    }); // fin de la promesa
     promesaRecurrentes.then(function (dataR) {//Cumplir la promesa
         var arrayRecurrentes = getArrayFechasRecurrentes(dataR)
         for (var j = 0; j < arrayRecurrentes.length; j++) {
@@ -2352,7 +2418,7 @@ function selectDiasConActividad(mes, anno) {
                     errorNormales(e)
                 });
             });
-        });// fin promes normales
+        }); // fin promes normales
         promesaNormales.then(function (dataN) {
             var fechasTodas = combinarArrays(dataN, arrayRecurrentes);
             var promesaPermanentes = new Promise(function (tengoPermanentes, errorPermanentes) {
@@ -2367,7 +2433,7 @@ function selectDiasConActividad(mes, anno) {
                         errorPermanentes(e)
                     });
                 });
-            });// fin promes normales
+            }); // fin promes normales
             promesaPermanentes.then(function (dataP) {
                 var diferencia = getDiasDiferencia(fechasTodas[0], fechasTodas[fechasTodas.length - 1])
                 var tipo = 1;
@@ -2386,7 +2452,6 @@ function selectDiasConActividad(mes, anno) {
                 }
                 pintaDiasConActividad(salidaJson)
                 $("#filtroCalendario").datepicker();
-
             })
         })
     })
@@ -2398,7 +2463,7 @@ function createBBDD() {
         db.transaction(function (tx) {
             /*evento*/
             tx.executeSql('CREATE TABLE IF NOT EXISTS "evento" (' +
-                    'id unique,' +
+                    'id PRIMARY KEY,' +
                     'version,' +
                     'alt_imagen,' +
                     'descripcion,' +
@@ -2537,7 +2602,6 @@ function limpiezaActividades() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaRelaciones() {
@@ -2582,7 +2646,6 @@ function limpiezaRelaciones() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaEtiquetas() {
@@ -2595,7 +2658,6 @@ function limpiezaEtiquetas() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaBanners() {
@@ -2611,7 +2673,6 @@ function limpiezaBanners() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaEventos() {
@@ -2654,7 +2715,6 @@ function limpiezaLugares() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaParticipantes() {
@@ -2667,7 +2727,6 @@ function limpiezaParticipantes() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaPatrocinadores() {
@@ -2680,7 +2739,6 @@ function limpiezaPatrocinadores() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaTematicas() {
@@ -2693,7 +2751,6 @@ function limpiezaTematicas() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 function limpiezaRecurrencias() {
@@ -2706,7 +2763,6 @@ function limpiezaRecurrencias() {
         }, function (e) {
 //            console.error(e)
         });
-
     });
 }
 
@@ -2729,10 +2785,126 @@ function limpiezaRecurrencias() {
 /*Limpiar tabla completa*/
 
 /*var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
+ db.transaction(function (tx) {
+ var consulta = 'DELETE FROM tematica ' +
+ 'WHERE rowid = rowid';
+ tx.executeSql(consulta, [], function (i) {
+ }, function (e) {
+ });
+ });*/
+
+function ereaseData() {
+    var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad_etiqueta ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad_evento ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad_participante ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad_recurrencia ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM actividad_tematica ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM banner ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM etiqueta ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM evento ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM lugar ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM metadata ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM nomenclatura_actividad ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM nomenclatura_menu ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM participante ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
+    db.transaction(function (tx) {
+        var consulta = 'DELETE FROM patrocinador ' +
+                'WHERE rowid = rowid';
+        tx.executeSql(consulta, [], function (i) {
+        }, function (e) {
+        });
+    });
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM tematica ' +
                 'WHERE rowid = rowid';
         tx.executeSql(consulta, [], function (i) {
         }, function (e) {
         });
-    });*/
+    });
+}
