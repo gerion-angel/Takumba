@@ -1441,7 +1441,7 @@ function selectEventos() {
 }
 
 function selectListadoEventos() {
-    //alert("listado de eventos")
+    alert("listado de eventos")
     $("#splashDiv").remove()
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
@@ -2014,7 +2014,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlImagen: results.rows.item(i).url_imagen,
+                            urlThumbnail: results.rows.item(i).url_thumbnail,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2034,7 +2034,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlImagen: results.rows.item(i).url_imagen,
+                            urlThumbnail: results.rows.item(i).url_thumbnail,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2055,7 +2055,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlImagen: results.rows.item(i).url_imagen,
+                            urlThumbnail: results.rows.item(i).url_thumbnail,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2075,7 +2075,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlImagen: results.rows.item(i).url_imagen,
+                            urlThumbnail: results.rows.item(i).url_thumbnail,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
