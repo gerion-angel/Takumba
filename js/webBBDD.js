@@ -2012,7 +2012,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlThumbnail: results.rows.item(i).url_thumbnail,
+                            urlThumbnail: results.rows.item(i).url_imagen,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2032,7 +2032,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlThumbnail: results.rows.item(i).url_thumbnail,
+                            urlThumbnail: results.rows.item(i).url_imagen,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2053,7 +2053,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlThumbnail: results.rows.item(i).url_thumbnail,
+                            urlThumbnail: results.rows.item(i).url_imagen,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2073,7 +2073,7 @@ function selectListadoParticipantes() {
                     for (i = 0; i < len; i++) {
                         data.push({
                             id: results.rows.item(i).id,
-                            urlThumbnail: results.rows.item(i).url_thumbnail,
+                            urlThumbnail: results.rows.item(i).url_imagen,
                             nombre: results.rows.item(i).nombre,
                             descripcion: results.rows.item(i).descripcion
                         })
@@ -2294,7 +2294,7 @@ function selectListadoLugares() {
                     return data;
                 });
             } else {
-                tx.executeSql("SELECT * FROM lugar WHERE id != '0'", [], function (tx, results) {
+                tx.executeSql("SELECT * FROM lugar", [], function (tx, results) {
                     var len = results.rows.length, i;
                     if (len * 1 == 0) {
                         //launchPop()
