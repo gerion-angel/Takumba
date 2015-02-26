@@ -14,13 +14,11 @@ function parsearListadoEventos(data, id) {
         setLoader('idBody');
         $("#canvasLoader").css("background-color", "transparent")
     }, 10)
-    alert("#1")
     var listado = document.getElementById(id);
     var acumulador = "";
     resetFiltros();
     try {
         if (data.length == 1) {
-    alert("#2")
             sessionSoloUnEvento = true;
             try {
                 hideLoader();
@@ -42,7 +40,6 @@ function parsearListadoEventos(data, id) {
             });
             cargaDetalleEvento();
         } else {
-    alert("#3")
             sessionSetLoader = true;
             document.getElementById('backListadoActividades').style.display = 'block'
             reverseDateFormat = new SimpleDateFormat(sessionDateFormat);
@@ -63,16 +60,14 @@ function parsearListadoEventos(data, id) {
                 acumulador += "<p>del " + reverseDateFormat.format(new Date(fechaIni)) + " al " + reverseDateFormat.format(new Date(fechaFin)) + "</p>" + "</div></span>";
                 
                 }catch(ex){
-                    alert(ex)
+                    acumulador += "<p></p>" + "</div></span>";
                 }acumulador += "</div>"
 //                acumulador += "<img class='lazy' data-original='" + img + "'\>";
                 acumulador += "<img src='" + img + "'\>";
                 acumulador += "</a></li>"
 
             }
-    alert("#4")
             listado.innerHTML = acumulador;
-    alert("#5")
             setTimeout(function () {
                 try {
                     setTimeout(navigator.splashscreen.hide, 10)
@@ -85,7 +80,6 @@ function parsearListadoEventos(data, id) {
 
         }
     } catch (e) {
-        alert(e)
     }
     setCheckConnection()
     sessionSetLoader = true;
