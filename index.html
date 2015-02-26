@@ -691,60 +691,48 @@
             $("#selectorAntelacion").click(function () {
                 $("#selectorAntelacion").mobiscroll('setValue', '01:00');
             });
+            function onDeviceReady() {
 
-            function   onOnline() {
-                alert("Online");
-            }
-            function onOffline() {
-                alert("Offline");
-            }
-            
-                    function onDeviceReady() {
-                        alert("entra")
-                        document.addEventListener("offline", app.onOffline, false);
-                        document.addEventListener("online", app.onOnline, false);
+                $("#selectorAntelacion").mobiscroll('setValue', '01:00');
+                var img = new Image();
+                img.src = "images/relojMarcado.png";
+                var img2 = new Image();
+                img.src = "images/corazonMarcado.png";
+                var img3 = new Image();
+                img.src = "images/estrellaMarcada.png";
 
+                $("#app-status-ul").append('<li>deviceready event received</li>');
 
-                        $("#selectorAntelacion").mobiscroll('setValue', '01:00');
-                        var img = new Image();
-                        img.src = "images/relojMarcado.png";
-                        var img2 = new Image();
-                        img.src = "images/corazonMarcado.png";
-                        var img3 = new Image();
-                        img.src = "images/estrellaMarcada.png";
-
-                        $("#app-status-ul").append('<li>deviceready event received</li>');
-
-                        try
-                        {
-                            pushNotification = window.plugins.pushNotification;
-                            if (device.platform == 'android' || device.platform == 'Android') {
-                                var theDoc = document; // shortcut
-                                var cssIdAnd = 'myCssAndroid';  // you could encode the css path itself to generate id..
-                                var head = theDoc.getElementsByTagName('head')[0];
-                                var link = theDoc.createElement('link');
-                                link.id = cssIdAnd;
-                                link.rel = 'stylesheet';
-                                link.type = 'text/css';
-                                link.href = 'css/android-only.css';
-                                link.media = 'all';
-                                head.appendChild(link);
-                                $("#app-status-ul").append('<li>registering android</li>');
-                                //pushNotification.register(successHandler, errorHandler, {"senderID": "629144394569", "ecb": "onNotificationGCM"});		// required!
-                                pushNotification.register(successHandler, errorHandler, {"senderID": "269215128011", "ecb": "onNotificationGCM"});		// required!
-                            } else {
-                                $("#app-status-ul").append('<li>registering iOS</li>');
-                                pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
-                            }
-                        }
-                        catch (err)
-                        {
-                            txt = "There was an error on this page.\n\n";
-                            txt += "Error description: " + err.message + "\n\n";
-                            console.error(txt);
-                        }
-                        setTimeout(hideLoader(), 1);
+                try
+                {
+                    pushNotification = window.plugins.pushNotification;
+                    if (device.platform == 'android' || device.platform == 'Android') {
+                        var theDoc = document; // shortcut
+                        var cssIdAnd = 'myCssAndroid';  // you could encode the css path itself to generate id..
+                        var head = theDoc.getElementsByTagName('head')[0];
+                        var link = theDoc.createElement('link');
+                        link.id = cssIdAnd;
+                        link.rel = 'stylesheet';
+                        link.type = 'text/css';
+                        link.href = 'css/android-only.css';
+                        link.media = 'all';
+                        head.appendChild(link);
+                        $("#app-status-ul").append('<li>registering android</li>');
+                        //pushNotification.register(successHandler, errorHandler, {"senderID": "629144394569", "ecb": "onNotificationGCM"});		// required!
+                        pushNotification.register(successHandler, errorHandler, {"senderID": "269215128011", "ecb": "onNotificationGCM"});		// required!
+                    } else {
+                        $("#app-status-ul").append('<li>registering iOS</li>');
+                        pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
                     }
+                }
+                catch (err)
+                {
+                    txt = "There was an error on this page.\n\n";
+                    txt += "Error description: " + err.message + "\n\n";
+                    console.error(txt);
+                }
+                setTimeout(hideLoader(), 1);
+            }
 
             function onPushActi(id) {
                 setLoader('idBody');
