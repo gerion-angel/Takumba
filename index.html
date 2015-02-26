@@ -650,88 +650,101 @@
         </script>
         <script>
             if (sessionFiltroEvento == -1 &&
-                        sessionFiltroLugar == -1 &&
-                        sessionFiltroTematica == -1 &&
-                        sessionFiltroTematica2 == -1 &&
-                        sessionFiltroParticipantes == -1 &&
-                        sessionFiltroParticipantes2 == -1 &&
-                        sessionFiltroFavoritos == -1 &&
-                        sessionFiltroFecha == -1 &&
-                        sessionFiltroEtiqueta == -1 &&
-                        sessionUltFiltro == -1){
-                        document.location.href ="#indice"
-                        }
+                    sessionFiltroLugar == -1 &&
+                    sessionFiltroTematica == -1 &&
+                    sessionFiltroTematica2 == -1 &&
+                    sessionFiltroParticipantes == -1 &&
+                    sessionFiltroParticipantes2 == -1 &&
+                    sessionFiltroFavoritos == -1 &&
+                    sessionFiltroFecha == -1 &&
+                    sessionFiltroEtiqueta == -1 &&
+                    sessionUltFiltro == -1) {
+                document.location.href = "#indice"
+            }
             document.addEventListener('deviceready', function () {
                 $("#gpsPopUp").bind({
                     popupafterclose: function (event, ui) {
                         document.getElementById("gpsPopUp").style.display = "none";
                     }
                 });
-                
+
+                try {
                     try {
-                        try {
-                            navigator.device.resetBackButton();
-                            navigator.app.overrideBackbutton(true);
-                        } catch (exce) {
-                        }
-                        document.addEventListener('backKeyDown', manejaBack, false);
-                        function manejaBack() {
-                            if ($.mobile.activePage.is('#indice')) {
-                                navigator.app.exitApp();
-                            }
-                            else {
-                                $(".ui-page-active a[data-rel='back']").click()
-                            }
-                        }
-                    } catch (err) {
+                        navigator.device.resetBackButton();
+                        navigator.app.overrideBackbutton(true);
+                    } catch (exce) {
                     }
+                    document.addEventListener('backKeyDown', manejaBack, false);
+                    function manejaBack() {
+                        if ($.mobile.activePage.is('#indice')) {
+                            navigator.app.exitApp();
+                        }
+                        else {
+                            $(".ui-page-active a[data-rel='back']").click()
+                        }
+                    }
+                } catch (err) {
+                }
             })
 
             var pushNotification;
             $("#selectorAntelacion").click(function () {
                 $("#selectorAntelacion").mobiscroll('setValue', '01:00');
             });
-            function onDeviceReady() {
-                $("#selectorAntelacion").mobiscroll('setValue', '01:00');
-                var img = new Image();
-                img.src = "images/relojMarcado.png";
-                var img2 = new Image();
-                img.src = "images/corazonMarcado.png";
-                var img3 = new Image();
-                img.src = "images/estrellaMarcada.png";
 
-                $("#app-status-ul").append('<li>deviceready event received</li>');
-
-                try
-                {
-                    pushNotification = window.plugins.pushNotification;
-                    if (device.platform == 'android' || device.platform == 'Android') {
-                        var theDoc = document; // shortcut
-                        var cssIdAnd = 'myCssAndroid';  // you could encode the css path itself to generate id..
-                        var head = theDoc.getElementsByTagName('head')[0];
-                        var link = theDoc.createElement('link');
-                        link.id = cssIdAnd;
-                        link.rel = 'stylesheet';
-                        link.type = 'text/css';
-                        link.href = 'css/android-only.css';
-                        link.media = 'all';
-                        head.appendChild(link);
-                        $("#app-status-ul").append('<li>registering android</li>');
-                        //pushNotification.register(successHandler, errorHandler, {"senderID": "629144394569", "ecb": "onNotificationGCM"});		// required!
-                        pushNotification.register(successHandler, errorHandler, {"senderID": "269215128011", "ecb": "onNotificationGCM"});		// required!
-                    } else {
-                        $("#app-status-ul").append('<li>registering iOS</li>');
-                        pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
-                    }
-                }
-                catch (err)
-                {
-                    txt = "There was an error on this page.\n\n";
-                    txt += "Error description: " + err.message + "\n\n";
-                    console.error(txt);
-                }
-                setTimeout(hideLoader(), 1);
+            function   onOnline() {
+                alert("Online");
             }
+            function onOffline() {
+                alert("Offline");
+            }
+            ,
+                    function onDeviceReady() {
+                        alert("entra")
+                        document.addEventListener("offline", app.onOffline, false);
+                        document.addEventListener("online", app.onOnline, false);
+
+
+                        $("#selectorAntelacion").mobiscroll('setValue', '01:00');
+                        var img = new Image();
+                        img.src = "images/relojMarcado.png";
+                        var img2 = new Image();
+                        img.src = "images/corazonMarcado.png";
+                        var img3 = new Image();
+                        img.src = "images/estrellaMarcada.png";
+
+                        $("#app-status-ul").append('<li>deviceready event received</li>');
+
+                        try
+                        {
+                            pushNotification = window.plugins.pushNotification;
+                            if (device.platform == 'android' || device.platform == 'Android') {
+                                var theDoc = document; // shortcut
+                                var cssIdAnd = 'myCssAndroid';  // you could encode the css path itself to generate id..
+                                var head = theDoc.getElementsByTagName('head')[0];
+                                var link = theDoc.createElement('link');
+                                link.id = cssIdAnd;
+                                link.rel = 'stylesheet';
+                                link.type = 'text/css';
+                                link.href = 'css/android-only.css';
+                                link.media = 'all';
+                                head.appendChild(link);
+                                $("#app-status-ul").append('<li>registering android</li>');
+                                //pushNotification.register(successHandler, errorHandler, {"senderID": "629144394569", "ecb": "onNotificationGCM"});		// required!
+                                pushNotification.register(successHandler, errorHandler, {"senderID": "269215128011", "ecb": "onNotificationGCM"});		// required!
+                            } else {
+                                $("#app-status-ul").append('<li>registering iOS</li>');
+                                pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
+                            }
+                        }
+                        catch (err)
+                        {
+                            txt = "There was an error on this page.\n\n";
+                            txt += "Error description: " + err.message + "\n\n";
+                            console.error(txt);
+                        }
+                        setTimeout(hideLoader(), 1);
+                    }
 
             function onPushActi(id) {
                 setLoader('idBody');
