@@ -1442,6 +1442,7 @@ function selectEventos() {
 
 function selectListadoEventos() {
     //alert("listado de eventos")
+    $("#splashDiv").remove()
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         db.transaction(function (tx) {
