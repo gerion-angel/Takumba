@@ -1,7 +1,7 @@
 /*
  * 
  * @param {type} data
-/ * 
+ / * 
  * parseador de fechas
  */
 var reverseDateFormat = new SimpleDateFormat(sessionDateFormat);
@@ -56,12 +56,13 @@ function parsearListadoEventos(data, id) {
                 acumulador += "<div style=''>";
                 acumulador += "<span><div><p>" + nombre + "</p>";
                 acumulador += "<p>" + subtitulo + "</p>";
-                try{
-                acumulador += "<p>del " + reverseDateFormat.format(new Date(fechaIni)) + " al " + reverseDateFormat.format(new Date(fechaFin)) + "</p>" + "</div></span>";
-                
-                }catch(ex){
+                try {
+                    acumulador += "<p>del " + reverseDateFormat.format(new Date(fechaIni)) + " al " + reverseDateFormat.format(new Date(fechaFin)) + "</p>" + "</div></span>";
+
+                } catch (ex) {
                     acumulador += "<p></p>" + "</div></span>";
-                }acumulador += "</div>"
+                }
+                acumulador += "</div>"
 //                acumulador += "<img class='lazy' data-original='" + img + "'\>";
                 acumulador += "<img src='" + img + "'\>";
                 acumulador += "</a></li>"
@@ -788,7 +789,11 @@ function parsearListadoActividades(data) {
         if (act.nombreEventos)
             acumulador += "<div><span class='spanListaActi'>" + act.nombreEventos + "</span>";
         /*acumulador += "<span style='font-size: 12px;font-weight: normal;overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;width: 170px;'>" + lugar + "</span>";*/
-        acumulador += "<span class='spanListaActi'>" + reverseDateFormat.format(new Date(fechaIni)) + " " + horaIni + "</span></div>";
+        try {
+            acumulador += "<span class='spanListaActi'>" + reverseDateFormat.format(new Date(fechaIni)) + " " + horaIni + "</span></div>";
+        } catch (e) {
+            acumulador += "<span class='spanListaActi'></span></div>";
+        }
         acumulador += "</div></a>";
         acumulador += "<table  class='tabla2ListadoActividades'><tr>"
 
@@ -872,7 +877,11 @@ function parsearListadoActividadesFavoritas(data) {
             acumulador += "<td><span>" + nombre + "</span></td></tr></table>";
             acumulador += "<div><span class='spanListaActi'>" + act.nombreEventos + "</span>";
             /*acumulador += "<span style='font-size: 12px;font-weight: normal;overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;width: 170px;'>" + lugar + "</span>";*/
+            try{
             acumulador += "<span class='spanListaActi'>" + reverseDateFormat.format(new Date(fechaIni)) + "</span></div>";
+        }catch(err){
+            acumulador += "<span class='spanListaActi'></span></div>";
+        }
             acumulador += "</div></a>";
             acumulador += "<table  class='tabla2ListadoActividades'><tr>"
 
@@ -1004,7 +1013,7 @@ function parsearActividad(data) {
     } else {
         document.getElementById("admir").style.display = ""
     }
-$("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
+    $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
     acumulador = "";
     if (activity.nombreLugar) {
         acumulador = "<span>" + activity.nombreLugar + "</span>";
@@ -1066,8 +1075,8 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
      parsearGaleriaImagenesActividad(data)*/
 
     /*if (activity.entradilla)
-        acumulador = activity.entradilla;
-    $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");*/
+     acumulador = activity.entradilla;
+     $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");*/
 
 
 
@@ -1086,7 +1095,7 @@ $("#entradillaDetalleActividad").html("<div>" + activity.entradilla + "</div>");
     var acumulador = "";
     var numGusta = activity.numMeGusta;
 
-    
+
 
     var nomEv = activity.nombreEvento;
     $(".detalleActiPrincipal .calendario .fecha .dia").html(fechaIni.getDate());
