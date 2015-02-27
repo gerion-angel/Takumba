@@ -490,7 +490,6 @@ $(document).on("pagebeforeshow", "#detalleActividad", function() {
             cargarActividad(idActividad);
         }
     } catch (e) {
-        console.error(e)
     }
 });
 

@@ -10,11 +10,9 @@ function insertEventos(data) {
         var promesa = new Promise(function (okInsert, noInsert) {
             db.transaction(function (tx) {
                 var consultaInt = "SELECT * FROM evento;"
-                console.log(consultaInt)
                 tx.executeSql(consultaInt, [],
                         function (tx, results) {
                             var len = results.rows.length, i;
-                            console.log(results)
                             var dataInsert = [];
                             for (i = 0; i < len; i++) {
                                 dataInsert.push({
@@ -33,7 +31,6 @@ function insertEventos(data) {
                             }
                             okInsert(dataInsert);
                         }, function (e) {
-                    console.error(e)
                 });
             }, function (e) {
             }, function (e) {
@@ -42,9 +39,7 @@ function insertEventos(data) {
             });
         })
         promesa.then(function (dataOk) {
-            console.log("promesa cumplida")
             db.transaction(function (tx) {
-                console.info(dataOk)
                 if(dataOk.length>0)
                 for (var i = 0; i < data.length; i++) {
                     var paraInsertar = -1;
@@ -55,10 +50,8 @@ function insertEventos(data) {
                     if (paraInsertar==-1) {
                         var consulta = 'INSERT OR IGNORE INTO evento (id, nombre, url_imagen, subtitulo, fecha_fin_oficial, fecha_inicio_oficial) ' +
                                 'VALUES (?,?,?,?,?,?)'
-                        console.log(consulta)
                         tx.executeSql(consulta, [data[i].id, data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime()], function (i) {
-                            console.info("insert" + i)
-                        }, function (e) {
+                            }, function (e) {
                             console.error(e)
                         });
                     } else {
@@ -67,7 +60,6 @@ function insertEventos(data) {
                                 'fecha_fin_activa=?, fecha_inicio_activa=?, hora_fin_oficial=?,' +
                                 ' hora_inicio_oficial=?, lugar_busqueda_id=?, ' +
                                 ' permanente=?, radio_busqueda=? WHERE id=? '
-                        console.log(consulta)
                         tx.executeSql(consulta, [data[i].nombre,
                             data[i].urlImagen,
                             data[i].subtitulo,
@@ -84,7 +76,6 @@ function insertEventos(data) {
                             dataOk[paraInsertar].permanente,
                             dataOk[paraInsertar].radio_busqueda,
                             data[i].id], function (i) {
-                            console.info("update" + i)
                         }, function (e) {
                             //console.error(e)
                         });
@@ -1385,7 +1376,6 @@ function insertPosicionEvento(data) {
 
 /*update del detalle de evento*/
 function updateDetalleEvento(data) {
-    console.error("UPDATE DETALLE EVENTO")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     try {
         //DownloadFile(data[0].urlImagen, "aytoArroyoEncomienda", "evento" + data[0].id)
@@ -1470,6 +1460,7 @@ function selectListadoEventos() {
     } catch (e) {
         console.error(e)
     }/*no admite almacenamiento IE, FF*/
+    selectListadoLugares()
 }
 
 function selectListadoEtiquetas() {
@@ -1752,7 +1743,6 @@ function selectListadoActividades() {
                 }
 
                 var consulta = campos + from + where;
-                console.log(consulta)
                 tx.executeSql(consulta, params, function (tx, results) {
                     var len = results.rows.length, i;
                     if (len * 1 == 0) {
@@ -1976,14 +1966,13 @@ function selectActividad(idAct) {
                     var dataP = [];
                     for (i = 0; i < len; i++) {
                         dataP.push({
-                            id: resultsP.rows.item(i).id,
+                            id: resultsP.rows.item(i).participante,
                             descripcion: resultsP.rows.item(i).descripcion,
                             nombre: resultsP.rows.item(i).nombre,
                             urlImagen: resultsP.rows.item(i).url_thumbnail
                         })
                     }
                     var data1 = {actividad: data, participantes: dataP}
-                    console.log(data1)
                     parsearActividad(data1);
                     return data1;
                 })
@@ -2685,7 +2674,6 @@ function limpiezaEventos() {
                 " OR (fecha_fin_activa < ? " +
                 " AND permanente = 'false')";
         tx.executeSql(consulta, [jsNow], function (i) {
-            console.info("LIMPIEZA DE EVENTOS")
             console.info(i)
         }, function (e) {
 //            console.error(e)
@@ -2693,7 +2681,6 @@ function limpiezaEventos() {
     });
 }
 function limpiezaEventos1a1() {
-    console.error("LIMPIEZA EVENTOS 1 A 1")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var jsNow
@@ -2797,7 +2784,6 @@ function limpiezaRecurrencias() {
  });*/
 
 function ereaseData() {
-    console.warn("EREASE DATA")
     var db = window.openDatabase("localDB", "1.0", "localDB", 50 * 1024 * 1024);
     db.transaction(function (tx) {
         var consulta = 'DELETE FROM actividad ' +

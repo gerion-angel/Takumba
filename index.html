@@ -618,7 +618,6 @@
                         $(this).removeClass('backPresionado');
                     });
                 } catch (e) {
-                    console.error("añadiendo eventos a botones back:" + e)
                 }
                 try {
                     cargaAppMetadata()
@@ -627,7 +626,6 @@
                 }
                 try {
                     cargaListadoEventos('listadoEventosIndice');
-                    //cargaListadoTematicas();
                     cargaListadoParticipantes();
                     cargaListadoLugares();
                     cargaPosProyecto();

@@ -10,9 +10,7 @@
         createBBDD();
         saveData("haSincronizadoInicialmente", 1)
         
-        console.log("Va a realizar la llamada a: " + sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto)
         $.getJSON(sessionPath + "proyecto/proyectogetall?id=" + sessionProyecto, null, function (data) {
-            console.log(data)
             /*lugares*/
             insertLugares(data.lugares);
             /*Participantes*/

@@ -41,14 +41,12 @@ function cargaListadoEventos(id) {
 
             },
             success: function (data) {
-                console.log("success")
                 parsearListadoEventos(data, id);
 
                 insertEventos(data);
 
             },
             error: function (data) {
-                console.log(data.resposeText)
                 var splited = data.responseText.split(":")
                 if (splited[0].indexOf("noEventsText") > -1) {//si no hay eventos y hay texto de mensaje de fin de app
                     $("#menuPrincipal").hide();
@@ -116,11 +114,8 @@ function cargaInfoDescarga() {
             }
         });
         $.getJSON(sessionPath + "proyecto/proyectoInfo?id=" + sessionProyecto, null, function (data) {
-            console.log(data)
             var mostrar = data.mostrarMensaje;
             var texto = data.mensajeDescargar;
-            console.info(mostrar)
-            console.info(texto)
 
             if (mostrar == true) {
                 $('.popUpStore .cajaStore table tr td span').html(texto)
@@ -685,6 +680,7 @@ function deleteGusta(id) {
 }
 
 function cargaMenusFiltrados() {
+    setCheckConnection()
     var ruta = "";
     if (sessionFiltroEvento != -1) {
         ruta += "&evento=" + sessionFiltroEvento;
@@ -739,7 +735,6 @@ function cargaMenusFiltrados() {
         selectListadoLugares()
         selectListadoParticipantes()
     }
-    setCheckConnection()
 
 }
 
