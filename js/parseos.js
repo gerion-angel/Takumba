@@ -99,6 +99,7 @@ function parsearListadoEventos(data, id) {
     })
 
     $("#canvasLoader").remove()
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -188,7 +189,7 @@ function parsearDetalleEvento(data) {
     });
     sessionSetLoader = true;
     $("#canvasLoader").remove()
-
+    setTimeout(function(){setEfectLight() },1)
 }
 
 var timer1;
@@ -240,6 +241,7 @@ function parsearBannersEvento(data) {
         document.getElementById('listadoActividades').style.marginBottom = "0px"
         document.getElementById('bannerDelListado').style.bottom = "0px"
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 
@@ -287,6 +289,7 @@ function parsearBannersActividad(data) {
         document.getElementById('zonaRecintoDetalleAct').style.marginBottom = "0px"
         //document.getElementById('bannerDelListado').style.bottom = "0px"
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 
@@ -331,6 +334,7 @@ function parsearPatrocinadoresEvento(data) {
     acumulador += interno;
     acumulador += "</table>";
     $(".zonaPatrocinadores").html(acumulador);
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*funcion que parsea el listado de etiquetas contenido en data*/
@@ -358,6 +362,7 @@ function parsearListadoEtiquetas(data) {
         acumulador += "</li>";
     }
     zona.innerHTML = acumulador;
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*Funcion que toma la posicion de un evento*/
@@ -426,6 +431,7 @@ function parsearListadoTematicas(data) {
     } catch (e) {
         console.error("parsearListadoTematicas: " + e)
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 /*
  * funcion que parsea el listado de tematicas y las carga sobre su pagina
@@ -468,6 +474,7 @@ function parsearListadoTematicasFavoritas(data) {
     } catch (e) {
         console.error("parsearListadoTematicasFavoritas: " + e)
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -536,6 +543,7 @@ function parsearListadoParticipantes(data) {
     } catch (e) {
         console.error("parsearListadoParticipantes:" + e)
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -593,6 +601,7 @@ function parsearDetalleParticipante(data) {
             e.stopPropagation();
     });
     sessionDesdeActi = -1
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -656,6 +665,7 @@ function parsearDetalleLugar(data) {
             e.stopPropagation();
     });
     sessionDesdeActi = -1
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -728,6 +738,7 @@ function parsearListadoLugares(data) {
     } catch (e) {
         console.error("parsearListadoLugares: " + e)
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -845,6 +856,7 @@ function parsearListadoActividades(data) {
     }, 700);
 
     $("#canvasLoader").remove()
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*
@@ -916,6 +928,7 @@ function parsearListadoActividadesFavoritas(data) {
         }
     }
     listado.innerHTML = acumulador;
+    setTimeout(function(){setEfectLight() },1)
 
 }
 
@@ -1177,6 +1190,7 @@ function parsearActividad(data) {
     checkBotoneraCoachMark()
 
 
+    setTimeout(function(){setEfectLight() },1)
 
 }
 
@@ -1188,6 +1202,7 @@ function parsearGaleriaImagenesActividad(data) {
     }
     acumulador += "</ul>"
     $("#zonaGaleriaDetalleActi").html(acumulador)
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*muestra en grande la imagen seleccionada de la galeria*/
@@ -1272,6 +1287,7 @@ function parsearMenuLateral(data) {
         }
     } catch (e) {
     }
+    setTimeout(function(){setEfectLight() },1)
 }
 
 /*nomenclatura de actividad*/

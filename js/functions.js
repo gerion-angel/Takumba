@@ -31,12 +31,12 @@ function resetFiltros() {
 function resetFiltrosBack() {
     sessionFiltroEvento = -1;
     sessionFiltroLugar = -1;
-    if (sessionFiltroTematica2>-1){
-        sessionFiltroTematica2 = -1;        
-    }else{
+    if (sessionFiltroTematica2 > -1) {
+        sessionFiltroTematica2 = -1;
+    } else {
         sessionFiltroTematica = -1;
     }
-    if (sessionFiltroParticipantes2>-1){
+    if (sessionFiltroParticipantes2 > -1) {
         sessionFiltroParticipantes2 = -1;
     } else {
         sessionFiltroParticipantes = -1;
@@ -223,14 +223,14 @@ function mostrarActividadesTodas() {
 }
 
 /*para evitar problemas de que esté marcado el boton todas uy solo salvan las favoritas*/
-$(document).on("pagebeforeshow", "#tematicas", function() {
+$(document).on("pagebeforeshow", "#tematicas", function () {
     if (sessionSegundoFiltro < 1)
         mostrarTematicasTodas();
 });
-$(document).on("pagebeforeshow", "#participantes", function() {
-    if(sessionFiltroParticipantes2==-1 && sessionFiltroParticipantes >-1){
+$(document).on("pagebeforeshow", "#participantes", function () {
+    if (sessionFiltroParticipantes2 == -1 && sessionFiltroParticipantes > -1) {
         sessionFiltroParticipantes = -1;
-    }else if (sessionFiltroParticipantes2>-1){
+    } else if (sessionFiltroParticipantes2 > -1) {
         sessionFiltroParticipantes2 = -1;
     } else {
         sessionFiltroParticipantes = -1;
@@ -293,43 +293,45 @@ function comprobarTematicaCambiada(data) {
 }
 
 /*para poner el loader*/
-$(document).on("pagebeforeshow", function() {
+$(document).on("pagebeforeshow", function () {
     //checkConnection()
     if (sessionSetLoader == true)
         setLoader('idBody');
 });
 /*para quitar el loader*/
 $(document).on("pageshow", function () {
-    setTimeout(function(){hideLoader()},1000);
+    setTimeout(function () {
+        hideLoader()
+    }, 1000);
 });
 
-$(document).on("pagecreate", "#indice", function() {
-    $(document).on("swipeleft", "#indice", function(e) {
+$(document).on("pagecreate", "#indice", function () {
+    $(document).on("swipeleft", "#indice", function (e) {
         if (!$("#menuPrincipal").hasClass('ui-page-active')) {
             $("#menuPrincipal").panel("open");
         }
     });
 });
-$(document).on("pagecreate", "#indice", function() {
-    $(document).on("swiperight", "#indice", function(e) {
+$(document).on("pagecreate", "#indice", function () {
+    $(document).on("swiperight", "#indice", function (e) {
         if ($("#menuPrincipal").hasClass('ui-page-active')) {
             $("#menuPrincipal").panel("close");
         }
     });
 });
 
-$(document).on("pageshow", "#actividades", function() {
-    setTimeout(function() {
+$(document).on("pageshow", "#actividades", function () {
+    setTimeout(function () {
         $("#tituloListadoActividades").click();//arregla una descolocacion haciendo un click en un punto de la pantalla
     }, 1000);
-    $(document).on("swipeleft", "#actividades", function(e) {
+    $(document).on("swipeleft", "#actividades", function (e) {
         if (!$("#menuActividades").hasClass('ui-page-active')) {
             $("#menuActividades").panel("open");
         }
     });
 });
-$(document).on("pagecreate", "#actividades", function() {
-    $(document).on("swiperight", "#actividades", function(e) {
+$(document).on("pagecreate", "#actividades", function () {
+    $(document).on("swiperight", "#actividades", function (e) {
         if ($("#menuActividades").hasClass('ui-page-active')) {
             $("#menuActividades").panel("close");
         }
@@ -340,7 +342,7 @@ $(document).on("pagecreate", "#actividades", function() {
 /*funcion para marcar un megusta*/
 function siMeGusta(id, elem) {//setLoaderTemporal()
     setLoader('idBody');
-    setTimeout(function() {
+    setTimeout(function () {
         if (primerFalloConexion == true) {
             var key = "gusta" + id;
             if (getData(key) != null && getData(key) != 'null') {
@@ -384,13 +386,13 @@ function ocultaZonasDetalleListadoActividades() {
 }
 
 
-$(document).on("pagebeforeshow", "#actividades", function() {
+$(document).on("pagebeforeshow", "#actividades", function () {
     cargaDiasConActividad();
 });
 
-$("#backListadoActividades").click(function() {
+$("#backListadoActividades").click(function () {
     resetFiltrosBack();
-    $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function(data) {
+    $.getJSON(sessionPath + "tematica/tematicasfiltro?id=" + sessionProyecto, null, function (data) {
         parsearListadoTematicas(data);
         //console.info(data)
     });
@@ -399,7 +401,7 @@ $("#backListadoActividades").click(function() {
 /*
  * funciones que repliegan las descripciones de filtro
  */
-$(document).on("pagebeforeshow", "#actividades", function() {
+$(document).on("pagebeforeshow", "#actividades", function () {
     sessionNumCargas++;//para el control de los backs para la recarga de los menus
     if (sessionSegundoFiltro < 1) {
         cargaMenusFiltrados();
@@ -408,7 +410,7 @@ $(document).on("pagebeforeshow", "#actividades", function() {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
     if (!primeraCarga) {
         primeraCarga = true;
-        $("#actividades div[data-role='header'] a:first-child").click(function() {
+        $("#actividades div[data-role='header'] a:first-child").click(function () {
             /*if(sessionNumCargas==1 || sessionNumCargas==0 ){
              resetFiltros();  
              sessionNumCargas=0;
@@ -442,7 +444,7 @@ $(document).on("pagebeforeshow", "#actividades", function() {
                 case 8:
                     break;
             }
-            setTimeout(function() {
+            setTimeout(function () {
                 setTituloListado(tituloAnterior);
                 cargaListadoActividades();
                 if (sessionFiltroParticipantes > 0) {
@@ -467,7 +469,7 @@ $(document).on("pagebeforeshow", "#paginaDetalleEvento", function () {
 $(document).on("pagebeforeshow", "#paginaDetalleParticipante", function () {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
 });
-$(document).on("pagebeforeshow", "#paginaDetalleParticipante", function() {
+$(document).on("pagebeforeshow", "#paginaDetalleParticipante", function () {
     $(".descripcionFiltro").removeClass('descripcionFiltroDesplegada');
 });
 
@@ -478,7 +480,7 @@ $(document).on("pagebeforeshow", "#paginaDetalleParticipante", function() {
 /*
  * funcion q para redirigir cuando llega una url de compartir
  */
-$(document).on("pagebeforeshow", "#detalleActividad", function() {
+$(document).on("pagebeforeshow", "#detalleActividad", function () {
     document.getElementById('popShare').style.display = 'none'
     document.getElementById('popMas').style.display = 'none'
     document.getElementById('popPatrocinadores').style.display = 'none'
@@ -498,7 +500,7 @@ $(document).on("pagebeforeshow", "#detalleActividad", function() {
 /*
  * funcion q para redirigir cuando llega una url de compartir
  */
-$(document).on("pageshow", "#detalleActividad", function() {
+$(document).on("pageshow", "#detalleActividad", function () {
 
     try {
         if ($('.calendario .fecha .dia').html() == "") {
@@ -507,7 +509,7 @@ $(document).on("pageshow", "#detalleActividad", function() {
     }
 });
 
-$(document).on("pageshow", "#favoritas", function() {
+$(document).on("pageshow", "#favoritas", function () {
     if (sessionTabFavorito == '2') {
         $("#navBarAct").click();
         $("#navBarTem").removeClass("ui-btn-active");
@@ -728,13 +730,23 @@ function pliegaDespliegaInfo() {
 }
 
 function goIndice() {
-    resetFiltros();    
-        cargaListadoEventos('listadoEventosIndice');
-        cargaListadoParticipantes();
-        cargaListadoLugares();
-        cargaPosProyecto();
-        cargaListadoEtiquetas();
+    resetFiltros();
+    cargaListadoEventos('listadoEventosIndice');
+    cargaListadoParticipantes();
+    cargaListadoLugares();
+    cargaPosProyecto();
+    cargaListadoEtiquetas();
     if ($(".ui-pre-last-child").css('display') != 'none') {
         $.mobile.changePage('#indice')
     }
+}
+
+function setEfectLight() {
+    $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("touchstart", function () {
+        $(this).css("opacity", "0.5")
+    })
+    $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("touchend", function () {
+        $(this).css("opacity", "1")
+    })
+
 }
