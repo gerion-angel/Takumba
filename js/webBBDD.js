@@ -1756,7 +1756,8 @@ function selectListadoActividades() {
                 tx.executeSql(consulta, params, function (tx, results) {
                     var len = results.rows.length, i;
                     if (len * 1 == 0) {
-                        //launchPop()
+                        launchPop()
+                        return false; //para que no realice ningun parseo
                     }
                     var data = [];
                     for (i = 0; i < len; i++) {
