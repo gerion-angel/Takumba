@@ -40,47 +40,47 @@ function insertEventos(data) {
         })
         promesa.then(function (dataOk) {
             db.transaction(function (tx) {
-                if(dataOk.length>0)
-                for (var i = 0; i < data.length; i++) {
-                    var paraInsertar = -1;
-                    for (var j = 0; j < dataOk.length; j++) {
-                        if (dataOk[j].id == data[i].id)
-                            paraInsertar = j
-                    }
-                    if (paraInsertar==-1) {
-                        var consulta = 'INSERT OR IGNORE INTO evento (id, nombre, url_imagen, subtitulo, fecha_fin_oficial, fecha_inicio_oficial) ' +
-                                'VALUES (?,?,?,?,?,?)'
-                        tx.executeSql(consulta, [data[i].id, data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime()], function (i) {
+                if (dataOk.length > 0)
+                    for (var i = 0; i < data.length; i++) {
+                        var paraInsertar = -1;
+                        for (var j = 0; j < dataOk.length; j++) {
+                            if (dataOk[j].id == data[i].id)
+                                paraInsertar = j
+                        }
+                        if (paraInsertar == -1) {
+                            var consulta = 'INSERT OR IGNORE INTO evento (id, nombre, url_imagen, subtitulo, fecha_fin_oficial, fecha_inicio_oficial) ' +
+                                    'VALUES (?,?,?,?,?,?)'
+                            tx.executeSql(consulta, [data[i].id, data[i].nombre, data[i].urlImagen, data[i].subtitulo, new Date(data[i].fechaFin).getTime(), new Date(data[i].fechaIni).getTime()], function (i) {
                             }, function (e) {
-                            console.error(e)
-                        });
-                    } else {
-                        var consulta = 'UPDATE evento SET nombre =?, url_imagen=?, subtitulo=?, fecha_fin_oficial=?, fecha_inicio_oficial=? ' +
-                                ', version=version-(-1), alt_imagen=?, descripcion=?, entradilla=?, ' +
-                                'fecha_fin_activa=?, fecha_inicio_activa=?, hora_fin_oficial=?,' +
-                                ' hora_inicio_oficial=?, lugar_busqueda_id=?, ' +
-                                ' permanente=?, radio_busqueda=? WHERE id=? '
-                        tx.executeSql(consulta, [data[i].nombre,
-                            data[i].urlImagen,
-                            data[i].subtitulo,
-                            new Date(data[i].fechaFin).getTime(),
-                            new Date(data[i].fechaIni).getTime(),
-                            dataOk[paraInsertar].alt_imagen,
-                            dataOk[paraInsertar].descripcion,
-                            dataOk[paraInsertar].entradilla,
-                            dataOk[paraInsertar].fecha_fin_activa,
-                            dataOk[paraInsertar].fecha_inicio_activa,
-                            dataOk[paraInsertar].hora_fin_oficial,
-                            dataOk[paraInsertar].hora_inicio_oficial,
-                            dataOk[paraInsertar].lugar_busqueda_id,
-                            dataOk[paraInsertar].permanente,
-                            dataOk[paraInsertar].radio_busqueda,
-                            data[i].id], function (i) {
-                        }, function (e) {
-                            //console.error(e)
-                        });
+                                console.error(e)
+                            });
+                        } else {
+                            var consulta = 'UPDATE evento SET nombre =?, url_imagen=?, subtitulo=?, fecha_fin_oficial=?, fecha_inicio_oficial=? ' +
+                                    ', version=version-(-1), alt_imagen=?, descripcion=?, entradilla=?, ' +
+                                    'fecha_fin_activa=?, fecha_inicio_activa=?, hora_fin_oficial=?,' +
+                                    ' hora_inicio_oficial=?, lugar_busqueda_id=?, ' +
+                                    ' permanente=?, radio_busqueda=? WHERE id=? '
+                            tx.executeSql(consulta, [data[i].nombre,
+                                data[i].urlImagen,
+                                data[i].subtitulo,
+                                new Date(data[i].fechaFin).getTime(),
+                                new Date(data[i].fechaIni).getTime(),
+                                dataOk[paraInsertar].alt_imagen,
+                                dataOk[paraInsertar].descripcion,
+                                dataOk[paraInsertar].entradilla,
+                                dataOk[paraInsertar].fecha_fin_activa,
+                                dataOk[paraInsertar].fecha_inicio_activa,
+                                dataOk[paraInsertar].hora_fin_oficial,
+                                dataOk[paraInsertar].hora_inicio_oficial,
+                                dataOk[paraInsertar].lugar_busqueda_id,
+                                dataOk[paraInsertar].permanente,
+                                dataOk[paraInsertar].radio_busqueda,
+                                data[i].id], function (i) {
+                            }, function (e) {
+                                //console.error(e)
+                            });
+                        }
                     }
-                }
             });
         })
 
@@ -1317,6 +1317,15 @@ function updateActividad(data) {
                 }, function (e) {
                     //console.error(e)
                 });
+            }
+            if (data.participantes) {
+                for (var i = 0; i < data.participantes.length; i++) {
+                    tx.executeSql("INSERT INTO actividad_participante (id, actividad, participante) VALUES (?,?,?)", [data.actividad[0].id + "-" + data.participantes[i].id, data.actividad[0].id, data.participantes[i].id], function (i) {
+                        //console.info(i)
+                    }, function (e) {
+                        //console.error(e)
+                    });
+                }
             }
         });
     } catch (e) {

@@ -5,7 +5,7 @@ var sessionPath = "http://192.168.2.21:8080/Kurbana/rest/";
 //var sessionPath = "http://localhost:8080/Kurbana/rest/";
 var sessionProyecto = 10; //ver readme
 var sessionHayBanners = -1;
-var sessionDateFormat = "dd/MM/YYYY"
+var sessionDateFormat = "dd/MM/YYYY";
 var tf;
 var sessionFiltroEvento = -1;
 var sessionFiltroLugar = -1;
