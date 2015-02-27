@@ -746,10 +746,10 @@ function setEfectLight() {
         $(".iluminado").removeClass("iluminado")
         $(this).addClass("iluminado")
     })
-    $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("touchend", function () {
+    $("body").on("touchend", function () {
         $(".iluminado").removeClass("iluminado")
     })
-    $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("scrollstart", function () {
+    $("body").on("scrollstart", function () {
         $(".iluminado").removeClass("iluminado")
     })
 
