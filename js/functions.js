@@ -743,10 +743,14 @@ function goIndice() {
 
 function setEfectLight() {
     $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("touchstart", function () {
-        $(this).css("opacity", "0.5")
+        $(".iluminado").removeClass("iluminado")
+        $(this).addClass("iluminado")
     })
     $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("touchend", function () {
-        $(this).css("opacity", "1")
+        $(".iluminado").removeClass("iluminado")
+    })
+    $(".listadoPropio li,.fichaActividad,#listadoParticipantes li,.ui-header .ui-btn-icon-notext,#zonaDetalleEvento,#zonaDetalleParticipante,#zonaDetalleLugar,.icoMarcable,.listadoGridParticipantes div").on("scrollstart", function () {
+        $(".iluminado").removeClass("iluminado")
     })
 
 }

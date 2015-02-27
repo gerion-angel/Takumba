@@ -185,6 +185,10 @@ em{
     opacity: 0.5;
 }
 
+.iluminado{
+    opacity: 0.5;
+}
+
 .listadoPropio li div span div{
     display: table-cell;
     vertical-align: bottom;
