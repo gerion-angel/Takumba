@@ -19,7 +19,7 @@ html{
 }
 
 .ui-mobile .ui-page-active{
-    background-color: #f8f8f8;
+    background-color: white;
 }
 
 *{
@@ -1493,7 +1493,7 @@ div[data-role='header'] a{
     margin-left: 150px;
 }
 .dwbg .dwv:before{
-    content: "Tiempo de antelaciÃ³n";
+    content: "Tiempo de antelación";
     position: relative;
     right: 161px;
     display: block;
